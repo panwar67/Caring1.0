@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.lions.torque.caring.servicecar.Home_Screen"
+    tools:showIn="@layout/app_bar_home__screen">
+
+
+
+    <ScrollView
+        android:scrollbars="none"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <com.daimajia.slider.library.SliderLayout
+        android:id="@+id/slider"
+        android:background="@drawable/white_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        />
+
+
+    <com.daimajia.slider.library.Indicators.PagerIndicator
+        android:id="@+id/custom_indicator"
+        android:layout_width="50dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
+        android:layout_gravity="center"
+        custom:selected_color="#00bfa5"
+        custom:unselected_color="#55333333"
+        custom:shape="oval"
+        custom:selected_padding_left="5dp"
+        custom:selected_padding_right="5dp"
+        custom:unselected_padding_left="5dp"
+        custom:unselected_padding_right="5dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        custom:selected_width="6dp"
+        custom:selected_height="6dp"
+        custom:unselected_width="6dp"
+        custom:unselected_height="6dp"
+        android:layout_marginBottom="5dp"
+        />
+
+    <SearchView
+        android:layout_width="match_parent"
+        android:id="@+id/search_view"
+
+        android:queryHint="Search for service and shops"
+        android:background="@drawable/white_shadow"
+        android:layout_height="wrap_content">
+
+    </SearchView>
+
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/service_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Select Your Service"/>
+
+            <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:src="@drawable/mechanical"
+                android:id="@+id/mechanical_service"
+                android:layout_marginRight="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/electrical_services"
+                android:src="@drawable/electricalrepair"
+                android:layout_weight="1"
+                android:layout_marginRight="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+               android:src="@drawable/bumper"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+
+
+
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/mech_services_text"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:text="Mechanical Service"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/electrical_services_text"
+                    android:layout_weight="1"
+
+                    android:textAlignment="center"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:text="Electrical Service"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/bumper_services_text"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:text="Bumper Service"
+                    android:layout_height="wrap_content" />
+
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/tire"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:src="@drawable/suspension"
+                    android:layout_weight="1"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+
+                <ImageView
+
+                    android:layout_weight="1"
+                    android:src="@drawable/alignment"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/tyre_services_text"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:text="Tyre Service"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/suspension_services_text"
+                    android:layout_weight="1"
+
+                    android:textAlignment="center"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:text="Suspension Service"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/alignment_services_text"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:text="Alignment Service"
+                    android:layout_height="wrap_content" />
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/light"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:src="@drawable/carkey"
+                    android:layout_weight="1"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+
+                <ImageView
+
+                    android:layout_weight="1"
+                    android:src="@drawable/service"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/light_services_text"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:text="Light Service"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/key_services_text"
+                    android:layout_weight="1"
+
+                    android:textAlignment="center"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:text="Key Service"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/full_service_services_text"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:text="Full Service"
+                    android:layout_height="wrap_content" />
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:src="@drawable/ac"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:src="@drawable/battery"
+                    android:layout_weight="1"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+
+                <ImageView
+                    android:src="@drawable/bodyshop"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/ac_services_text"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:text="A/C Service"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/battery_services_text"
+                    android:layout_weight="1"
+
+                    android:textAlignment="center"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:text="Battery Service"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/body_services_text"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:text="Body Shop"
+                    android:layout_height="wrap_content" />
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/caraccess"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:src="@drawable/speedometer"
+                    android:layout_weight="1"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+
+                <ImageView
+                    android:src="@drawable/windshield"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/access_services_text"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:text="Car Accessories"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/gauges_services_text"
+                    android:layout_weight="1"
+
+                    android:textAlignment="center"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:text="Gauges"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/wind_services_text"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:text="Wind Shield"
+                    android:layout_height="wrap_content" />
+
+
+
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    </ScrollView>
+
+
+
+
+</LinearLayout>

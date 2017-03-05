@@ -1,16 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:gear="http://schemas.android.com/apk/res-auto"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingLeft="30dp"
+    android:background="@drawable/appscreennew"
+    android:paddingRight="30dp"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.lions.torque.caring.LoginActivity">
+    tools:context=".servicecar.LoginActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_marginTop="90dp"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
-</RelativeLayout>
+        android:orientation="vertical">
+
+        <ImageView
+            android:src="@drawable/google"
+            android:id="@+id/sign_in_google"
+
+            android:layout_marginBottom="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:src="@drawable/facebook"
+            android:id="@+id/sign_in_facebook"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="70dp" />
+
+        <lj_3d.gearloadinglayout.gearViews.TwoGearsLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            gear:layoutAlpha="0.5"
+            android:visibility="gone"
+            gear:gearLayoutCutAlpha="0.5"
+            gear:cutLayoutVisibility="true"
+            gear:firstGearColor="@color/colorAccent"
+            gear:secondGearColor="@color/colorAccent"
+            gear:firstGearCuttedCenter="false"
+            gear:secondGearCuttedCenter="false"
+            gear:gearLayoutCutColor="@color/colorPrimaryDark"
+            gear:gearLayoutCutRadius="40dp"
+            gear:firstInnerGearColor="@color/colorPrimary"
+            gear:secondInnerGearColor="@color/colorPrimary"/>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

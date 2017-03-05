@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "140219232882",
+    "firebase_url": "https://caring-53849.firebaseio.com",
+    "project_id": "caring-53849",
+    "storage_bucket": "caring-53849.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140219232882:android:cca6cfbec9fe6070",
+        "android_client_info": {
+          "package_name": "com.lions.torque.caring"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "140219232882-p2vakql4h7bmf5i444lln37o314eosae.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHXuBwKZX6KqCrCLEIJUECrDN3Ee2I6yM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "140219232882-p2vakql4h7bmf5i444lln37o314eosae.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
