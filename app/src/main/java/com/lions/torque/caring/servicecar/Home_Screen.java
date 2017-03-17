@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
@@ -30,12 +31,15 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.lions.torque.caring.R;
 import com.lions.torque.caring.dbutils.DBHelper;
 import com.lions.torque.caring.sessions_manager.Car_Session;
 import com.lions.torque.caring.sessions_manager.Location_Session;
+import com.lions.torque.caring.sessions_manager.SessionManager;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,6 +65,9 @@ public class Home_Screen extends AppCompatActivity
     ExpandableHeightGridView expandableHeightGridView;
     DBHelper dbHelper;
     Typeface typeface;
+    TextView car_model;
+    TextView name;
+    SessionManager sessionManager;
     ArrayList<HashMap<String,String>> Campaign_Data = new ArrayList<HashMap<String, String>>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +78,7 @@ public class Home_Screen extends AppCompatActivity
         dbHelper = new DBHelper(getApplicationContext());
         Campaign_Data = dbHelper.Get_Campaigns();
         car_session = new Car_Session(getApplicationContext());
+        sessionManager = new SessionManager(getApplicationContext());
         location_session = new Location_Session(getApplicationContext());
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -82,7 +90,6 @@ public class Home_Screen extends AppCompatActivity
         if(car_session.getUserDetails().get(Car_Struct.Car_Code)==null)
         {
             startActivity(new Intent(Home_Screen.this,Garage_Page.class));
-
 
         }
         PagerIndicator pagerIndicator = (PagerIndicator)findViewById(R.id.custom_indicator);
@@ -97,8 +104,6 @@ public class Home_Screen extends AppCompatActivity
             sliderLayout.addSlider(new DefaultSliderView(getApplicationContext()).image(Campaign_Data.get(i).get(Campaign_Struct.Camp_Url)));
 
         }
-
-
         service_label = (TextView)findViewById(R.id.service_label);
         service_label.setTypeface(typeface);
         mechanical = (ImageView)findViewById(R.id.mechanical_service);
@@ -110,22 +115,17 @@ public class Home_Screen extends AppCompatActivity
 
             }
         });
-
         electrical.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
-
                 CharSequence[] items = { "Clutch", "Brake", "Gear", "Engine" };
-
                 AlertDialog.Builder builder2 = new AlertDialog.Builder(Home_Screen.this)
                         .setTitle("Choose Service")
                         .setSingleChoiceItems( items, -1, new DialogInterface.OnClickListener() {
 
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-// TODO Auto-generated method stub
-
                                 if(which==0)
                                 {
                                     Location location = new Location("");
@@ -140,16 +140,12 @@ public class Home_Screen extends AppCompatActivity
                                 }
                                 if (which==1)
                                 {
-
                                 }
                                 if (which==2)
                                 {
-
-
                                 }
                                 if (which==3)
                                 {
-
                                 }
                                 dialog.dismiss();
                             }
@@ -158,24 +154,30 @@ public class Home_Screen extends AppCompatActivity
                 alertdialog2.show();
             }
         });
-
         searchView = (SearchView)findViewById(R.id.search_view);
         searchView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-
+                startActivity(new Intent(Home_Screen.this,Search_Page.class));
                     return false;
             }
         });
-
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View view = navigationView.getHeaderView(0);
+        ImageView dp = (ImageView)view.findViewById(R.id.drawer_profile_dp);
+        name = (TextView)view.findViewById(R.id.drawer_profile_name);
+        ImageView car = (ImageView)view.findViewById(R.id.drawer_user_car);
+         car_model = (TextView)view.findViewById(R.id.drawer_car_name);
+        Picasso.with(this)
+                .load(sessionManager.getUserDetails().get("dp"))
+                .resize(400,400)                        // optional
+                .into(dp);
+        name.setText(sessionManager.getUserDetails().get("name"));
+        car_model.setText(car_session.getUserDetails().get("CAR_MODEL"));
         navigationView.setNavigationItemSelectedListener(this);
-
         AutocompleteFilter typeFilter = new AutocompleteFilter.Builder()
                 .setTypeFilter(AutocompleteFilter.TYPE_FILTER_ADDRESS).setCountry("IN")
                 .build();
-
         try
         {
              intent =
@@ -195,7 +197,7 @@ public class Home_Screen extends AppCompatActivity
         home_screen_address.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                Get_Location_Autocomplete(intent);
+                Get_Location_Autocomplete();
 
                 return false;
             }
@@ -208,20 +210,48 @@ public class Home_Screen extends AppCompatActivity
 
     }
 
-    public void Get_Location_Autocomplete(Intent intent)
+    public void Get_Location_Autocomplete()
     {
-            startActivityForResult(intent, 67);
+        int PLACE_PICKER_REQUEST = 1;
+        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+
+        try {
+            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        name.setText(sessionManager.getUserDetails().get("name"));
+        car_model.setText(car_session.getUserDetails().get("CAR_MODEL"));
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 67) {
+        if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
-                Place place = PlaceAutocomplete.getPlace(this, data);
+
+
+               /* Place place = PlaceAutocomplete.getPlace(this, data);
                 Log.i("home_screen_place", "Place: " + place.getName()+" "+place.getAddress());
                 LatLng latLng = place.getLatLng();
                 location_session.create_Location_Session(place.getAddress().toString(),String.valueOf(latLng.latitude),String.valueOf(latLng.longitude));
                 home_screen_address.setText(""+place.getAddress());
+                */
+                Place place = PlacePicker.getPlace(data, this);
+                LatLng latLng = place.getLatLng();
+                location_session.create_Location_Session(place.getAddress().toString(),String.valueOf(latLng.latitude),String.valueOf(latLng.longitude));
+                home_screen_address.setText(""+place.getAddress());
+
+                String toastMsg = String.format("Place: %s", place.getName());
+
+                Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(this, data);
                 // TODO: Handle the error.

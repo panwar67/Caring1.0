@@ -24,8 +24,15 @@ public class Vendor_List_Bean implements Serializable
     private String Vend_Assure;
     private float Vend_Distance;
     private String Vend_Serve;
+    private String Vend_Description;
 
+    public String getVend_Description() {
+        return this.Vend_Description;
+    }
 
+    public void setVend_Description(String vend_Description) {
+        this.Vend_Description = vend_Description;
+    }
     public String getVend_Serve() {
         return this.Vend_Serve;
     }

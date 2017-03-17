@@ -51,7 +51,7 @@ dependencies {
     compile 'com.github.jetradarmobile:android-rxlocationsettings:1.1.0'
     compile 'com.squareup.picasso:picasso:2.3.2'
     compile 'com.crystal:crystalrangeseekbar:1.1.1'
-
+    compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.daimajia.slider:library:1.1.5@aar'
 }

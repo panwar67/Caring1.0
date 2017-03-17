@@ -75,7 +75,15 @@
             android:name=".servicecar.Garage_Page"
             android:label="@string/title_activity_garage__page"
             android:theme="@style/AppTheme" />
-        <activity android:name=".servicecar.Search_Page"></activity>
+        <activity android:name=".servicecar.Search_Page" />
+        <activity
+            android:name=".servicecar.Vendor_Profile"
+            android:label="@string/title_activity_vendor__profile"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".servicecar.Vendor_Profile_Search"
+            android:label="@string/title_activity_vendor__profile__search"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

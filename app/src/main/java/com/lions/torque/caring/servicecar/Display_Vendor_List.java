@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -85,6 +86,17 @@ public class Display_Vendor_List extends AppCompatActivity {
 
         //listView.setAdapter(new Adapter_Vendor_List(getApplicationContext(),vendor_list));
         listView.setAdapter(new Adapter_Vendor_List(getApplicationContext(),vendor_list));
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String id = String.valueOf(listView.getAdapter().getItem(i));
+                Intent intent1 = new Intent(Display_Vendor_List.this,Vendor_Profile.class);
+                intent1.putExtra("vendor_id",id);
+                startActivity(intent1);
+
+            }
+        });
 
 
         filter.setOnClickListener(new View.OnClickListener() {

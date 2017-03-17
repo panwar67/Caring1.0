@@ -8,6 +8,7 @@ public class Ven_List_Struct
     public static String Table_Name = "Vendor_List";
     public static String Ven_Id = "VEN_ID";
     public static String Ven_Name = "VEN_NAME";
+    public static String Ven_Serve_Name = "VEN_SERVE_NAME";
     public static String Ven_Des = "VEN_DES";
     public static String Ven_Price = "VEN_PRICE";
     public static String Ven_Quality = "VEN_RATING";

@@ -70,7 +70,9 @@ public class Adapter_Vendor_List extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        return result.get(i);
+
+        return result.get(i).getVend_id();
+
     }
 
     @Override
@@ -118,7 +120,7 @@ public class Adapter_Vendor_List extends BaseAdapter {
         holder.title.setText(result.get(i).getVend_Name());
         holder.quanlity.setMax(5);
         holder.quanlity.setRating(Float.parseFloat(result.get(i).getVend_quanlity()));
-        float dist = result.get(i).getVend_Distance()/1000;
+        float dist = result.get(i).getVend_Distance();
         holder.distance.setText(" "+new DecimalFormat("##.##").format(dist)+" km");
         holder.price.setText(result.get(i).getVend_price_low()+" - "+result.get(i).getVend_price_high());
 

@@ -61,6 +61,8 @@ import java.util.Map;
 
 import Structs.Campaign_Struct;
 import Structs.Car_Struct;
+import Structs.Search_Bean;
+import Structs.Search_Struct;
 import Structs.Ven_List_Struct;
 import Structs.Vendor_List_Struct;
 import rx.functions.Action1;
@@ -71,6 +73,7 @@ public class Loading_Data extends AppCompatActivity implements GoogleApiClient.C
     String DOWN_URL = "http://www.car-ing.com/app/Get_Vendor.php";
     String DOWN_URL1 = "http://www.car-ing.com/app/Get_Campaign.php";
     String DOWN_URL2 = "http://www.car-ing.com/app/Get_All_Cars.php";
+    String DOWN_URL3 = "http://www.car-ing.com/app/Get_Services.php";
     protected LocationRequest mLocationRequest;
     private FirebaseAuth mAuth;
     DBHelper dbHelper;
@@ -440,14 +443,21 @@ public class Loading_Data extends AppCompatActivity implements GoogleApiClient.C
             mAddressOutput = resultData.getString(Constants.RESULT_DATA_KEY);
             String lat = resultData.getString("latitude");
             String longitude = resultData.getString("longitude");
-            if (resultCode == Constants.SUCCESS_RESULT) {
-                showToast("success");
+            if (resultCode == Constants.SUCCESS_RESULT|| resultCode==Constants.FAILURE_RESULT) {
+               // showToast("success");
                 mAddressOutput = resultData.getString(Constants.RESULT_DATA_KEY);
                 Log.d("address", "" + mAddressOutput+" "+lat+ ""+longitude);
                 location_session.create_Location_Session(mAddressOutput, lat, longitude);
                 Intent intent = new Intent(Loading_Data.this, FetchAddressIntentService.class);
                 stopService(intent);
+                dbHelper.Init_Search_Data();
                 Load_Vendor_Data();
+
+                if(Load_Vendor_Data())
+                {
+                    Load_Services();
+
+                }
                 Load_Campaigns();
                 Load_Cars();
                 mAuth.addAuthStateListener(mAuthListener);
@@ -470,15 +480,12 @@ public class Loading_Data extends AppCompatActivity implements GoogleApiClient.C
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
-    public boolean Get_Vendor_List() {
 
 
-        return true;
-    }
-
-    public boolean Load_Vendor_Data() {
-
+    public boolean Load_Vendor_Data()
+    {
         final ArrayList<HashMap<String, String>> Ven_Data = new ArrayList<HashMap<String, String>>();
+        final ArrayList<HashMap<String,String>> Search_Data = new ArrayList<>();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, DOWN_URL,
                 new Response.Listener<String>() {
                     @Override
@@ -491,31 +498,39 @@ public class Loading_Data extends AppCompatActivity implements GoogleApiClient.C
                                 if(data.length()>0)
                                 {
                                     dbHelper.Init_Vendor();
+
                                 }
 
                                 // dbHelper.InitImg();
                                 for (int i = 0; i < data.length(); i++) {
                                     HashMap<String, String> map = new HashMap<String, String>();
+                                    HashMap<String,String> search = new HashMap<String, String>();
                                     JSONObject details = data.getJSONObject(i);
                                     map.put(Ven_List_Struct.Ven_Assure, details.getString(Ven_List_Struct.Ven_Assure));
                                     map.put(Ven_List_Struct.Ven_Des, details.getString(Ven_List_Struct.Ven_Des));
                                     map.put(Ven_List_Struct.Ven_Id, details.getString(Ven_List_Struct.Ven_Id));
                                     map.put(Ven_List_Struct.Ven_No_Img, details.getString(Ven_List_Struct.Ven_No_Img));
                                     map.put(Ven_List_Struct.Ven_Name, details.getString(Ven_List_Struct.Ven_Name));
+                                    search.put(Search_Struct.tag,details.getString(Ven_List_Struct.Ven_Name));
+                                    search.put(Search_Struct.col,details.getString(Ven_List_Struct.Ven_Id));
+                                    search.put(Search_Struct.type,"SHOP");
                                     map.put(Ven_List_Struct.Ven_Quality, details.getString(Ven_List_Struct.Ven_Quality));
                                     map.put(Ven_List_Struct.Ven_Lat, details.getString(Ven_List_Struct.Ven_Lat));
                                     map.put(Ven_List_Struct.Ven_Long, details.getString(Ven_List_Struct.Ven_Long));
                                     map.put(Ven_List_Struct.Ven_Url, details.getString(Ven_List_Struct.Ven_Url));
-                                    map.put(Ven_List_Struct.Ven_Serve,details.getString(Vendor_List_Struct.Vend_Serve));
+                                    map.put(Ven_List_Struct.Ven_Serve,details.getString(Ven_List_Struct.Ven_Serve));
+                                    map.put(Ven_List_Struct.Ven_Serve_Name,details.getString(Ven_List_Struct.Ven_Serve_Name));
                                     map.put(Ven_List_Struct.Ven_Segment,details.getString(Ven_List_Struct.Ven_Segment));
                                     map.put(Ven_List_Struct.Ven_price_low,details.getString(Ven_List_Struct.Ven_price_low));
                                     map.put(Ven_List_Struct.Ven_price_high,details.getString(Ven_List_Struct.Ven_price_high));
                                     map.put(Ven_List_Struct.Ven_Timings_Open,details.getString(Ven_List_Struct.Ven_Timings_Open));
                                     map.put(Ven_List_Struct.Ven_Timings_Close,details.getString(Ven_List_Struct.Ven_Timings_Close));
                                     Ven_Data.add(map);
+                                    Search_Data.add(search);
                                 }
                                 Log.d("Vendor_List", s);
                                 dbHelper.Insert_Vendor_List(Ven_Data);
+                                dbHelper.Insert_Search_Data(Search_Data);
 
 
                             } catch (JSONException e) {
@@ -551,10 +566,11 @@ public class Loading_Data extends AppCompatActivity implements GoogleApiClient.C
 
         //Adding request to the queue
         requestQueue.add(stringRequest);
-        return false;
+        return true;
     }
 
-    public boolean Load_Campaigns() {
+    public boolean Load_Campaigns()
+    {
         final ArrayList<HashMap<String, String>> Camp_Data = new ArrayList<HashMap<String, String>>();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, DOWN_URL1,
                 new Response.Listener<String>() {
@@ -616,7 +632,8 @@ public class Loading_Data extends AppCompatActivity implements GoogleApiClient.C
         return true;
     }
 
-    public boolean Load_Cars() {
+    public boolean Load_Cars()
+    {
         final ArrayList<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, DOWN_URL2, new Response.Listener<String>() {
             @Override
@@ -679,6 +696,67 @@ public class Loading_Data extends AppCompatActivity implements GoogleApiClient.C
 
 
         return true;
+    }
+
+    public boolean Load_Services()
+    {
+        final ArrayList<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, DOWN_URL3, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                if (response != null) {
+                    Log.d("response_services",response.toString());
+                    //dbHelper.Init_Car();
+
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        JSONArray jsonArray = jsonObject.getJSONArray("Services");
+
+
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject car_detail = jsonArray.getJSONObject(i);
+
+                            HashMap<String, String> map = new HashMap<String, String>();
+                            map.put(Search_Struct.tag,car_detail.getString("SERVE_NAME"));
+                            map.put(Search_Struct.col,car_detail.getString("SERVE_CODE"));
+                            map.put(Search_Struct.type,"SERVICE");
+                            data.add(map);
+
+                        }
+                            dbHelper.Insert_Search_Data(data);
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Log.d("error", "Getting cars");
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                HashMap<String, String> map = new HashMap<String, String>();
+                return map;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        requestQueue.add(stringRequest);
+
+
+        return  true;
     }
 
 }

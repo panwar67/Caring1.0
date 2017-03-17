@@ -26,7 +26,7 @@
         <RadioGroup
             android:id="@+id/sorting_group"
             android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
 
@@ -36,25 +36,25 @@
 
                 <RadioButton
                     android:id="@+id/rating_sort_filter"
-                    android:button="@android:color/transparent"
-                    android:background="@drawable/rating_sort"
+                    android:text="RATING"
+
+                    android:textSize="20dp"
+                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
-                    android:layout_weight="1"
                     />
 
 
 
                 <RadioButton
-                    android:checked="true"
                     android:layout_weight="1"
+                    android:checked="true"
+                    android:textSize="20dp"
                     android:id="@+id/sort_by_price"
-                    android:background="@drawable/currency_sort"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:button="@android:color/transparent"
-
+                    android:text="PRICE"
                     />
 
 
