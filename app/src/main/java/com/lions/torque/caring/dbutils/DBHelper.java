@@ -9,8 +9,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.location.Location;
 import android.util.Log;
 
+import com.lions.torque.caring.sessions_manager.Location_Session;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 import Structs.Campaign_Struct;
@@ -68,7 +71,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "" + Ven_List_Struct.Ven_Lat + " text, " +
                 "" + Ven_List_Struct.Ven_Long + " text, " +
                 "" + Ven_List_Struct.Ven_Url + " text, " +
-                "" + Ven_List_Struct.Ven_No_Img + " text, "+Ven_List_Struct.Ven_Serve+" text, "+Ven_List_Struct.Ven_Segment+" text, "+Ven_List_Struct.Ven_price_low+" integer, "+Ven_List_Struct.Ven_price_high+" integer, "+Ven_List_Struct.Ven_Timings_Open+" text, "+Ven_List_Struct.Ven_Timings_Close+" text, "+Ven_List_Struct.Ven_Serve_Name+" text) ");
+                "" + Ven_List_Struct.Ven_No_Img + " text, "+Ven_List_Struct.Ven_Serve+" text, "+Ven_List_Struct.Ven_Segment+" text, "+Ven_List_Struct.Ven_price_low+" integer, "+Ven_List_Struct.Ven_price_high+" integer, "+Ven_List_Struct.Ven_Timings_Open+" text, "+Ven_List_Struct.Ven_Timings_Close+" text, "+Ven_List_Struct.Ven_Serve_Name+" text, "+Ven_List_Struct.Ven_Segment_Name+" text, "+Ven_List_Struct.Ven_Sn+" text ) ");
 
         sqLiteDatabase.execSQL("CREATE TABLE " + Campaign_Struct.Table_Name + " " +
                 "" + "(" + Campaign_Struct.Camp_Id + " text, " + "" +
@@ -183,6 +186,7 @@ public class DBHelper extends SQLiteOpenHelper {
             write.beginTransaction();
             for (int i = 0; i < data.size(); i++) {
                 ContentValues contentValues = new ContentValues();
+                contentValues.put(Ven_List_Struct.Ven_Sn,data.get(i).get(Ven_List_Struct.Ven_Sn));
                 contentValues.put(Ven_List_Struct.Ven_Id, data.get(i).get(Ven_List_Struct.Ven_Id));
                 contentValues.put(Ven_List_Struct.Ven_Name, data.get(i).get(Ven_List_Struct.Ven_Name));
                 contentValues.put(Ven_List_Struct.Ven_Des, data.get(i).get(Ven_List_Struct.Ven_Des));
@@ -200,6 +204,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 contentValues.put(Ven_List_Struct.Ven_Serve,data.get(i).get(Ven_List_Struct.Ven_Serve));
                 contentValues.put(Ven_List_Struct.Ven_Serve_Name,data.get(i).get(Ven_List_Struct.Ven_Serve_Name));
                 contentValues.put(Ven_List_Struct.Ven_Segment,data.get(i).get(Ven_List_Struct.Ven_Segment));
+                contentValues.put(Ven_List_Struct.Ven_Segment_Name,data.get(i).get(Ven_List_Struct.Ven_Segment_Name));
                 long row = write.insertWithOnConflict(Ven_List_Struct.Table_Name, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
                 Log.d("Vendor_List", "" + row);
             }
@@ -393,12 +398,13 @@ public class DBHelper extends SQLiteOpenHelper {
     public ArrayList<Vendor_List_Bean> Get_Filtered_Vendor_List_Quality( String price, String segment, String service, Location location)
     {
         ArrayList<Vendor_List_Bean> data = new ArrayList<Vendor_List_Bean>();
-        Cursor res = read.rawQuery("select * from "+ Ven_List_Struct.Table_Name+" where "+Ven_List_Struct.Ven_price_low+" < "+price+"  and "+Ven_List_Struct.Ven_Segment+" = '"+segment+"' and "+Ven_List_Struct.Ven_Serve+" = '"+service+"' ",null);
-        Log.d("vendor_filter","select * from "+ Ven_List_Struct.Table_Name+" where "+Ven_List_Struct.Ven_price_low+" < "+price+"  and "+Ven_List_Struct.Ven_Segment+" = '"+segment+"' and "+Ven_List_Struct.Ven_Serve+" = '"+service+"' ");
+        Cursor res = read.rawQuery("select * from "+ Ven_List_Struct.Table_Name+" where "+Ven_List_Struct.Ven_price_low+" < "+price+"  and "+Ven_List_Struct.Ven_Segment+" = '"+segment+"' and "+Ven_List_Struct.Ven_Serve+" = '"+service+"' order by "+Ven_List_Struct.Ven_Quality+" asc",null);
+        Log.d("vendor_filter","select * from "+ Ven_List_Struct.Table_Name+" where "+Ven_List_Struct.Ven_price_low+" < "+price+"  and "+Ven_List_Struct.Ven_Segment+" = '"+segment+"' and "+Ven_List_Struct.Ven_Serve+" = '"+service+"' order by +Ven_List_Struct.Ven_price_low+ asc");
         res.moveToFirst();
         while (!res.isAfterLast())
         {
             Vendor_List_Bean vendor_list_bean = new Vendor_List_Bean();
+            vendor_list_bean.setVend_Sn(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Sn)));
             vendor_list_bean.setVend_id(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Id)));
             vendor_list_bean.setVend_Name(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Name)));
             vendor_list_bean.setVend_quanlity(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Quality)));
@@ -410,19 +416,12 @@ public class DBHelper extends SQLiteOpenHelper {
             vendor_list_bean.setVend_Assure(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Assure)));
             vendor_list_bean.setVend_Timings_Open(Integer.parseInt(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Timings_Open))));
             vendor_list_bean.setVend_Timings_Close(Integer.parseInt(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Timings_Close))));
-            Location temp = new Location("");
-            location.setLatitude(Double.parseDouble(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Lat))));
-            location.setLongitude(Double.parseDouble(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Long))));
-            vendor_list_bean.setVend_Distance(location.distanceTo(temp));
-            Log.d("vendor_distance",""+location.distanceTo(temp)+" vendor location"+location);
-
+            vendor_list_bean.setVend_Distance((float) distance(Double.parseDouble(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Lat))),Double.parseDouble(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Long))),location.getLatitude(),location.getLongitude()));
             data.add(vendor_list_bean);
             res.moveToNext();
 
         }
-
         Collections.reverse(data);
-
         return data;
     }
 
@@ -447,16 +446,68 @@ public class DBHelper extends SQLiteOpenHelper {
             vendor_list_bean.setVend_Timings_Open(Integer.parseInt(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Timings_Open))));
             vendor_list_bean.setVend_Timings_Close(Integer.parseInt(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Timings_Close))));
             vendor_list_bean.setVend_Serve(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Serve)));
-            Location temp = new Location("");
-            location.setLatitude(Double.parseDouble(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Lat))));
-            location.setLongitude(Double.parseDouble(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Long))));
-            vendor_list_bean.setVend_Distance(location.distanceTo(temp));
+            vendor_list_bean.setVend_Distance((float) distance(Double.parseDouble(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Lat))),Double.parseDouble(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Long))),location.getLatitude(),location.getLongitude()));
+
 
 
             data.add(vendor_list_bean);
             res.moveToNext();
 
         }
+
+        return data;
+    }
+
+    public ArrayList<Vendor_List_Bean>Get_Vendor_By_All(String service, String segment,  Location location)
+    {
+        ArrayList<Vendor_List_Bean> data = new ArrayList<Vendor_List_Bean>();
+        Cursor res = read.rawQuery("select * from "+ Ven_List_Struct.Table_Name+" where "+Ven_List_Struct.Ven_Serve+" like '"+service+"' and "+Ven_List_Struct.Ven_Segment+" = '"+segment+"'",null);
+        res.moveToFirst();
+        while (!res.isAfterLast())
+        {
+            Vendor_List_Bean vendor_list_bean = new Vendor_List_Bean();
+            Location temp = new Location("");
+            vendor_list_bean.setVend_Sn(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Sn)));
+            vendor_list_bean.setVend_id(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Id)));
+            vendor_list_bean.setVend_Name(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Name)));
+            vendor_list_bean.setVend_quanlity(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Quality)));
+            vendor_list_bean.setVend_price_low(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_price_low)));
+            vendor_list_bean.setVend_price_high(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_price_high)));
+            vendor_list_bean.setVend_Lat(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Lat)));
+            vendor_list_bean.setVend_long(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Long)));
+            vendor_list_bean.setVend_Segment(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Segment)));
+            vendor_list_bean.setVend_Assure(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Assure)));
+            vendor_list_bean.setVend_Timings_Open(Integer.parseInt(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Timings_Open))));
+            vendor_list_bean.setVend_Timings_Close(Integer.parseInt(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Timings_Close))));
+            vendor_list_bean.setVend_Serve(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Serve)));
+            Log.d("latutide",""+res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Lat)));
+
+            vendor_list_bean.setVend_Distance((float) distance(Double.parseDouble(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Lat))),Double.parseDouble(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Long))),location.getLatitude(),location.getLongitude()));
+            Log.d("inside_service_car",res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Serve))+" "+location.distanceTo(temp));
+            data.add(vendor_list_bean);
+            res.moveToNext();
+
+        }
+
+
+
+
+        return data;
+    }
+
+
+    public ArrayList<Vendor_List_Bean> Get_Location_Sorted_List(ArrayList<Vendor_List_Bean> data)
+    {
+        Collections.sort(data, new Comparator<Vendor_List_Bean>()
+        {
+            @Override
+            public int compare(Vendor_List_Bean vendor_list_bean, Vendor_List_Bean t1) {
+
+                Float dist1 = vendor_list_bean.getVend_Distance();
+                Float dist2 = t1.getVend_Distance();
+                return dist1.compareTo(dist2);
+            }
+        });
 
         return data;
     }
@@ -472,6 +523,7 @@ public class DBHelper extends SQLiteOpenHelper {
         {
             Vendor_List_Bean vendor_list_bean = new Vendor_List_Bean();
             Location temp = new Location("");
+            vendor_list_bean.setVend_Sn(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Sn)));
             vendor_list_bean.setVend_id(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Id)));
             vendor_list_bean.setVend_Name(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Name)));
             vendor_list_bean.setVend_quanlity(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Quality)));
@@ -536,31 +588,34 @@ public class DBHelper extends SQLiteOpenHelper {
         return data;
     }
 
-    public Vendor_List_Bean Get_Vendor_Profile (String vend_id)
+    public Vendor_List_Bean Get_Vendor_Profile (String vend_id, String lat , String longitude)
     {
         Vendor_List_Bean vendor_list_bean = new Vendor_List_Bean();
         Cursor res = read.rawQuery("select * from "+Ven_List_Struct.Table_Name+" where "+Ven_List_Struct.Ven_Id+" like '"+vend_id+"'",null);
         res.moveToFirst();
         while (!res.isAfterLast())
         {
+            vendor_list_bean.setVend_Sn(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Sn)));
             vendor_list_bean.setVend_Name(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Name)));
             vendor_list_bean.setVend_Timings_Open(Integer.parseInt(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Timings_Open))));
             vendor_list_bean.setVend_Timings_Close(Integer.parseInt(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Timings_Close))));
             vendor_list_bean.setVend_price_low(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_price_low)));
             vendor_list_bean.setVend_price_high(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_price_high)));
             vendor_list_bean.setVend_Description(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Des)));
-
+            vendor_list_bean.setVend_Segment_Name(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Segment_Name)));
             vendor_list_bean.setVend_quanlity(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Quality)));
+            vendor_list_bean.setVend_Distance((float) distance(Double.parseDouble(lat),Double.parseDouble(longitude),Double.parseDouble(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Lat))),Double.parseDouble(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Long)))));
             res.moveToNext();
         }
 
         return vendor_list_bean;
     }
 
-    public ArrayList<HashMap<String,String>> Get_Vendor_Services(String id)
+    public ArrayList<HashMap<String,String>> Get_Vendor_Services(String id, String car)
     {
         ArrayList<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
-        Cursor res = read.rawQuery("select * from "+Ven_List_Struct.Table_Name+" where "+Ven_List_Struct.Ven_Id+" like '"+id+"'",null);
+        Cursor res = read.rawQuery("select * from "+Ven_List_Struct.Table_Name+" where "+Ven_List_Struct.Ven_Id+" like '"+id+"' and "+Ven_List_Struct.Ven_Segment+" like '"+car+"'",null);
+        //Log.d("vendor_services")
         res.moveToFirst();
         while (!res.isAfterLast())
         {
@@ -570,10 +625,23 @@ public class DBHelper extends SQLiteOpenHelper {
             data.add(map);
             res.moveToNext();
         }
-
         return data;
     }
 
+    public HashMap<String,String>  Get_Vendor_Service_Price(String vend_id, String car, String service)
+    {
+        HashMap<String,String> map = new HashMap<String,String>();
+        Cursor res = read.rawQuery("select  * from "+Ven_List_Struct.Table_Name+" where "+Ven_List_Struct.Ven_Id+" like '"+vend_id+"' and "+Ven_List_Struct.Ven_Serve+" like '"+service+"' and "+Ven_List_Struct.Ven_Segment+" like '"+car+"' ",null);
+        res.moveToFirst();
+        Log.d("price_query","select  * from "+Ven_List_Struct.Table_Name+" where "+Ven_List_Struct.Ven_Id+" like '"+vend_id+"' and "+Ven_List_Struct.Ven_Serve+" like '"+service+"' and "+Ven_List_Struct.Ven_Segment+" like '"+car+"' ");
+        while (res.isFirst())
+        {
+            map.put("price_low",res.getString(res.getColumnIndex(Ven_List_Struct.Ven_price_low)));
 
+            map.put("price_high",res.getString(res.getColumnIndex(Ven_List_Struct.Ven_price_high)));
+            res.moveToNext();
+        }
+        return map;
+    }
 
 }

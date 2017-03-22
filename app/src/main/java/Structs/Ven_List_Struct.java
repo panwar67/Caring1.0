@@ -7,6 +7,7 @@ public class Ven_List_Struct
 {
     public static String Table_Name = "Vendor_List";
     public static String Ven_Id = "VEN_ID";
+    public static String Ven_Sn = "VEN_SN";
     public static String Ven_Name = "VEN_NAME";
     public static String Ven_Serve_Name = "VEN_SERVE_NAME";
     public static String Ven_Des = "VEN_DES";
@@ -19,6 +20,7 @@ public class Ven_List_Struct
     public static String Ven_Long = "VEN_LONG";
     public static String Ven_Serve = "VEN_SERVE";
     public static String Ven_Segment = "VEN_SEGMENT";
+    public static  String Ven_Segment_Name = "VEN_SEGMENT_NAME";
     public static String Ven_Timings_Open = "VEN_TIME_OPEN";
     public static String Ven_Timings_Close = "VEN_TIME_CLOSE";
     public static String Ven_price_low = "VEN_PRICE_LOW";

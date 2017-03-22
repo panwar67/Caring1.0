@@ -36,29 +36,10 @@ public class Adapter_Vendor_List extends BaseAdapter {
 
     public Adapter_Vendor_List(Context cnt, ArrayList<Vendor_List_Bean> data)
     {
-
         context = cnt;
         layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-       // result = data;
-
-
-
-
-        Collections.sort(data, new Comparator<Vendor_List_Bean>() {
-            @Override
-            public int compare(Vendor_List_Bean vendor_list_bean, Vendor_List_Bean t1) {
-
-                Float dist1 = vendor_list_bean.getVend_Distance();
-                Float dist2 = t1.getVend_Distance();
-                return dist1.compareTo(dist2);
-            }
-
-
-        });
-
         result = data;
-
     }
 
 
@@ -127,6 +108,13 @@ public class Adapter_Vendor_List extends BaseAdapter {
 
 
         return root;
+    }
+
+    public void setData(ArrayList<Vendor_List_Bean> data)
+    {
+        result = data;
+        notifyDataSetChanged();
+
     }
 
 }

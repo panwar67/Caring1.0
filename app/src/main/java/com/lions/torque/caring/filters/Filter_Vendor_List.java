@@ -1,6 +1,7 @@
 package com.lions.torque.caring.filters;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -39,10 +41,11 @@ public class Filter_Vendor_List extends AppCompatActivity {
     BubbleThumbSeekbar bubbleThumbSeekbar;
     Button filter;
     ImageView back;
-    LinearLayout change_color;
+    LinearLayout change_color, linearLayout;
     RadioGroup sorting;
     DBHelper dbHelper;
     String service, car;
+    String service_name;
     Location_Session location_session;
     Car_Session car_session;
     @Override
@@ -50,6 +53,7 @@ public class Filter_Vendor_List extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter__vendor__list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Typeface typeface = Typeface.createFromAsset(getApplicationContext().getAssets(),"SourceSansProLight.otf");
         setSupportActionBar(toolbar);
         location_session = new Location_Session(getApplicationContext());
         car_session = new Car_Session(getApplicationContext());
@@ -60,6 +64,19 @@ public class Filter_Vendor_List extends AppCompatActivity {
         ven_car_brand = (TextView)findViewById(R.id.car_brand);
         ven_car_model = (TextView)findViewById(R.id.ven_car_model);
         ven_car_name = (TextView)findViewById(R.id.ven_car_name);
+        linearLayout = (LinearLayout)findViewById(R.id.back);
+        linearLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                onBackPressed();
+                finish();
+                return false;
+            }
+        });
+        ven_car_brand.setTypeface(typeface);
+        ven_car_name.setTypeface(typeface);
+        ven_car_model.setTypeface(typeface);
         back =(ImageView)findViewById(R.id.back_filter);
         ven_car_model.setText(""+car_session.getUserDetails().get(Car_Struct.Car_Model));
         ven_car_name.setText(""+car_session.getUserDetails().get(Car_Struct.Car_Name));
@@ -69,6 +86,7 @@ public class Filter_Vendor_List extends AppCompatActivity {
         Intent intent = getIntent();
         service = intent.getStringExtra("service");
         car = intent.getStringExtra("car");
+        service_name = intent.getStringExtra("service_name");
         bubbleThumbSeekbar.setOnSeekbarChangeListener(new OnSeekbarChangeListener() {
             @Override
             public void valueChanged(Number value) {
@@ -103,6 +121,7 @@ public class Filter_Vendor_List extends AppCompatActivity {
                     bundle.putSerializable("vendor_list",filter_data);
                     bundle.putString("service",service);
                     bundle.putString("car",car);
+                    bundle.putString("service_name",service_name);
                     Intent intent1 = new Intent(Filter_Vendor_List.this, Display_Vendor_List.class);
                     intent1.putExtra("data",bundle);
                     startActivity(intent1);
@@ -118,10 +137,13 @@ public class Filter_Vendor_List extends AppCompatActivity {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("vendor_list",filter_data);
                     bundle.putString("service",service);
+                    bundle.putString("service_name",service_name);
                     Intent intent1 = new Intent(Filter_Vendor_List.this, Display_Vendor_List.class);
                     intent1.putExtra("data",bundle);
                     intent1.putExtra("service",service);
                     intent1.putExtra("car",car);
+
+                    bundle.putString("service_name",service_name);
                     startActivity(intent1);
                     finish();
                 }

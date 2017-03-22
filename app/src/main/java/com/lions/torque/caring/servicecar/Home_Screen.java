@@ -41,13 +41,17 @@ import com.lions.torque.caring.sessions_manager.Location_Session;
 import com.lions.torque.caring.sessions_manager.SessionManager;
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 import Structs.Campaign_Struct;
 import Structs.Car_Struct;
 import Structs.ExpandableHeightGridView;
 import Structs.Vendor_List_Bean;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Home_Screen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, PlaceSelectionListener {
@@ -113,6 +117,7 @@ public class Home_Screen extends AppCompatActivity
             public void onClick(View view)
             {
 
+
             }
         });
         electrical.setOnClickListener(new View.OnClickListener() {
@@ -128,24 +133,37 @@ public class Home_Screen extends AppCompatActivity
                             public void onClick(DialogInterface dialog, int which) {
                                 if(which==0)
                                 {
-                                    Location location = new Location("");
-                                    location.setLatitude(Double.parseDouble(location_session.getUserDetails().get("lat")));
-                                    location.setLongitude(Double.parseDouble(location_session.getUserDetails().get("long")));
-                                    ArrayList<Vendor_List_Bean> data = new ArrayList<Vendor_List_Bean>();
-                                    data = dbHelper.Get_Vendor_Car_Service(car_session.getUserDetails().get(Car_Struct.Car_Code),"1001",location);
                                     Bundle bundle = new Bundle();
-                                    bundle.putSerializable("vendor_list",data);
                                     bundle.putString("service","1001");
+                                    bundle.putString("service_name","Clutch Repair");
+
                                     startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
                                 }
                                 if (which==1)
                                 {
+
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("service","1002");
+                                    bundle.putString("service_name","Brake Repair");
+                                    startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
                                 }
                                 if (which==2)
                                 {
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("service","1001");
+                                    bundle.putString("service_name","Gear Repair");
+                                    startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
                                 }
                                 if (which==3)
                                 {
+
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("service","1001");
+                                    bundle.putString("service_name","Engine Repair");
+                                    startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
                                 }
                                 dialog.dismiss();
                             }
@@ -154,6 +172,9 @@ public class Home_Screen extends AppCompatActivity
                 alertdialog2.show();
             }
         });
+
+
+
         searchView = (SearchView)findViewById(R.id.search_view);
         searchView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -164,8 +185,8 @@ public class Home_Screen extends AppCompatActivity
         });
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View view = navigationView.getHeaderView(0);
-        ImageView dp = (ImageView)view.findViewById(R.id.drawer_profile_dp);
-        name = (TextView)view.findViewById(R.id.drawer_profile_name);
+        CircleImageView dp = (CircleImageView) view.findViewById(R.id.drawer_profile_dp);
+        name = (TextView)view.findViewById(R.id._profile_name);
         ImageView car = (ImageView)view.findViewById(R.id.drawer_user_car);
          car_model = (TextView)view.findViewById(R.id.drawer_car_name);
         Picasso.with(this)
@@ -230,6 +251,22 @@ public class Home_Screen extends AppCompatActivity
         name.setText(sessionManager.getUserDetails().get("name"));
         car_model.setText(car_session.getUserDetails().get("CAR_MODEL"));
 
+    }
+
+    public ArrayList<Vendor_List_Bean> Get_Location_Sorted_List(ArrayList<Vendor_List_Bean> data)
+    {
+        Collections.sort(data, new Comparator<Vendor_List_Bean>()
+        {
+            @Override
+            public int compare(Vendor_List_Bean vendor_list_bean, Vendor_List_Bean t1) {
+
+                Float dist1 = vendor_list_bean.getVend_Distance();
+                Float dist2 = t1.getVend_Distance();
+                return dist1.compareTo(dist2);
+            }
+        });
+
+        return data;
     }
 
     @Override

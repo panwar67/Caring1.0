@@ -95,10 +95,17 @@ public class Garage_Page extends AppCompatActivity {
         listView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                view.setSelected(true);
-                car_session.create_Location_Session(data.get(i).getCar_Brand(),data.get(i).getCar_Code(),data.get(i).getCar_FUEL(),data.get(i).getCar_Model(),data.get(i).getCar_Name(),data.get(i).getCar_Segment(),data.get(i).getCar_Year());
-                Log.d("car_session",car_session.getUserDetails().get(Car_Struct.Car_Model));
-                onBackPressed();
+
+                if(getCallingActivity()==null)
+                {
+
+                    view.setSelected(true);
+                    car_session.create_Location_Session(data.get(i).getCar_Brand(),data.get(i).getCar_Code(),data.get(i).getCar_FUEL(),data.get(i).getCar_Model(),data.get(i).getCar_Name(),data.get(i).getCar_Segment(),data.get(i).getCar_Year());
+                    Log.d("car_session",car_session.getUserDetails().get(Car_Struct.Car_Model));
+                    onBackPressed();
+
+                }
+
 
             }
 

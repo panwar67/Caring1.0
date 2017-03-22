@@ -34,26 +34,99 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/filter_vendor_list"
-                android:gravity="center|end"
-                android:paddingRight="10dp"
-                android:layout_marginLeft="100dp"
+
+            <LinearLayout
+                android:gravity="end"
+                android:id="@+id/change_location"
                 android:layout_width="match_parent"
-                android:textAlignment="textEnd"
-                android:textColor="@color/white"
-                android:layout_height="30dp"
-                android:text="FILTER"
-                />
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_marginStart="30dp"
+                    android:id="@+id/screen_address"
+                    android:drawablePadding="7dp"
+                    android:paddingRight="5dp"
+                    android:drawableRight="@drawable/ic_my_location_black_24dp"
+                    android:textColor="#ffffff"
+                    android:gravity="center|center_vertical"
+                    android:text="Sector 61, Noida"
+                    android:singleLine="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
 
 
 
+            </LinearLayout>
 
-            </android.support.v7.widget.Toolbar>
+        </android.support.v7.widget.Toolbar>
+
+
+        <LinearLayout
+            android:id="@+id/display_vendor_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingTop="10dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:id="@+id/display_vendor_change_car">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Change Car"
+                    android:paddingBottom="10dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textAlignment="center"/>
+            </LinearLayout>
+
+
+            <View
+                android:layout_gravity="center_vertical"
+                android:layout_width="1dp"
+                android:layout_marginBottom="10dp"
+                android:layout_height="40dp"
+                android:background="@color/colorPrimary">
+
+            </View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/display_vendor_change_order"
+                android:layout_weight="1">
+
+
+                <TextView
+
+                    android:paddingBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Change Order"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textAlignment="center"/>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
 
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_display__vendor__list" />
+
+
 
 
 </android.support.design.widget.CoordinatorLayout>

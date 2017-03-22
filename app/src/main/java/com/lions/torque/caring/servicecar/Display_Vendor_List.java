@@ -1,14 +1,18 @@
 package com.lions.torque.caring.servicecar;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,8 +25,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.vision.text.Line;
 import com.lions.torque.caring.R;
 import com.lions.torque.caring.adapters.Adapter_Vendor_List;
+import com.lions.torque.caring.dbutils.DBHelper;
 import com.lions.torque.caring.filters.Filter_Vendor_List;
 import com.lions.torque.caring.sessions_manager.Car_Session;
 import com.lions.torque.caring.sessions_manager.Location_Session;
@@ -33,6 +46,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,17 +59,21 @@ import lj_3d.gearloadinglayout.gearViews.TwoGearsLayout;
 public class Display_Vendor_List extends AppCompatActivity {
 
     ListView listView;
-    TextView filter;
+    Adapter_Vendor_List adapter_vendor_list;
     TwoGearsLayout twoGearsLayout;
+    LinearLayout linearLayout, change_car, change_order, change_location;
     SessionManager sessionManager;
     Location_Session location_session;
     ArrayList<Vendor_List_Bean> vendor_list = new ArrayList<Vendor_List_Bean>();
-    Adapter_Vendor_List adapter_vendor_list;
     Car_Session car_session;
+    TextView address;
     ImageView back;
     String DOWN_URL = "http://www.car-ing.com/app/Get_Vendors_Service_Car.php";
     String service = "";
     String car = "";
+    String order = "";
+    String service_name;
+    DBHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,28 +83,101 @@ public class Display_Vendor_List extends AppCompatActivity {
         sessionManager = new SessionManager(getApplicationContext());
         location_session = new Location_Session(getApplicationContext());
         car_session = new Car_Session(getApplicationContext());
-
-
-
+        dbHelper = new DBHelper(getApplicationContext());
         back  = (ImageView)findViewById(R.id.back_vendor_list);
-        filter = (TextView)findViewById(R.id.filter_vendor_list);
-
+        linearLayout = (LinearLayout)findViewById(R.id.back);
+        change_car = (LinearLayout)findViewById(R.id.display_vendor_change_car);
+        change_order = (LinearLayout)findViewById(R.id.display_vendor_change_order);
+        change_location = (LinearLayout)findViewById(R.id.change_location);
+        address = (TextView)findViewById(R.id.screen_address);
+        address.setText(""+location_session.getUserDetails().get("address")+"");
         Intent intent =getIntent();
         listView = (ListView)findViewById(R.id.vendor_list);
         Location location = new Location("");
         location.setLatitude(Double.parseDouble(location_session.getUserDetails().get("lat")));
         Log.d("lat_session",""+Double.parseDouble(location_session.getUserDetails().get("lat")));
         Log.d("long_session",""+Double.parseDouble(location_session.getUserDetails().get("long")));
-
         location.setLongitude(Double.parseDouble(location_session.getUserDetails().get("long")));
         //service = intent.getStringExtra("service");
         car = car_session.getUserDetails().get(Car_Struct.Car_Code);
         Bundle bundle = intent.getBundleExtra("data");
         service =  bundle.getString("service");
-        vendor_list = (ArrayList<Vendor_List_Bean>) bundle.getSerializable("vendor_list");
+        service_name = bundle.getString("service_name");
+        //order = bundle.getString("order");
 
+        vendor_list = dbHelper.Get_Vendor_By_All(service,car,location);
+        Get_Location_Sorted_List(vendor_list);
+
+        adapter_vendor_list  = new Adapter_Vendor_List(getApplicationContext(),vendor_list);
+        listView.setAdapter(adapter_vendor_list);
+
+
+        change_location.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                Get_Location_Autocomplete();
+
+                return false;
+            }
+        });
+
+
+        change_car.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                startActivity(new Intent(Display_Vendor_List.this,Garage_Page.class));
+
+
+                return false;
+            }
+        });
+
+        change_order.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+
+                CharSequence[] items = { "Distance", "Price", "Ratings" };
+                AlertDialog.Builder builder2 = new AlertDialog.Builder(Display_Vendor_List.this)
+                        .setTitle("Choose Order")
+                        .setSingleChoiceItems( items, 0, new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if(which==0)
+                                {
+                                        Get_Location_Sorted_List(vendor_list);
+                                        adapter_vendor_list.setData(vendor_list);
+                                        adapter_vendor_list.notifyDataSetChanged();
+
+                                }
+                                if (which==1)
+                                {
+                                        Get_Price_Sorted_List(vendor_list);
+
+                                    adapter_vendor_list.setData(vendor_list);
+                                    adapter_vendor_list.notifyDataSetChanged();
+                                }
+                                if (which==2)
+                                {
+                                    Get_Rating_Sorted_List(vendor_list);
+                                    Collections.reverse(vendor_list);
+                                    adapter_vendor_list.setData(vendor_list);
+                                    adapter_vendor_list.notifyDataSetChanged();
+                                }
+                                dialog.dismiss();
+                            }
+                        });
+                AlertDialog alertdialog2 = builder2.create();
+                alertdialog2.show();
+                return false;
+            }
+        });
         //listView.setAdapter(new Adapter_Vendor_List(getApplicationContext(),vendor_list));
-        listView.setAdapter(new Adapter_Vendor_List(getApplicationContext(),vendor_list));
+
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -93,27 +185,23 @@ public class Display_Vendor_List extends AppCompatActivity {
                 String id = String.valueOf(listView.getAdapter().getItem(i));
                 Intent intent1 = new Intent(Display_Vendor_List.this,Vendor_Profile.class);
                 intent1.putExtra("vendor_id",id);
-                startActivity(intent1);
-
-            }
-        });
-
-
-        filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent intent1 = new Intent(Display_Vendor_List.this,Filter_Vendor_List.class);
                 intent1.putExtra("service",service);
-                intent1.putExtra("car",car);
+                intent1.putExtra("service_name",service_name);
                 startActivity(intent1);
-                finish();
             }
         });
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
+            }
+        });
+        linearLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+               onBackPressed();
+                return false;
             }
         });
 
@@ -122,9 +210,132 @@ public class Display_Vendor_List extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        location_session = new Location_Session(getApplicationContext());
+        car_session = new Car_Session(getApplicationContext());
+        car = car_session.getUserDetails().get(Car_Struct.Car_Code);
+        Location location = new Location("");
+        location.setLatitude(Double.parseDouble(location_session.getUserDetails().get("lat")));
+        Log.d("lat_session",""+Double.parseDouble(location_session.getUserDetails().get("lat")));
+        Log.d("long_session",""+Double.parseDouble(location_session.getUserDetails().get("long")));
+        location.setLongitude(Double.parseDouble(location_session.getUserDetails().get("long")));
+        vendor_list.clear();
+        vendor_list = dbHelper.Get_Vendor_By_All(service,car,location);
+        Get_Location_Sorted_List(vendor_list);
+        adapter_vendor_list.setData(vendor_list);
+        adapter_vendor_list.notifyDataSetChanged();
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+
+
+               /* Place place = PlaceAutocomplete.getPlace(this, data);
+                Log.i("home_screen_place", "Place: " + place.getName()+" "+place.getAddress());
+                LatLng latLng = place.getLatLng();
+                location_session.create_Location_Session(place.getAddress().toString(),String.valueOf(latLng.latitude),String.valueOf(latLng.longitude));
+                home_screen_address.setText(""+place.getAddress());
+                */
+                Place place = PlacePicker.getPlace(data, this);
+                LatLng latLng = place.getLatLng();
+                location_session.create_Location_Session(place.getAddress().toString(),String.valueOf(latLng.latitude),String.valueOf(latLng.longitude));
+                address.setText(""+place.getAddress());
+
+                String toastMsg = String.format("Place: %s", place.getName());
+
+                Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                Status status = PlaceAutocomplete.getStatus(this, data);
+                // TODO: Handle the error.
+                Log.i("home_screen", status.getStatusMessage());
+
+            } else if (resultCode == RESULT_CANCELED) {
+            }
+        }
+
+
+        if(requestCode==67)
+        {
+
+            onResume();
+
+        }
+    }
+
+
+
+
+    @Override
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    public void Get_Location_Autocomplete()
+    {
+        int PLACE_PICKER_REQUEST = 1;
+        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+
+        try {
+            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Vendor_List_Bean> Get_Location_Sorted_List(ArrayList<Vendor_List_Bean> data)
+    {
+        Collections.sort(data, new Comparator<Vendor_List_Bean>()
+        {
+            @Override
+            public int compare(Vendor_List_Bean vendor_list_bean, Vendor_List_Bean t1) {
+
+                Float dist1 = vendor_list_bean.getVend_Distance();
+                Float dist2 = t1.getVend_Distance();
+                return dist1.compareTo(dist2);
+            }
+        });
+
+        return data;
+    }
+
+
+    public ArrayList<Vendor_List_Bean> Get_Rating_Sorted_List(ArrayList<Vendor_List_Bean> data)
+    {
+        Collections.sort(data, new Comparator<Vendor_List_Bean>()
+        {
+            @Override
+            public int compare(Vendor_List_Bean vendor_list_bean, Vendor_List_Bean t1) {
+
+                Float dist1 = Float.valueOf(vendor_list_bean.getVend_quanlity());
+                Float dist2 = Float.valueOf(t1.getVend_quanlity());
+                return dist1.compareTo(dist2);
+            }
+        });
+
+        return data;
+    }
+
+    public ArrayList<Vendor_List_Bean> Get_Price_Sorted_List(ArrayList<Vendor_List_Bean> data)
+    {
+        Collections.sort(data, new Comparator<Vendor_List_Bean>()
+        {
+            @Override
+            public int compare(Vendor_List_Bean vendor_list_bean, Vendor_List_Bean t1) {
+
+                Float dist1 = Float.valueOf(vendor_list_bean.getVend_price_low());
+                Float dist2 = Float.valueOf(t1.getVend_price_low());
+                return dist1.compareTo(dist2);
+            }
+        });
+
+        return data;
     }
 
     public ArrayList<Vendor_List_Bean> Get_Vendor_Service_Car(final String service, final String car, final Location my_location)

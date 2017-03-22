@@ -111,7 +111,7 @@ public class Loading_Data extends AppCompatActivity implements GoogleApiClient.C
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
 
-
+                    Log.d("inside_user",""+user+"");
                     if(sessionManager.createLoginSession(user.getEmail(),user.getDisplayName(),user.getUid(),user.getPhotoUrl().toString())) {
                         //  requestSingleLocationFix(easyLocationRequest);
                         Log.d("firebase_state", "onAuthStateChanged:signed_in:" + user.getUid());
@@ -509,6 +509,7 @@ public class Loading_Data extends AppCompatActivity implements GoogleApiClient.C
                                     map.put(Ven_List_Struct.Ven_Assure, details.getString(Ven_List_Struct.Ven_Assure));
                                     map.put(Ven_List_Struct.Ven_Des, details.getString(Ven_List_Struct.Ven_Des));
                                     map.put(Ven_List_Struct.Ven_Id, details.getString(Ven_List_Struct.Ven_Id));
+                                    map.put(Ven_List_Struct.Ven_Sn,details.getString(Ven_List_Struct.Ven_Sn));
                                     map.put(Ven_List_Struct.Ven_No_Img, details.getString(Ven_List_Struct.Ven_No_Img));
                                     map.put(Ven_List_Struct.Ven_Name, details.getString(Ven_List_Struct.Ven_Name));
                                     search.put(Search_Struct.tag,details.getString(Ven_List_Struct.Ven_Name));
@@ -521,6 +522,7 @@ public class Loading_Data extends AppCompatActivity implements GoogleApiClient.C
                                     map.put(Ven_List_Struct.Ven_Serve,details.getString(Ven_List_Struct.Ven_Serve));
                                     map.put(Ven_List_Struct.Ven_Serve_Name,details.getString(Ven_List_Struct.Ven_Serve_Name));
                                     map.put(Ven_List_Struct.Ven_Segment,details.getString(Ven_List_Struct.Ven_Segment));
+                                    map.put(Ven_List_Struct.Ven_Segment_Name,details.getString(Ven_List_Struct.Ven_Segment_Name));
                                     map.put(Ven_List_Struct.Ven_price_low,details.getString(Ven_List_Struct.Ven_price_low));
                                     map.put(Ven_List_Struct.Ven_price_high,details.getString(Ven_List_Struct.Ven_price_high));
                                     map.put(Ven_List_Struct.Ven_Timings_Open,details.getString(Ven_List_Struct.Ven_Timings_Open));

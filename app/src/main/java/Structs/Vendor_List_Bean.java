@@ -13,6 +13,7 @@ public class Vendor_List_Bean implements Serializable
 
     private String Vend_Name ;
     private String Vend_id ;
+    private String Vend_Sn;
     private int Vend_Timings_Open ;
     private int Vend_Timings_Close ;
     private String Vend_quanlity ;
@@ -21,10 +22,27 @@ public class Vendor_List_Bean implements Serializable
     private String Vend_Lat ;
     private String Vend_long ;
     private String Vend_Segment;
+    private String Vend_Segment_Name;
     private String Vend_Assure;
     private float Vend_Distance;
     private String Vend_Serve;
     private String Vend_Description;
+
+    public String getVend_Segment_Name() {
+        return this.Vend_Segment_Name;
+    }
+
+    public void setVend_Segment_Name(String vend_Segment_Name) {
+        this.Vend_Segment_Name = vend_Segment_Name;
+    }
+
+    public String getVend_Sn() {
+        return this.Vend_Sn;
+    }
+
+    public void setVend_Sn(String vend_Sn) {
+        this.Vend_Sn = vend_Sn;
+    }
 
     public String getVend_Description() {
         return this.Vend_Description;

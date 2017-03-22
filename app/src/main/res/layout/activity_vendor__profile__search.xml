@@ -16,6 +16,7 @@
             android:id="@+id/toolbar"
             app:contentInsetLeft="0dp"
             app:contentInsetStart="0dp"
+
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -24,11 +25,13 @@
 
             <LinearLayout
                 android:layout_width="80dp"
+                android:id="@+id/back"
                 android:layout_height="match_parent">
 
                 <ImageView
 
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
+                    android:scaleType="center"
                     android:id="@+id/back_vendor_search"
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_arrow_back_black_24dp"/>
