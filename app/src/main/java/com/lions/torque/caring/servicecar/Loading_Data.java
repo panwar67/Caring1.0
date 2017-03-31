@@ -205,7 +205,8 @@ public class Loading_Data extends AppCompatActivity implements GoogleApiClient.C
         }
 
 
-        if (mLastLocation == null) {
+        if (mLastLocation == null)
+        {
             final ProgressDialog progressDialog = new ProgressDialog(Loading_Data.this);
             progressDialog.setMessage("Getting Location");
             progressDialog.show();

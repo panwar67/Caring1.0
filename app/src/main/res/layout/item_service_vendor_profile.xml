@@ -12,9 +12,8 @@
         android:textColor="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:checked="true"
+        android:checked="false"
         android:textAlignment="center"
-        android:backgroundTint="@color/colorPrimary"
         android:id="@+id/filter_item_textchecked"
         android:checkMarkTint="@color/colorAccent"/>
 

@@ -98,16 +98,10 @@ public class Search_Page extends AppCompatActivity {
                 HashMap<String,String> map = (HashMap<String, String>) search_suggestions.getAdapter().getItem(i);
                 if(map.get("TYPE").equals("SERVICE"))
                 {
-                    Location location = new Location("");
-                    location.setLatitude(Double.parseDouble(location_session.getUserDetails().get("lat")));
-                    location.setLongitude(Double.parseDouble(location_session.getUserDetails().get("long")));
-                    ArrayList<Vendor_List_Bean> data = new ArrayList<Vendor_List_Bean>();
-                    data = dbHelper.Get_Vendor_Car_Service(car_session.getUserDetails().get(Car_Struct.Car_Code),map.get("COLOUMN"),location);
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("vendor_list",data);
-                    bundle.putString("service","1001");
+                    bundle.putString("service",map.get("COLOUMN"));
+                    bundle.putString("service_name",map.get("TAG"));
                     startActivity(new Intent(Search_Page.this,Display_Vendor_List.class).putExtra("data",bundle));
-
                 }
                 if (map.get("TYPE").equals("SHOP"))
                 {

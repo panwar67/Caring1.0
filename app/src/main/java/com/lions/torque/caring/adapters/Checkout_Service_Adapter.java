@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckedTextView;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.lions.torque.caring.R;
@@ -17,15 +16,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by Panwar on 15/03/17.
+ * Created by Panwar on 27/03/17.
  */
-public class Vendor_Serivice_Adapter extends BaseAdapter implements SpinnerAdapter {
+public class Checkout_Service_Adapter extends BaseAdapter {
 
     Context context;
     ArrayList<HashMap<String,String>> Checked_item = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> result = new ArrayList<>();
     LayoutInflater layoutInflater = null;
-    public Vendor_Serivice_Adapter(Context cont, ArrayList<HashMap<String,String>> data)
+    public Checkout_Service_Adapter(Context cont, ArrayList<HashMap<String,String>> data)
     {
         context = cont;
         result = data;
@@ -52,47 +51,20 @@ public class Vendor_Serivice_Adapter extends BaseAdapter implements SpinnerAdapt
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
 
-        View root = layoutInflater.inflate(R.layout.item_service_vendor_profile,null);
+        View root = layoutInflater.inflate(R.layout.service_item,null);
         Typeface typeface = Typeface.createFromAsset(context.getAssets(),"OpenSans.ttf");
 
-        final CheckedTextView service = (CheckedTextView) root.findViewById(R.id.filter_item_textchecked);
-        service.setChecked(false);
+        final TextView service = (TextView) root.findViewById(R.id.review_serve_name);
+        TextView code = (TextView)root.findViewById(R.id.review_serve_code);
+        //service.setChecked(false);
         service.setTypeface(typeface);
         service.setText(result.get(i).get("SERVE_NAME"));
-        service.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                service.setChecked(!service.isChecked());
-                if(service.isChecked()) {
-
-
-                    Set_Checked(result.get(i));
-                }
-                else
-                {
-                    Decheck_items(result.get(i));
-                }
-                return false;
-            }
-        });
-
+        code.setText(result.get(i).get("SERVE_ID"));
         return root ;
     }
 
-    public void Set_Checked(HashMap<String,String> map)
-    {
-        Checked_item.add(map);
-        //return Checked_item;
-    }
 
-    public void Decheck_items(HashMap<String,String> map)
-    {
-        Checked_item.remove(map);
-    }
 
-    public ArrayList<HashMap<String,String>> Get_Checked_Item()
-    {
-        return Checked_item;
-    }
+
 
 }

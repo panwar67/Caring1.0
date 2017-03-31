@@ -595,6 +595,7 @@ public class DBHelper extends SQLiteOpenHelper {
         res.moveToFirst();
         while (!res.isAfterLast())
         {
+            vendor_list_bean.setVend_id(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Id)));
             vendor_list_bean.setVend_Sn(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Sn)));
             vendor_list_bean.setVend_Name(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Name)));
             vendor_list_bean.setVend_Timings_Open(Integer.parseInt(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Timings_Open))));
@@ -621,6 +622,7 @@ public class DBHelper extends SQLiteOpenHelper {
         {
             HashMap<String,String> map = new HashMap<String,String>();
             map.put("SERVE_NAME",res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Serve_Name)));
+            Log.d("vendor service ",res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Serve_Name)));
             map.put("SERVE_ID",res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Serve)));
             data.add(map);
             res.moveToNext();

@@ -33,6 +33,7 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.google.android.gms.location.places.ui.SupportPlaceAutocompleteFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.lions.torque.caring.R;
 import com.lions.torque.caring.dbutils.DBHelper;
@@ -234,7 +235,13 @@ public class Home_Screen extends AppCompatActivity
     public void Get_Location_Autocomplete()
     {
         int PLACE_PICKER_REQUEST = 1;
+        AutocompleteFilter typeFilter = new AutocompleteFilter.Builder()
+                .setTypeFilter(AutocompleteFilter.TYPE_FILTER_ADDRESS).setCountry("IN")
+                .build();
+        SupportPlaceAutocompleteFragment supportPlaceAutocompleteFragment = new SupportPlaceAutocompleteFragment();
+        supportPlaceAutocompleteFragment.setFilter(typeFilter);
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+
 
         try {
             startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
