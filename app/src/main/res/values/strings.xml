@@ -17,4 +17,5 @@
     <string name="title_activity_vendor__profile"></string>
     <string name="title_activity_vendor__profile__search"></string>
     <string name="title_activity_review__vendor"></string>
+    <string name="title_activity_book__tracking"></string>
 </resources>

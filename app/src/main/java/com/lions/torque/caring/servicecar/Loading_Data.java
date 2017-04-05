@@ -519,6 +519,7 @@ public class Loading_Data extends AppCompatActivity implements GoogleApiClient.C
                                     map.put(Ven_List_Struct.Ven_Quality, details.getString(Ven_List_Struct.Ven_Quality));
                                     map.put(Ven_List_Struct.Ven_Lat, details.getString(Ven_List_Struct.Ven_Lat));
                                     map.put(Ven_List_Struct.Ven_Long, details.getString(Ven_List_Struct.Ven_Long));
+                                    map.put(Ven_List_Struct.Ven_Address,details.getString(Ven_List_Struct.Ven_Address));
                                     map.put(Ven_List_Struct.Ven_Url, details.getString(Ven_List_Struct.Ven_Url));
                                     map.put(Ven_List_Struct.Ven_Serve,details.getString(Ven_List_Struct.Ven_Serve));
                                     map.put(Ven_List_Struct.Ven_Serve_Name,details.getString(Ven_List_Struct.Ven_Serve_Name));

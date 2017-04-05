@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".servicecar.Profile_Page">
+    tools:context="com.lions.torque.caring.servicecar.Book_Tracking">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,18 +20,27 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" >
-            
-            
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:id="@+id/profile_back"
-                android:src="@drawable/ic_arrow_back_black_24dp"/>
-                        </android.support.v7.widget.Toolbar>
+
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:id="@+id/back">
+
+                <ImageView
+                    android:layout_gravity="center"
+                    android:id="@+id/back_vendor_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_back_black_24dp"/>
+
+
+            </LinearLayout>
+
+            </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_profile__page" />
+    <include layout="@layout/content_book__tracking" />
 
 
 </android.support.design.widget.CoordinatorLayout>

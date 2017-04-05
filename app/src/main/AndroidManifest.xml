@@ -89,7 +89,12 @@
             android:name=".servicecar.Review_Vendor"
             android:label="@string/title_activity_review__vendor"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".servicecar.Book_Tracking"
+            android:label="@string/title_activity_book__tracking"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".servicecar.MyBookings"></activity>
     </application>
 
 </manifest>

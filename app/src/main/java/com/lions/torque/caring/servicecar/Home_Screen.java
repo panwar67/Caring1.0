@@ -351,10 +351,12 @@ public class Home_Screen extends AppCompatActivity
 
             startActivity(new Intent(Home_Screen.this,Garage_Page.class));
 
-        } else if (id == R.id.nav_bookings) {
+        } else if (id == R.id.nav_bookings)
+        {
+            startActivity(new Intent(Home_Screen.this,MyBookings.class));
 
-
-        } else if (id == R.id.nav_rate_us) {
+        }
+        else if (id == R.id.nav_rate_us) {
 
         } else if (id == R.id.nav_faq) {
 

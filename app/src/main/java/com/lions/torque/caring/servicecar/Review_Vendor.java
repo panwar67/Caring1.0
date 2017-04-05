@@ -31,8 +31,10 @@ import com.google.android.gms.vision.text.Line;
 import com.lions.torque.caring.R;
 import com.lions.torque.caring.adapters.Adapter_Garage_Car;
 import com.lions.torque.caring.adapters.Checkout_Service_Adapter;
+import com.lions.torque.caring.dbutils.DBHelper;
 import com.lions.torque.caring.sessions_manager.Car_Session;
 import com.lions.torque.caring.sessions_manager.Location_Session;
+import com.lions.torque.caring.sessions_manager.SessionManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,6 +52,7 @@ import Structs.Car_Struct;
 import Structs.CustomTimePickerDialog;
 import Structs.ExpandableHeightGridView;
 import Structs.Garage_Car_Bean;
+import Structs.Vendor_List_Bean;
 
 public class Review_Vendor extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
 
@@ -66,7 +69,11 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
     ExpandableHeightGridView expandableHeightGridView;
     EditText comments;
     Button checkout;
+    String hour, min;
+    Vendor_List_Bean vendor_list_bean = new Vendor_List_Bean();
+    DBHelper dbHelper;
     CustomTimePickerDialog customTimePickerDialog;
+    SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,12 +85,15 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
         location_session = new Location_Session(getApplicationContext());
         calendar = Calendar.getInstance();
         Intent intent = getIntent();
+        sessionManager = new SessionManager(getApplicationContext());
+        dbHelper = new DBHelper(getApplicationContext());
         bundle = intent.getBundleExtra("data");
         time_open = bundle.getString("time_open");
         time_close = bundle.getString("time_close");
         booking_amount = bundle.getString("booking_amount");
         vend_name = bundle.getString("book_vend_name");
         vend_code = bundle.getString("book_vend_id");
+        vendor_list_bean = dbHelper.Get_Vendor_Profile(vend_code,location_session.getUserDetails().get("lat"),location_session.getUserDetails().get("long"));
         serve_list = (ArrayList<HashMap<String,String>>) bundle.getSerializable("serve_list");
         expandableHeightGridView = (ExpandableHeightGridView)findViewById(R.id.vendor_service_review);
         expandableHeightGridView.setExpanded(true);
@@ -114,9 +124,9 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
             @Override
             public void onClick(View view) {
                 try {
-                    Generate_Booking(""+comments.getText().toString(),"232323",car_session.getUserDetails().get("CAR_CODE"),
+                    Generate_Booking(""+comments.getText().toString(),vendor_list_bean.getVend_Address(),car_session.getUserDetails().get("CAR_CODE"),
                             car_session.getUserDetails().get("CAR_MODEL"),"123","pay123",total.getText().toString(),
-                            String.valueOf(calendar.getTime().getTime()),"PENDING",vend_code,vend_name,Get_Booking_Details(serve_list).toString());
+                            hour+" "+min,"PENDING",vend_code,vend_name,Get_Booking_Details(serve_list).toString(),vendor_list_bean.getVend_Lat(),vendor_list_bean.getVend_long(),taxes.getText().toString(),sessionManager.getUserDetails().get("uid"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -134,6 +144,8 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
             @Override
             public void onTimeChanged(TimePicker timePicker, int i, int i1) {
 
+                hour = ""+i+"";
+                min = ""+i1+"";
                 Log.d("selected_time",""+i+" , "+i1);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     Log.d("selected_time_changed",""+timePicker.getHour()+" "+timePicker.getMinute());
@@ -198,12 +210,31 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
 
     }
 
-    public boolean Generate_Booking(final String book_des, final String book_address, final String book_car_code, final String book_car_name, final String book_date, final String book_payid, final String book_price, final String book_start_time, final String book_status, final String book_vend, final String book_vend_name, final String book_details)
+    public boolean Generate_Booking(final String book_des, final String book_address,
+                                    final String book_car_code, final String book_car_name, final String book_date, final String book_payid,
+                                    final String book_price, final String book_start_time,
+                                    final String book_status, final String book_vend, final String book_vend_name,
+                                    final String book_details, final String book_lat, final String book_long, final String book_taxes, final String book_user)
     {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, DOWN_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
+                        if(s!=null)
+                        {
+                            Log.d("response",""+s);
+                            try {
+                                JSONObject jsonObject = new JSONObject(s);
+                                jsonObject.get("book_id");
+                                Bundle bundle = new Bundle();
+                                bundle.putString("book_id", String.valueOf(jsonObject.get("book_id")));
+                                startActivity(new Intent(Review_Vendor.this,Book_Tracking.class).putExtra("data",bundle));
+                                finish();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
 
                     }
                 },
@@ -225,12 +256,17 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
                 Keyvalue.put(Book_Struct.Book_car_code,book_car_code);
                 Keyvalue.put(Book_Struct.Book_car_name,book_car_name);
                 Keyvalue.put(Book_Struct.Book_payid,book_payid);
-                Keyvalue.put(Book_Struct.Book_price,book_price);
+                Keyvalue.put(Book_Struct.Book_advance,book_price);
+                Keyvalue.put(Book_Struct.Book_discount,"0");
+                Keyvalue.put(Book_Struct.Book_lat,book_lat);
+                Keyvalue.put(Book_Struct.Book_long,book_long);
                 Keyvalue.put(Book_Struct.Book_start_time,book_start_time);
                 Keyvalue.put(Book_Struct.Book_status,book_status);
                 Keyvalue.put(Book_Struct.Book_vend_id,book_vend);
                 Keyvalue.put(Book_Struct.Book_vend_name,book_vend_name);
+                Keyvalue.put(Book_Struct.Book_taxes,book_taxes);
                 Keyvalue.put("BOOK_DETAILS",book_details);
+                Keyvalue.put("BOOK_USER",book_user);
                 Log.d("final_cut",""+Keyvalue);
                 //returning parameters
                 return Keyvalue;

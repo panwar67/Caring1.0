@@ -81,7 +81,23 @@ public class Vendor_Profile_Search extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                isAnyItemChecked();
+                if(isAnyItemChecked())
+                {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("time_open", String.valueOf(vendor_list_bean.getVend_Timings_Open()));
+                    bundle.putString("time_close", String.valueOf(vendor_list_bean.getVend_Timings_Close()));
+                    bundle.putString("booking_amount",vendor_list_bean.getVend_price_low());
+                    bundle.putString("book_vend_name",vendor_list_bean.getVend_Name());
+                    bundle.putString("book_vend_id",vendor_list_bean.getVend_id());
+                    bundle.putSerializable("serve_list",vendor_serivice_adapter.Get_Checked_Item());
+                    Intent intent1 = new Intent(Vendor_Profile_Search.this,Review_Vendor.class);
+                    intent1.putExtra("data",bundle);
+                    startActivity(intent1);
+                }
+                else
+                {
+
+                }
             }
         });
         change_car = (LinearLayout)findViewById(R.id.change_car);
@@ -162,16 +178,17 @@ public class Vendor_Profile_Search extends AppCompatActivity {
 
     public boolean isAnyItemChecked()
     {
-
         if(vendor_serivice_adapter.Get_Checked_Item().size()==0)
         {
             Toast.makeText(getApplicationContext(),"Please Select Service",Toast.LENGTH_SHORT).show();
+            return false;
         }
         else
         {
             Log.d("checked_size","list_method"+vendor_serivice_adapter.Get_Checked_Item().toString()+" ");
+            return true;
         }
-        return false;
+
     }
 
     @Override
@@ -182,7 +199,9 @@ public class Vendor_Profile_Search extends AppCompatActivity {
         car_id = car_session.getUserDetails().get("CAR_CODE");
         Services = dbHelper.Get_Vendor_Services(vend_id,car_id);
         Log.d("service_size",""+Services.size());
-        expandableHeightGridView.setAdapter(new Vendor_Serivice_Adapter(getApplicationContext(),Services));
+        vendor_serivice_adapter = new Vendor_Serivice_Adapter(getApplicationContext(),Services);
+
+        expandableHeightGridView.setAdapter(vendor_serivice_adapter);
 
     }
 

@@ -52,6 +52,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import Structs.Car_Struct;
+import Structs.Ven_List_Struct;
 import Structs.Vendor_List_Bean;
 import Structs.Vendor_List_Struct;
 import lj_3d.gearloadinglayout.gearViews.TwoGearsLayout;
@@ -374,6 +375,7 @@ public class Display_Vendor_List extends AppCompatActivity {
                                     vendor_list_bean.setVend_Distance(location.distanceTo(my_location));
                                     Log.d("vendor_distance",""+location.distanceTo(my_location));
                                     vendor_list_bean.setVend_Name(details.getString(Vendor_List_Struct.Vend_Name));
+                                    vendor_list_bean.setVend_Address(details.getString(Ven_List_Struct.Ven_Address));
                                     vendor_list_bean.setVend_price_high(details.getString(Vendor_List_Struct.Vend_price_high));
                                     vendor_list_bean.setVend_price_low(details.getString(Vendor_List_Struct.Vend_price_low));
                                     vendor_list_bean.setVend_quanlity(details.getString(Vendor_List_Struct.Vend_quanlity));

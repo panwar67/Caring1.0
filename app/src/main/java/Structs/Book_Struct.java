@@ -17,4 +17,9 @@ public class Book_Struct
     public static final String Book_payid = "BOOK_PAYID";
     public static final String Book_status = "BOOK_STATUS";
     public static final String Book_start_time = "BOOK_START_TIME";
+    public static final String Book_discount = "BOOK_DISCOUNT";
+    public static final String Book_advance = "BOOK_ADVANCE";
+    public static final String Book_lat = "BOOK_LAT";
+    public static  final String Book_long = "BOOK_LONG";
+    public static final String Book_taxes = "BOOK_TAXES";
 }

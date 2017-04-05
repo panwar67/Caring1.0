@@ -36,7 +36,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public DBHelper(Context context)
     {
-        super(context, "CaringApp1", null, 6);
+        super(context, "CaringApp2", null, 6);
         read = this.getReadableDatabase();
         write = this.getWritableDatabase();
     }
@@ -71,7 +71,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "" + Ven_List_Struct.Ven_Lat + " text, " +
                 "" + Ven_List_Struct.Ven_Long + " text, " +
                 "" + Ven_List_Struct.Ven_Url + " text, " +
-                "" + Ven_List_Struct.Ven_No_Img + " text, "+Ven_List_Struct.Ven_Serve+" text, "+Ven_List_Struct.Ven_Segment+" text, "+Ven_List_Struct.Ven_price_low+" integer, "+Ven_List_Struct.Ven_price_high+" integer, "+Ven_List_Struct.Ven_Timings_Open+" text, "+Ven_List_Struct.Ven_Timings_Close+" text, "+Ven_List_Struct.Ven_Serve_Name+" text, "+Ven_List_Struct.Ven_Segment_Name+" text, "+Ven_List_Struct.Ven_Sn+" text ) ");
+                "" + Ven_List_Struct.Ven_No_Img + " text, "+Ven_List_Struct.Ven_Serve+" text, "+Ven_List_Struct.Ven_Segment+" text, "+Ven_List_Struct.Ven_price_low+" integer, "+Ven_List_Struct.Ven_price_high+" integer, "+Ven_List_Struct.Ven_Timings_Open+" text, "+Ven_List_Struct.Ven_Timings_Close+" text, "+Ven_List_Struct.Ven_Serve_Name+" text, "+Ven_List_Struct.Ven_Segment_Name+" text, "+Ven_List_Struct.Ven_Sn+" text,  "+Ven_List_Struct.Ven_Address+" text)");
 
         sqLiteDatabase.execSQL("CREATE TABLE " + Campaign_Struct.Table_Name + " " +
                 "" + "(" + Campaign_Struct.Camp_Id + " text, " + "" +
@@ -186,6 +186,7 @@ public class DBHelper extends SQLiteOpenHelper {
             write.beginTransaction();
             for (int i = 0; i < data.size(); i++) {
                 ContentValues contentValues = new ContentValues();
+                contentValues.put(Ven_List_Struct.Ven_Address,data.get(i).get(Ven_List_Struct.Ven_Address));
                 contentValues.put(Ven_List_Struct.Ven_Sn,data.get(i).get(Ven_List_Struct.Ven_Sn));
                 contentValues.put(Ven_List_Struct.Ven_Id, data.get(i).get(Ven_List_Struct.Ven_Id));
                 contentValues.put(Ven_List_Struct.Ven_Name, data.get(i).get(Ven_List_Struct.Ven_Name));
@@ -412,6 +413,8 @@ public class DBHelper extends SQLiteOpenHelper {
             vendor_list_bean.setVend_price_high(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_price_high)));
             vendor_list_bean.setVend_Lat(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Lat)));
             vendor_list_bean.setVend_long(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Long)));
+
+            vendor_list_bean.setVend_Address(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Address)));
             vendor_list_bean.setVend_Segment(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Segment)));
             vendor_list_bean.setVend_Assure(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Assure)));
             vendor_list_bean.setVend_Timings_Open(Integer.parseInt(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Timings_Open))));
@@ -441,6 +444,7 @@ public class DBHelper extends SQLiteOpenHelper {
             vendor_list_bean.setVend_price_high(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_price_high)));
             vendor_list_bean.setVend_Lat(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Lat)));
             vendor_list_bean.setVend_long(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Long)));
+            vendor_list_bean.setVend_Address(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Address)));
             vendor_list_bean.setVend_Segment(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Segment)));
             vendor_list_bean.setVend_Assure(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Assure)));
             vendor_list_bean.setVend_Timings_Open(Integer.parseInt(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Timings_Open))));
@@ -475,6 +479,8 @@ public class DBHelper extends SQLiteOpenHelper {
             vendor_list_bean.setVend_price_high(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_price_high)));
             vendor_list_bean.setVend_Lat(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Lat)));
             vendor_list_bean.setVend_long(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Long)));
+
+            vendor_list_bean.setVend_Address(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Address)));
             vendor_list_bean.setVend_Segment(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Segment)));
             vendor_list_bean.setVend_Assure(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Assure)));
             vendor_list_bean.setVend_Timings_Open(Integer.parseInt(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Timings_Open))));
@@ -531,6 +537,8 @@ public class DBHelper extends SQLiteOpenHelper {
             vendor_list_bean.setVend_price_high(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_price_high)));
             vendor_list_bean.setVend_Lat(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Lat)));
             vendor_list_bean.setVend_long(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Long)));
+
+            vendor_list_bean.setVend_Address(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Address)));
             vendor_list_bean.setVend_Segment(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Segment)));
             vendor_list_bean.setVend_Assure(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Assure)));
             vendor_list_bean.setVend_Timings_Open(Integer.parseInt(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Timings_Open))));
@@ -605,6 +613,10 @@ public class DBHelper extends SQLiteOpenHelper {
             vendor_list_bean.setVend_Description(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Des)));
             vendor_list_bean.setVend_Segment_Name(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Segment_Name)));
             vendor_list_bean.setVend_quanlity(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Quality)));
+            vendor_list_bean.setVend_Lat(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Lat)));
+            vendor_list_bean.setVend_long(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Long)));
+
+            vendor_list_bean.setVend_Address(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Address)));
             vendor_list_bean.setVend_Distance((float) distance(Double.parseDouble(lat),Double.parseDouble(longitude),Double.parseDouble(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Lat))),Double.parseDouble(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Long)))));
             res.moveToNext();
         }
