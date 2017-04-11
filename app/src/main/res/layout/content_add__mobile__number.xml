@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f5f5f5"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.lions.torque.caring.servicecar.Add_Mobile_Number"
+    tools:showIn="@layout/activity_add__mobile__number">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.CardView
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_height="wrap_content"
+            app:cardUseCompatPadding="true"
+            android:background="@color/white"
+            app:cardBackgroundColor="@color/white"
+            app:cardElevation="6dp">
+
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter your 10 digit mobile number and wait for the otp once request for otp"/>
+
+        <EditText
+            android:id="@+id/edit_number"
+            android:layout_marginTop="10dp"
+            android:hint="Enter Your Mobile No."
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:maxLength="10"/>
+
+        <Button
+            android:id="@+id/request_otp"
+            android:text="Request OTP"
+            android:textColor="@color/colorAccent"
+            android:background="@color/colorPrimary"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/otp_view"
+            android:visibility="gone"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_height="wrap_content"
+            app:cardUseCompatPadding="true"
+            android:background="@color/white"
+            app:cardBackgroundColor="@color/white"
+            app:cardElevation="6dp">
+
+    <LinearLayout
+
+        android:layout_margin="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <EditText
+            android:id="@+id/edit_otp"
+            android:layout_marginTop="10dp"
+            android:hint="OTP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:maxLength="4"/>
+
+        <Button
+            android:id="@+id/enter_otp"
+            android:text="Enter OTP"
+            android:textColor="@color/colorAccent"
+            android:background="@color/colorPrimary"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -4,6 +4,10 @@
     <color name="colorPrimaryDark">#111112</color>
     <color name="colorAccent">#fdd835</color>
     <color name="gray">#bdbdbd</color>
+    <color name="div">#d5c5a4</color>
+    <color name="text">#32353e</color>
+    <color name="textred">#ca362c</color>
+    <color name="textwhite">#fff</color>
     <color name="selection">#c1efd165</color>
 
 </resources>

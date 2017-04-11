@@ -121,7 +121,18 @@ public class Search_Page extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        hideSoftKeyboard(Search_Page.this);
+    }
+
     public static void hideSoftKeyboard(Activity activity) {
+
+        if(activity.getCurrentFocus()==null||activity==null)
+        {
+            return;
+        }
         InputMethodManager inputMethodManager =
                 (InputMethodManager) activity.getSystemService(
                         Activity.INPUT_METHOD_SERVICE);

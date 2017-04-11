@@ -41,7 +41,6 @@ public class Vendor_Profile_Search extends AppCompatActivity {
     String vend_id;
     TextView car_name, car_model, car_brand, car_year;
     Button button;
-    RatingBar ratingBar;
     Location_Session location_session;
     Car_Session car_session;
     Spinner spinner;
@@ -54,7 +53,7 @@ public class Vendor_Profile_Search extends AppCompatActivity {
     String car_id;
     ArrayList<HashMap<String,String>> services = new ArrayList<HashMap<String, String>>();
     Vendor_Serivice_Adapter vendor_serivice_adapter;
-    TextView title, timing, description_head, description, car, segment, service, service_head, vend_price, vend_distance;
+    TextView title,  description, car, segment, service_head;
 
     ArrayList<String> service_list = new ArrayList<String>();
     @Override
@@ -86,7 +85,7 @@ public class Vendor_Profile_Search extends AppCompatActivity {
                     Bundle bundle = new Bundle();
                     bundle.putString("time_open", String.valueOf(vendor_list_bean.getVend_Timings_Open()));
                     bundle.putString("time_close", String.valueOf(vendor_list_bean.getVend_Timings_Close()));
-                    bundle.putString("booking_amount",vendor_list_bean.getVend_price_low());
+                    bundle.putString("booking_amount","0");
                     bundle.putString("book_vend_name",vendor_list_bean.getVend_Name());
                     bundle.putString("book_vend_id",vendor_list_bean.getVend_id());
                     bundle.putSerializable("serve_list",vendor_serivice_adapter.Get_Checked_Item());
@@ -123,18 +122,10 @@ public class Vendor_Profile_Search extends AppCompatActivity {
 
         vendor_list_bean = dbHelper.Get_Vendor_Profile(vend_id,location_session.getUserDetails().get("lat"),location_session.getUserDetails().get("long"));
         title = (TextView)findViewById(R.id.profile_title);
-        timing = (TextView)findViewById(R.id.profile_timings);
-        vend_price = (TextView)findViewById(R.id.vendor_price);
-        vend_distance = (TextView)findViewById(R.id.vendor_distance);
-        vend_distance.setText(""+new DecimalFormat("##.##").format(vendor_list_bean.getVend_Distance())+" km");
-        //vend_distance.setTypeface();
-        ratingBar = (RatingBar)findViewById(R.id.profile_rating);
-        description_head = (TextView)findViewById(R.id.description_head);
         description = (TextView)findViewById(R.id.profile_description);
         car = (TextView)findViewById(R.id.profile_car);
         segment = (TextView)findViewById(R.id.profile_segment);
-        service = (TextView)findViewById(R.id.profile_services);
-        service_head = (TextView)findViewById(R.id.profile_services);
+        service_head = (TextView)findViewById(R.id.selected_service_vendor);
         Typeface typeface = Typeface.createFromAsset(getApplicationContext().getAssets(),"OpenSans.ttf");
         car_name = (TextView)findViewById(R.id.ven_car_name);
         car_brand = (TextView)findViewById(R.id.car_brand);
@@ -144,20 +135,14 @@ public class Vendor_Profile_Search extends AppCompatActivity {
         car_model.setTypeface(typeface);
         car_brand.setTypeface(typeface);
         title.setTypeface(typeface);
-        timing.setTypeface(typeface);
-        description_head.setTypeface(typeface);
+       // timing.setTypeface(typeface);
         description.setTypeface(typeface);
         car.setTypeface(typeface);
         segment.setTypeface(typeface);
-        vend_distance.setTypeface(typeface);
-        vend_price.setTypeface(typeface);
         segment.setText(vendor_list_bean.getVend_Segment_Name());
 
-        service.setTypeface(typeface);
         service_head.setTypeface(typeface);
         title.setText(vendor_list_bean.getVend_Name());
-        timing.setText(vendor_list_bean.getVend_Timings_Open()+":00 - "+vendor_list_bean.getVend_Timings_Close()+":00");
-        ratingBar.setRating(Float.parseFloat(vendor_list_bean.getVend_quanlity()));
         expandableHeightGridView = (ExpandableHeightGridView)findViewById(R.id.select_multiple_services);
         expandableHeightGridView.setExpanded(true);
         expandableHeightGridView.setNumColumns(1);

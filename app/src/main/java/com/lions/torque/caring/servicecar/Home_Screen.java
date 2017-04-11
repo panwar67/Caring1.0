@@ -59,7 +59,7 @@ public class Home_Screen extends AppCompatActivity
 
 
     TextView home_screen_address, service_label;
-    ImageView mechanical, electrical;
+    ImageView mechanical, electrical, bumper, suspension, aligment, fullservice, key, battery, bodyshop, tyre, lights, ac, access, gauges, wind;
    // Location_Session location_session;
     PlaceAutocomplete placeAutocomplete;
     Intent intent;
@@ -113,15 +113,117 @@ public class Home_Screen extends AppCompatActivity
         service_label.setTypeface(typeface);
         mechanical = (ImageView)findViewById(R.id.mechanical_service);
         electrical = (ImageView)findViewById(R.id.electrical_services);
-        mechanical.setOnClickListener(new View.OnClickListener() {
+        bumper = (ImageView)findViewById(R.id.bumper_service);
+        bumper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bumper_Box();
+            }
+        });
+        tyre =  (ImageView)findViewById(R.id.tyre_service);
+        tyre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Tyres_Box();
+            }
+        });
+        suspension = (ImageView)findViewById(R.id.suspension_service);
+        suspension.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Suspension_Box();
+            }
+        });
+        aligment = (ImageView)findViewById(R.id.aligment_service);
+        aligment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Alignment_Box();
+            }
+        });
+        lights = (ImageView)findViewById(R.id.light_service);
+        lights.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Lights_Box();
+            }
+        });
+        key = (ImageView)findViewById(R.id.key_service);
+        key.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Keymaker_Box();
+            }
+        });
+        fullservice = (ImageView)findViewById(R.id.full_service);
+        fullservice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Bundle bundle = new Bundle();
+                bundle.putString("service","9000");
+                bundle.putString("service_name","Full Service");
+                startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+            }
+        });
+        ac = (ImageView)findViewById(R.id.ac_service);
+        ac.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Getac_Box();
+            }
+        });
+        battery = (ImageView)findViewById(R.id.battery_service);
+        battery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("service","12000");
+                bundle.putString("service_name","Battery");
+                startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+            }
+        });
+        bodyshop = (ImageView)findViewById(R.id.body_service);
+        bodyshop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Body_Box();
+            }
+        });
+
+        access = (ImageView)findViewById(R.id.acces_service);
+        access.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Acces_Box();
+            }
+        });
+
+        gauges = (ImageView)findViewById(R.id.gauges_service);
+        gauges.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Getgauges_Box();
+            }
+        });
+        wind = (ImageView)findViewById(R.id.wind_service);
+        wind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GetWind_Box();
+            }
+        });
+        electrical.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
 
-
+                Electrical_Box();
             }
         });
-        electrical.setOnClickListener(new View.OnClickListener() {
+        mechanical.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
@@ -232,6 +334,583 @@ public class Home_Screen extends AppCompatActivity
 
     }
 
+
+
+
+
+    public void Bumper_Box()
+    {
+        CharSequence[] items = { "New", "Repair", "Paint" };
+        AlertDialog.Builder builder2 = new AlertDialog.Builder(Home_Screen.this)
+                .setTitle("Choose Service")
+                .setSingleChoiceItems( items, -1, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(which==0)
+                        {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","3001");
+                            bundle.putString("service_name","New Bumper");
+
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+                        }
+                        if (which==1)
+                        {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","3002");
+                            bundle.putString("service_name","Bumper Repair");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+                        if (which==2)
+                        {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","3003");
+                            bundle.putString("service_name","Bumper Paint");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog alertdialog2 = builder2.create();
+        alertdialog2.show();
+    }
+
+    public void Tyres_Box()
+    {
+
+        final CharSequence[] items = { "New Tyres", "Repair", "Alloys" };
+        AlertDialog.Builder builder2 = new AlertDialog.Builder(Home_Screen.this)
+                .setTitle("Choose Service")
+                .setSingleChoiceItems( items, -1, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(which==0)
+                        {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","4001");
+                            bundle.putString("service_name","New Tyres");
+
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+                        }
+                        if (which==1)
+                        {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","4002");
+                            bundle.putString("service_name","Reapir Tyres");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+                        if (which==2)
+                        {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","4003");
+                            bundle.putString("service_name","Alloys");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog alertdialog2 = builder2.create();
+        alertdialog2.show();
+
+    }
+
+    public void Suspension_Box()
+    {
+        final CharSequence[] items = { "Shockers", "Ground Clearance adjustment", "Axle" };
+        AlertDialog.Builder builder2 = new AlertDialog.Builder(Home_Screen.this)
+                .setTitle("Choose Service")
+                .setSingleChoiceItems( items, -1, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(which==0)
+                        {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","5001");
+                            bundle.putString("service_name","Shockers");
+
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+                        }
+                        if (which==1)
+                        {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","5002");
+                            bundle.putString("service_name","Ground Clearance");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+                        if (which==2)
+                        {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","5003");
+                            bundle.putString("service_name","Axle");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog alertdialog2 = builder2.create();
+        alertdialog2.show();
+
+    }
+
+    public void Alignment_Box()
+    {
+        final CharSequence[] items = { "Aligment", "Balancing"};
+        AlertDialog.Builder builder2 = new AlertDialog.Builder(Home_Screen.this)
+                .setTitle("Choose Service")
+                .setSingleChoiceItems( items, -1, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(which==0)
+                        {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","6001");
+                            bundle.putString("service_name","Aligment");
+
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+                        }
+                        if (which==1)
+                        {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","6002");
+                            bundle.putString("service_name","Balancing");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog alertdialog2 = builder2.create();
+        alertdialog2.show();
+    }
+
+
+    public void Keymaker_Box()
+    {
+        final CharSequence[] items = { "Lock Repair", "New Keys"};
+        AlertDialog.Builder builder2 = new AlertDialog.Builder(Home_Screen.this)
+                .setTitle("Choose Service")
+                .setSingleChoiceItems( items, -1, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(which==0)
+                        {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","8001");
+                            bundle.putString("service_name","Lock");
+
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+                        }
+                        if (which==1)
+                        {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","8002");
+                            bundle.putString("service_name","New Keys");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog alertdialog2 = builder2.create();
+        alertdialog2.show();
+
+    }
+
+
+
+    public void Lights_Box()
+    {
+
+        final CharSequence[] items = { "New Headlights and Backlights", "Headlight Buffing", "Light Adjustment", "Bulbs"};
+        AlertDialog.Builder builder2 = new AlertDialog.Builder(Home_Screen.this)
+                .setTitle("Choose Service")
+                .setSingleChoiceItems( items, -1, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(which==0)
+                        {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","7001");
+                            bundle.putString("service_name","headlights and backlights");
+
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+                        }
+                        if (which==1)
+                        {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","7002");
+                            bundle.putString("service_name","buffing");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+
+                        if (which==2)
+                        {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","7003");
+                            bundle.putString("service_name","Light Adjustment");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+
+                        if (which==3)
+                        {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","7004");
+                            bundle.putString("service_name","Bulbs");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog alertdialog2 = builder2.create();
+        alertdialog2.show();
+
+    }
+
+    public void Body_Box()
+    {
+
+        final CharSequence[] items = { "Dry Dent", "Painting", "Dry Cleaning","Polishing" ,"Rubbing","Teflon Coating" };
+        AlertDialog.Builder builder2 = new AlertDialog.Builder(Home_Screen.this)
+                .setTitle("Choose Service")
+                .setSingleChoiceItems( items, -1, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(which==0)
+                        {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","10001");
+                            bundle.putString("service_name","Dry Dent");
+
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+                        }
+                        if (which==1)
+                        {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","10002");
+                            bundle.putString("service_name","Painting");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+
+                        if (which==2)
+                        {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","10003");
+                            bundle.putString("service_name","Dry Cleaning");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+
+                        if (which==3)
+                        {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","10004");
+                            bundle.putString("service_name","Polishing");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+
+                        if (which==4)
+                        {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","10005");
+                            bundle.putString("service_name","Rubbing");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+
+                        if (which==5)
+                        {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","10006");
+                            bundle.putString("service_name","Teflon Coating");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog alertdialog2 = builder2.create();
+        alertdialog2.show();
+
+
+
+    }
+
+    public void Getac_Box()
+    {
+        final CharSequence[] items = { "A/C System Repairs", "A/C Leaks", "A/C Service" };
+        AlertDialog.Builder builder2 = new AlertDialog.Builder(Home_Screen.this)
+                .setTitle("Choose Service")
+                .setSingleChoiceItems( items, -1, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(which==0)
+                        {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","11001");
+                            bundle.putString("service_name","ac repair");
+
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+                        }
+                        if (which==1)
+                        {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","11002");
+                            bundle.putString("service_name","a/c leaks");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+                        if (which==2)
+                        {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","11003");
+                            bundle.putString("service_name","a/c service");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog alertdialog2 = builder2.create();
+        alertdialog2.show();
+
+    }
+
+    public void GetWind_Box()
+    {
+        Bundle bundle = new Bundle();
+        bundle.putString("service","14000");
+        bundle.putString("service_name","Wind Screen");
+        startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+    }
+
+    public void Getgauges_Box()
+    {
+        Bundle bundle = new Bundle();
+        bundle.putString("service","15000");
+        bundle.putString("service_name","gauges");
+        startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+    }
+    public void Getothers_Box()
+    {
+        Bundle bundle = new Bundle();
+        bundle.putString("service","90000");
+        bundle.putString("service_name","others");
+        startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+    }
+
+    public void Electrical_Box()
+    {
+
+        final CharSequence[] items = { "Alternator", "Wiring", "Starter","Power Windows" ,"Central Locking" };
+        AlertDialog.Builder builder2 = new AlertDialog.Builder(Home_Screen.this)
+                .setTitle("Choose Service")
+                .setSingleChoiceItems( items, -1, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(which==0)
+                        {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","2001");
+                            bundle.putString("service_name","Alternator");
+
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+                        }
+                        if (which==1)
+                        {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","2002");
+                            bundle.putString("service_name","Wiring");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+
+                        if (which==2)
+                        {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","2003");
+                            bundle.putString("service_name","starter");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+
+                        if (which==3)
+                        {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","2004");
+                            bundle.putString("service_name","Power windows");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+
+                        if (which==4)
+                        {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","2005");
+                            bundle.putString("service_name","Central Locking");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog alertdialog2 = builder2.create();
+        alertdialog2.show();
+
+    }
+
+    public void Acces_Box()
+    {
+
+        final CharSequence[] items = { "Seat Covers", "Music Set", "In Car Lights","Mats" ,"Sencor Camera","Car Cover", "Wheel Cover", "Horns", "Car Protection Guards and roof carriers" };
+        AlertDialog.Builder builder2 = new AlertDialog.Builder(Home_Screen.this)
+                .setTitle("Choose Service")
+                .setSingleChoiceItems( items, -1, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(which==0)
+                        {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","13001");
+                            bundle.putString("service_name","Seat Covers");
+
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+                        }
+                        if (which==1)
+                        {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","13002");
+                            bundle.putString("service_name","Music Set");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+
+                        if (which==2)
+                        {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","13003");
+                            bundle.putString("service_name","car lights");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+
+                        if (which==3)
+                        {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","13004");
+                            bundle.putString("service_name","Mats");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+
+                        if (which==4)
+                        {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","13005");
+                            bundle.putString("service_name","Sensor Camera");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+
+                        if (which==5)
+                        {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","13006");
+                            bundle.putString("service_name","Car cover");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+
+                        if (which==6)
+                        {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","13007");
+                            bundle.putString("service_name","Wheel cover");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+
+                        if (which==5)
+                        {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","13008");
+                            bundle.putString("service_name","Horns");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+
+                        if (which==5)
+                        {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("service","13009");
+                            bundle.putString("service_name","Car protectoin and roof carriers");
+                            startActivity(new Intent(Home_Screen.this,Display_Vendor_List.class).putExtra("data",bundle));
+
+                        }
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog alertdialog2 = builder2.create();
+        alertdialog2.show();
+
+
+
+    }
+
+
+
+
+
     public void Get_Location_Autocomplete()
     {
         int PLACE_PICKER_REQUEST = 1;
@@ -255,8 +934,13 @@ public class Home_Screen extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+        sessionManager = new SessionManager(getApplicationContext());
         name.setText(sessionManager.getUserDetails().get("name"));
         car_model.setText(car_session.getUserDetails().get("CAR_MODEL"));
+        if(sessionManager.getUserDetails().get("mobile")==null)
+        {
+            //startActivity(new Intent(Home_Screen.this,Add_Mobile_Number.class));
+        }
 
     }
 
@@ -361,6 +1045,8 @@ public class Home_Screen extends AppCompatActivity
         } else if (id == R.id.nav_faq) {
 
         } else if (id == R.id.nav_about_us) {
+
+            startActivity(new Intent(Home_Screen.this,Webview_Activity.class).putExtra("url","http://www.car-ing.com/about2.html"));
 
         }
 

@@ -1,24 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <android.support.v7.widget.CardView
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_width="match_parent"
+        app:cardElevation="6dp"
+        app:cardUseCompatPadding="true"
+        android:layout_height="wrap_content">
+
     <LinearLayout
-        android:layout_marginTop="15dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <TextView
+        android:paddingLeft="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="SHUBHAM MOTORS"
+
+        android:gravity="center_vertical"
+        android:id="@+id/book_vendor_name"
+        android:textColor="@color/colorPrimary"
+        />
+
+        <TextView
+            android:paddingLeft="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:id="@+id/book_date"
+            android:text="20-may-2017"
+            android:textColor="#999797"/>
+
+        <TextView
+            android:paddingLeft="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:id="@+id/book_id"
+            android:text="Booking No. - # 56"
+            android:textColor="#999797"/>
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#c2c0c0"></View>
+
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="40dp">
 
         <TextView
+            android:drawableLeft="@drawable/currency_inr"
             android:paddingLeft="10dp"
             android:textColor="@color/colorPrimary"
-            android:id="@+id/order_id"
+            android:id="@+id/booking_amount"
             android:text="10"
+            android:gravity="center_vertical"
             android:layout_weight="1"
+
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
         <TextView
+            android:drawableLeft="@drawable/ic_directions_walk_black_24dp"
+            android:gravity="center_vertical"
             android:text="pending"
             android:textColor="@color/colorPrimary"
             android:id="@+id/order_status"
@@ -31,20 +87,11 @@
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="Vendor Name"
-        android:id="@+id/book_vendor_name"
-        android:textColor="@color/colorPrimary"
-        android:textAlignment="center"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:textColor="@color/colorPrimary"
-        android:textAlignment="center"
-        android:text="Booking Amount - 200"
-        android:id="@+id/booking_amount"/>
+
+</LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
 
 </LinearLayout>

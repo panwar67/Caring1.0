@@ -35,12 +35,11 @@ import Structs.Vendor_List_Bean;
 
 public class Vendor_Profile extends AppCompatActivity {
 
-    TextView  title, timing, description_head, description, car, segment, service,
-            service_head, select_head, selected_service, vend_price, vend_distance;
+    TextView  title,   description, car, segment, service,
+            service_head, select_head, selected_service;
     TextView car_name, car_model, car_brand, car_year;
     ImageView back;
     Button checkout;
-    RatingBar ratingBar;
     Vendor_Serivice_Adapter vendor_serivice_adapter;
     Location_Session location_session;
     String vendor_id;
@@ -105,14 +104,7 @@ public class Vendor_Profile extends AppCompatActivity {
         expandableHeightGridView.setNumColumns(1);
         expandableHeightGridView.setEmptyView(findViewById(R.id.emptyElement));
         select_head = (TextView)findViewById(R.id.selected_service_vendor);
-        vend_price = (TextView)findViewById(R.id.vendor_price);
-        vend_price.setText(data.getVend_price_low()+" - "+data.getVend_price_high());
-        vend_distance = (TextView)findViewById(R.id.vendor_distance);
-        vend_distance.setText(""+new DecimalFormat("##.##").format(data.getVend_Distance())+" km");
         title = (TextView)findViewById(R.id.profile_title);
-        timing = (TextView)findViewById(R.id.profile_timings);
-        ratingBar = (RatingBar)findViewById(R.id.profile_rating);
-        description_head = (TextView)findViewById(R.id.description_head);
         description = (TextView)findViewById(R.id.profile_description);
         car = (TextView)findViewById(R.id.profile_car);
         //selected_service = (TextView)findViewById(R.id.service_text);
@@ -120,8 +112,7 @@ public class Vendor_Profile extends AppCompatActivity {
         segment = (TextView)findViewById(R.id.profile_segment);
         Typeface typeface = Typeface.createFromAsset(getApplicationContext().getAssets(),"OpenSans.ttf");
         title.setTypeface(typeface);
-        timing.setTypeface(typeface);
-        description_head.setTypeface(typeface);
+//        description_head.setTypeface(typeface);
         description.setTypeface(typeface);
         car.setTypeface(typeface);
         segment.setTypeface(typeface);
@@ -133,9 +124,7 @@ public class Vendor_Profile extends AppCompatActivity {
         }
         select_head.setTypeface(typeface);
 //        service_head.setTypeface(typeface);
-        title.setText(data.getVend_Name());
-        timing.setText(data.getVend_Timings_Open()+":00 - "+data.getVend_Timings_Close()+":00");
-        ratingBar.setRating(Float.parseFloat(data.getVend_quanlity()));
+        title.setText(data.getVend_Name().toUpperCase());
         car_name = (TextView)findViewById(R.id.ven_car_name);
         car_brand = (TextView)findViewById(R.id.car_brand);
         car_model = (TextView)findViewById(R.id.ven_car_model);
@@ -151,7 +140,7 @@ public class Vendor_Profile extends AppCompatActivity {
                    Bundle bundle = new Bundle();
                    bundle.putString("time_open", String.valueOf(data.getVend_Timings_Open()));
                    bundle.putString("time_close", String.valueOf(data.getVend_Timings_Close()));
-                   bundle.putString("booking_amount",data.getVend_price_low());
+                   bundle.putString("booking_amount","0");
                    bundle.putString("book_vend_name",data.getVend_Name());
                    bundle.putString("book_vend_id",data.getVend_id());
                    bundle.putSerializable("serve_list",vendor_serivice_adapter.Get_Checked_Item());

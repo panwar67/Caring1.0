@@ -61,7 +61,7 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
     Car_Session car_session;
     Location_Session location_session;
     TimePicker timePicker;
-    TextView car_name, car_model, car_brand, review_header, car_header, booking, time_header, sub_total, taxes, total, sub_head, tax_head, total_head, booking_head;
+    TextView contact, contact_head, car_name, car_model, car_brand, review_header, car_header, booking, time_header, sub_total, taxes, total, sub_head, tax_head, total_head, booking_head;
     ArrayList<HashMap<String,String>> serve_list = new ArrayList<HashMap<String, String>>();
     Bundle bundle = new Bundle();
     String DOWN_URL = "http://www.car-ing.com/app/Book_Vendor.php";
@@ -85,6 +85,8 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
         location_session = new Location_Session(getApplicationContext());
         calendar = Calendar.getInstance();
         Intent intent = getIntent();
+        contact = (TextView)findViewById(R.id.contactnumber);
+        contact_head = (TextView)findViewById(R.id.contact_header);
         sessionManager = new SessionManager(getApplicationContext());
         dbHelper = new DBHelper(getApplicationContext());
         bundle = intent.getBundleExtra("data");
@@ -113,6 +115,9 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
         total_head = (TextView)findViewById(R.id.total);
         booking_head = (TextView)findViewById(R.id.booking_header);
         sub_head.setTypeface(typeface);
+        contact_head.setTypeface(typeface);
+        contact.setTypeface(typeface);
+        contact.setText(sessionManager.getUserDetails().get("mobile"));
         tax_head.setTypeface(typeface);
         total_head.setTypeface(typeface);
         sub_total.setTypeface(typeface);
@@ -123,13 +128,23 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    Generate_Booking(""+comments.getText().toString(),vendor_list_bean.getVend_Address(),car_session.getUserDetails().get("CAR_CODE"),
-                            car_session.getUserDetails().get("CAR_MODEL"),"123","pay123",total.getText().toString(),
-                            hour+" "+min,"PENDING",vend_code,vend_name,Get_Booking_Details(serve_list).toString(),vendor_list_bean.getVend_Lat(),vendor_list_bean.getVend_long(),taxes.getText().toString(),sessionManager.getUserDetails().get("uid"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if(sessionManager.getUserDetails().get("mobile")==null)
+                {
+                    Toast.makeText(getApplicationContext(),"Please add mobile no. for booking ",Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(Review_Vendor.this,Add_Mobile_Number.class));
+
                 }
+                else
+                {
+                    try {
+                        Generate_Booking(""+comments.getText().toString(),vendor_list_bean.getVend_Address(),car_session.getUserDetails().get("CAR_CODE"),
+                                car_session.getUserDetails().get("CAR_MODEL"),"123","pay123",total.getText().toString(),
+                                hour+" "+min,"PENDING",vend_code,vend_name,Get_Booking_Details(serve_list).toString(),vendor_list_bean.getVend_Lat(),vendor_list_bean.getVend_long(),taxes.getText().toString(),sessionManager.getUserDetails().get("uid"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
             }
         });
         car_header.setTypeface(typeface);
@@ -227,8 +242,13 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
                                 JSONObject jsonObject = new JSONObject(s);
                                 jsonObject.get("book_id");
                                 Bundle bundle = new Bundle();
-                                bundle.putString("book_id", String.valueOf(jsonObject.get("book_id")));
-                                startActivity(new Intent(Review_Vendor.this,Book_Tracking.class).putExtra("data",bundle));
+                                bundle.putString("order_id", String.valueOf(jsonObject.get("book_id")));
+                                bundle.putString("order_destination",vendor_list_bean.getVend_Address());
+                                bundle.putString("order_location",location_session.getUserDetails().get("address"));
+                                bundle.putString("order_price","0");
+                                bundle.putString("order_distance", String.valueOf(vendor_list_bean.getVend_Distance()));
+                                bundle.putString("vendor_name",vendor_list_bean.getVend_Name());
+                                startActivity(new Intent(Review_Vendor.this,Success_Booking.class).putExtra("data",bundle));
                                 finish();
                             } catch (JSONException e) {
                                 e.printStackTrace();

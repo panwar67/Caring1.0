@@ -66,7 +66,7 @@ public class Adapter_Vendor_List extends BaseAdapter {
     {
         TextView title, timings, price, distance;
         RatingBar quanlity;
-        LinearLayout linearLayout;
+
     }
 
     @Override
@@ -77,7 +77,7 @@ public class Adapter_Vendor_List extends BaseAdapter {
         Holder holder = new Holder();
         Typeface  typeface = Typeface.createFromAsset(context.getAssets(),"OpenSans.ttf");
 
-        holder.linearLayout = (LinearLayout)root.findViewById(R.id.overlay);
+       // holder.linearLayout = (LinearLayout)root.findViewById(R.id.overlay);
         holder.title = (TextView)root.findViewById(R.id.vendor_name);
         holder.timings = (TextView)root.findViewById(R.id.vendor_timings);
         holder.quanlity = (RatingBar)root.findViewById(R.id.vendor_rating);
@@ -90,12 +90,12 @@ public class Adapter_Vendor_List extends BaseAdapter {
         int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         if(hour>result.get(i).getVend_Timings_Close()||hour<result.get(i).getVend_Timings_Open())
         {
-            holder.linearLayout.setVisibility(View.VISIBLE);
+           // holder.linearLayout.setVisibility(View.VISIBLE);
 
         }
         else
         {
-            holder.linearLayout.setVisibility(View.GONE);
+           // holder.linearLayout.setVisibility(View.GONE);
         }
         holder.timings.setText(result.get(i).getVend_Timings_Open()+":00 - "+result.get(i).getVend_Timings_Close()+":00");
         holder.title.setText(result.get(i).getVend_Name());

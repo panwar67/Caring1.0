@@ -9,17 +9,17 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
 
-    android:background="#1de9b6"
+    android:background="@drawable/appd"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
 
     <LinearLayout
-        android:background="#1de9b6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <LinearLayout
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_weight="1"
@@ -30,18 +30,19 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/splash_screen"
-                app:civ_border_width="2dp"
+                app:civ_border_width="0dp"
                 android:id="@+id/drawer_profile_dp"
                 android:layout_centerHorizontal="true"
-                app:civ_border_color="#FF000000"/>
+                />
 
             <TextView
                 android:textAlignment="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Name"
+                android:textStyle="bold"
                 android:id="@+id/_profile_name"
-                android:textColor="@color/colorPrimaryDark"/>
+                android:textColor="#ffffff"/>
 
 
 
@@ -50,6 +51,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_marginTop="10dp"
             android:id="@+id/drawer_choose_car"
             android:layout_marginLeft="15dp"
             android:layout_width="match_parent"
@@ -57,25 +59,30 @@
             android:orientation="vertical"
             android:layout_weight="1">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/drawer_user_car"
-                android:layout_width="50dp"
+                android:layout_width="60dp"
+                app:civ_border_width="1dp"
+                android:scaleType="centerCrop"
                 android:layout_height="50dp"
-                android:src="@drawable/hatchcopy"/>
+                android:layout_centerHorizontal="true"
+                app:civ_border_color="#ffffff"
+                android:src="@drawable/hatchwhite"/>
 
             <LinearLayout
-                android:layout_marginLeft="10dp"
                 android:layout_gravity="center"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
+                    android:textStyle="bold"
+                    android:textAlignment="center"
                     android:id="@+id/drawer_car_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="#ffffff"
                     android:text="Car_Name"/>
 
             </LinearLayout>

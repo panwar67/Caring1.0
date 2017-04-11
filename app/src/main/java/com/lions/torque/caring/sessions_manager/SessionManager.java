@@ -38,7 +38,7 @@ public class SessionManager {
     public static final String KEY_NAME = "name";
     public  static final String KEY_UID = "uid";
     public static final String KEY_DP = "dp";
-
+    public static final String KEY_MOB = "mobile";
     // Constructor
     public SessionManager(Context context){
         this._context = context;
@@ -49,7 +49,7 @@ public class SessionManager {
     /**
      * Create login session
      * */
-    public boolean createLoginSession(String email, String name, String uid, String dp){
+    public boolean createLoginSession(String email, String name, String uid, String dp, String mob){
         // Storing login value as TRUE
 
         editor.clear();
@@ -66,6 +66,7 @@ public class SessionManager {
         editor.putString(KEY_UID,uid);
 
         editor.putString(KEY_DP, dp);
+        editor.putString(KEY_MOB,mob);
 
         // commit changes
         editor.commit();
@@ -111,6 +112,7 @@ public class SessionManager {
         user.put(KEY_UID, pref.getString(KEY_UID,null));
 
         user.put(KEY_DP,pref.getString(KEY_DP,null));
+        user.put(KEY_MOB,pref.getString(KEY_MOB,null));
 
 
         // return user
@@ -127,15 +129,7 @@ public class SessionManager {
         editor.commit();
 
         // After logout redirect user to Loing Activity
-        Intent i = new Intent(_context, LoginActivity.class);
-        // Closing all the Activities
-        //i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-        // Add new Flag to start new Activity
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        // Staring Login Activity
-        _context.startActivity(i);
 
 //        ActivityCompat.finishAffinity(null);
     }

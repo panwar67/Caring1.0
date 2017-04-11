@@ -18,4 +18,6 @@
     <string name="title_activity_vendor__profile__search"></string>
     <string name="title_activity_review__vendor"></string>
     <string name="title_activity_book__tracking"></string>
+    <string name="title_activity_submit__review">Submit_Review</string>
+    <string name="title_activity_add__mobile__number"></string>
 </resources>

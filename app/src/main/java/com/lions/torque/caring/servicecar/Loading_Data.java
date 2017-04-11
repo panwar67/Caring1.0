@@ -61,6 +61,7 @@ import java.util.Map;
 
 import Structs.Campaign_Struct;
 import Structs.Car_Struct;
+import Structs.Garage_Car_Bean;
 import Structs.Search_Bean;
 import Structs.Search_Struct;
 import Structs.Ven_List_Struct;
@@ -74,6 +75,9 @@ public class Loading_Data extends AppCompatActivity implements GoogleApiClient.C
     String DOWN_URL1 = "http://www.car-ing.com/app/Get_Campaign.php";
     String DOWN_URL2 = "http://www.car-ing.com/app/Get_All_Cars.php";
     String DOWN_URL3 = "http://www.car-ing.com/app/Get_Services.php";
+
+    String DOWN_URL33 = "http://www.car-ing.com/app/Get_Mobile.php";
+
     protected LocationRequest mLocationRequest;
     private FirebaseAuth mAuth;
     DBHelper dbHelper;
@@ -111,16 +115,32 @@ public class Loading_Data extends AppCompatActivity implements GoogleApiClient.C
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
 
-                    Log.d("inside_user",""+user+"");
-                    if(sessionManager.createLoginSession(user.getEmail(),user.getDisplayName(),user.getUid(),user.getPhotoUrl().toString())) {
-                        //  requestSingleLocationFix(easyLocationRequest);
-                        Log.d("firebase_state", "onAuthStateChanged:signed_in:" + user.getUid());
-                        startActivity(new Intent(Loading_Data.this, Home_Screen.class));
-                        finish();
+                    dbHelper.Init_Search_Data();
+                    Load_Vendor_Data();
+
+                    if(Load_Vendor_Data())
+                    {
+                        Load_Services();
+
                     }
+                    Load_Campaigns();
+                    Load_Cars();
+
+                    Get_Mobile(user.getDisplayName(),user.getUid(),user.getEmail(),user.getPhotoUrl().toString());
+
 
                 } else {
 
+                    dbHelper.Init_Search_Data();
+                    Load_Vendor_Data();
+
+                    if(Load_Vendor_Data())
+                    {
+                        Load_Services();
+
+                    }
+                    Load_Campaigns();
+                    Load_Cars();
                     // User is signed out
                     Log.d("firebase_state", "onAuthStateChanged:signed_out");
                     startActivity(new Intent(Loading_Data.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
@@ -140,6 +160,78 @@ public class Loading_Data extends AppCompatActivity implements GoogleApiClient.C
         // mAuth.addAuthStateListener(mAuthListener);
 
     }
+
+    public void Get_Mobile (final String user_name, final String user_id, final String user_email, final String user_dp)
+    {
+
+        final ArrayList<Garage_Car_Bean> temp = new ArrayList<Garage_Car_Bean>();
+        final ProgressDialog progressDialog = new ProgressDialog(Loading_Data.this);
+        progressDialog.setMessage("loading");
+       // progressDialog.show();
+        final ArrayList<HashMap<String,String>> Ven_Data = new ArrayList<HashMap<String, String>>();
+        final StringRequest stringRequest = new StringRequest(Request.Method.POST, DOWN_URL33,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (s!=null)
+                        {
+                            Log.d("fetched_user",""+s);
+                            try {
+                                JSONObject jsonObject = new JSONObject(s);
+                                JSONArray jsonArray = jsonObject.getJSONArray("User_Mobile");
+                                JSONObject car_details = jsonArray.getJSONObject(0);
+
+                                sessionManager.createLoginSession(user_email,user_name,user_id,user_dp,car_details.getString("USER_MOBILE"));
+                                startActivity(new Intent(Loading_Data.this,Home_Screen.class));
+                                finish();
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                sessionManager.createLoginSession(user_email,user_name,user_id,user_dp,null);
+                                startActivity(new Intent(Loading_Data.this,Home_Screen.class));
+                                finish();
+                            }
+
+
+                        }
+                        else
+                        {
+                            Toast.makeText(getApplicationContext(),"Error in getting mobile no. or no mobile no. ",Toast.LENGTH_SHORT).show();
+                        }
+
+                        //progressDialog.cancel();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        //progressDialog.cancel();
+                        Toast.makeText(Loading_Data.this, "Error In Connectivity", Toast.LENGTH_LONG).show();
+                    }
+                }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //Converting Bitmap to String
+
+
+                HashMap<String,String> Keyvalue = new HashMap<String,String>();
+                Keyvalue.put("user_id",user_id);
+
+                //returning parameters
+                return Keyvalue;
+            }
+        };
+
+        //Creating a Request Queue
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        //Adding request to the queue
+        requestQueue.add(stringRequest);
+
+    }
+
 
 
     protected synchronized void buildGoogleApiClient() {
@@ -451,16 +543,7 @@ public class Loading_Data extends AppCompatActivity implements GoogleApiClient.C
                 location_session.create_Location_Session(mAddressOutput, lat, longitude);
                 Intent intent = new Intent(Loading_Data.this, FetchAddressIntentService.class);
                 stopService(intent);
-                dbHelper.Init_Search_Data();
-                Load_Vendor_Data();
 
-                if(Load_Vendor_Data())
-                {
-                    Load_Services();
-
-                }
-                Load_Campaigns();
-                Load_Cars();
                 mAuth.addAuthStateListener(mAuthListener);
             }
 

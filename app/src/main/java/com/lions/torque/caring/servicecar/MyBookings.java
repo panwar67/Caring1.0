@@ -45,6 +45,7 @@ public class MyBookings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_bookings);
         listView = (ListView)findViewById(R.id.booking_list);
+        listView.setEmptyView(findViewById(R.id.emptyview_booking));
         sessionManager = new SessionManager(getApplicationContext());
 
         Get_Booking_Details(sessionManager.getUserDetails().get("uid"));

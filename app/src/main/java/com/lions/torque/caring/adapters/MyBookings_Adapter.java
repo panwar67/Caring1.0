@@ -2,6 +2,7 @@ package com.lions.torque.caring.adapters;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,11 @@ import android.widget.TextView;
 import com.lions.torque.caring.R;
 import com.lions.torque.caring.servicecar.MyBookings;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import Structs.Book_Track;
 import Structs.Book_Track_Bean;
@@ -54,22 +59,39 @@ public class MyBookings_Adapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
 
      View root = layoutInflater.inflate(R.layout.book_item,null);
+
+
+        SimpleDateFormat month_date = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        String actualDate = result.get(i).getDate();
+
+        Date date = null;
+        try {
+            date = sdf.parse(actualDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        String month_name = month_date.format(date);
+        System.out.println("Month :" + month_name);
         Typeface typeface = Typeface.createFromAsset(context.getAssets(),"OpenSans.ttf");
 
-        TextView id = (TextView)root.findViewById(R.id.order_id);
         TextView status =(TextView)root.findViewById(R.id.order_status);
         TextView vend_name = (TextView)root.findViewById(R.id.book_vendor_name);
         TextView booking_amount = (TextView)root.findViewById(R.id.booking_amount);
-
-        id.setText("BOOKING ID - "+result.get(i).getId());
-        status.setText("STATUS - "+result.get(i).getStatus());
+        TextView book_data = (TextView)root.findViewById(R.id.book_date);
+        TextView book_id = (TextView)root.findViewById(R.id.book_id);
+        book_data.setText(month_name);
+        status.setText(" "+result.get(i).getStatus());
         vend_name.setText(result.get(i).getVend_name()+"");
-        booking_amount.setText("Booking amount "+result.get(i).getAdvance());
+        booking_amount.setText(""+result.get(i).getAdvance());
+        book_id.setText("Booking No - # "+result.get(i).getId());
 
-        id.setTypeface(typeface);
         status.setTypeface(typeface);
         vend_name.setTypeface(typeface);
         booking_amount.setTypeface(typeface);
+        book_id.setTypeface(typeface);
 
         return root;
     }

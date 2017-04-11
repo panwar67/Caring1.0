@@ -142,7 +142,13 @@ public class Add_Car extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                Save_Car(editText.getText().toString(),car_car_model.getSelectedItem().toString(),car_brand.getSelectedItem().toString(),car_fuel.getSelectedItem().toString(),dbHelper.Get_Car_Segment(car_car_model.getSelectedItem().toString(),car_brand.getSelectedItem().toString(),car_year.getSelectedItem().toString(),dbHelper.Get_Car_Code(car_car_model.getSelectedItem().toString(),car_brand.getSelectedItem().toString(),car_year.getSelectedItem().toString(),car_fuel.getSelectedItem().toString()),car_fuel.getSelectedItem().toString()),dbHelper.Get_Car_Code(car_car_model.getSelectedItem().toString(),car_brand.getSelectedItem().toString(),car_year.getSelectedItem().toString(),car_fuel.getSelectedItem().toString()),car_year.getSelectedItem().toString(),sessionManager.getUserDetails().get("uid"));
+                Save_Car(editText.getText().toString(),car_car_model.getSelectedItem().toString(),car_brand.getSelectedItem().toString(),car_fuel.getSelectedItem().toString(),
+
+                        dbHelper.Get_Car_Segment(car_car_model.getSelectedItem().toString(),
+                        car_brand.getSelectedItem().toString(),car_year.getSelectedItem().toString(),
+                        dbHelper.Get_Car_Code(car_car_model.getSelectedItem().toString(),car_brand.getSelectedItem().toString(),car_year.getSelectedItem().toString(),car_fuel.getSelectedItem().toString()),car_fuel.getSelectedItem().toString())
+
+                        ,dbHelper.Get_Car_Code(car_car_model.getSelectedItem().toString(),car_brand.getSelectedItem().toString(),car_year.getSelectedItem().toString(),car_fuel.getSelectedItem().toString()),car_year.getSelectedItem().toString(),sessionManager.getUserDetails().get("uid"));
             }
         });
 
@@ -204,7 +210,7 @@ public class Add_Car extends AppCompatActivity {
                 Keyvalue.put(Car_Struct.Car_Code,car_code);
                 Keyvalue.put(Car_Struct.Car_Year,car_year);
                 Keyvalue.put(Car_Struct.Car_User,car_user);
-
+                Log.d("add_car_cut",""+Keyvalue.toString());
 
                 //returning parameters
                 return Keyvalue;

@@ -153,7 +153,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 contentValues.put(Search_Struct.col,search_data.get(i).get(Search_Struct.col));
                 contentValues.put(Search_Struct.type,search_data.get(i).get(Search_Struct.type));
                 long row = write.insertWithOnConflict(Search_Struct.Table_Name,null,contentValues,SQLiteDatabase.CONFLICT_IGNORE);
-                Log.d("search_list", "" + row);
 
             }
             write.setTransactionSuccessful();
@@ -175,7 +174,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(Campaign_Struct.Camp_Service_Id, Camp_Service_Id);
         contentValues.put(Campaign_Struct.Camp_Url, Camp_Url);
         long row = write.insertWithOnConflict(Campaign_Struct.Table_Name,null,contentValues,SQLiteDatabase.CONFLICT_IGNORE);
-        Log.d("camp_insert",""+row);
+        //Log.d("camp_insert",""+row);
         return true;
     }
 
@@ -207,7 +206,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 contentValues.put(Ven_List_Struct.Ven_Segment,data.get(i).get(Ven_List_Struct.Ven_Segment));
                 contentValues.put(Ven_List_Struct.Ven_Segment_Name,data.get(i).get(Ven_List_Struct.Ven_Segment_Name));
                 long row = write.insertWithOnConflict(Ven_List_Struct.Table_Name, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
-                Log.d("Vendor_List", "" + row);
+                //Log.d("Vendor_List", "" + row);
             }
             write.setTransactionSuccessful();
             write.endTransaction();
@@ -253,7 +252,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 contentValues.put(Car_Struct.Car_FUEL, data.get(i).get(Car_Struct.Car_FUEL));
                 contentValues.put(Car_Struct.Car_Code, data.get(i).get(Car_Struct.Car_Code));
                 long row = write.insertWithOnConflict(Car_List, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
-                Log.d("all_cars_inserted", "" + row);
 
 
             }
@@ -384,7 +382,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public String Get_Car_Segment(String car_model, String car_brand, String car_year, String car_code, String car_fuel)
     {
         String Car_Segment = "";
-        Cursor res = read.rawQuery("select * from "+Car_Struct.Table_Name+" where "+Car_Struct.Car_Model+" = '"+car_model+"' and "+Car_Struct.Car_Brand+" = '"+car_brand+"' and "+Car_Struct.Car_Year+" = '"+car_year+"' and "+Car_Struct.Car_Code+" = '"+car_code+"' and "+Car_Struct.Car_FUEL+" = '"+car_fuel+"' ",null);
+        Cursor res = read.rawQuery("select * from "+Car_List+" where "+Car_Struct.Car_Model+" = '"+car_model+"' and "+Car_Struct.Car_Brand+" = '"+car_brand+"' and "+Car_Struct.Car_Year+" = '"+car_year+"' and "+Car_Struct.Car_Code+" = '"+car_code+"' and "+Car_Struct.Car_FUEL+" = '"+car_fuel+"' ",null);
+        Log.d("debug_segment","select * from "+Car_Struct.Table_Name+" where "+Car_Struct.Car_Model+" = '"+car_model+"' and "+Car_Struct.Car_Brand+" = '"+car_brand+"' and "+Car_Struct.Car_Year+" = '"+car_year+"' and "+Car_Struct.Car_Code+" = '"+car_code+"' and "+Car_Struct.Car_FUEL+" = '"+car_fuel+"' ");
         res.moveToFirst();
         while (res.isFirst())
         {
@@ -465,7 +464,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public ArrayList<Vendor_List_Bean>Get_Vendor_By_All(String service, String segment,  Location location)
     {
         ArrayList<Vendor_List_Bean> data = new ArrayList<Vendor_List_Bean>();
-        Cursor res = read.rawQuery("select * from "+ Ven_List_Struct.Table_Name+" where "+Ven_List_Struct.Ven_Serve+" like '"+service+"' and "+Ven_List_Struct.Ven_Segment+" = '"+segment+"'",null);
+        Cursor res = read.rawQuery("select * from "+ Ven_List_Struct.Table_Name+" where "+Ven_List_Struct.Ven_Serve+" like '%"+service+"%' and "+Ven_List_Struct.Ven_Segment+" = '"+segment+"'",null);
         res.moveToFirst();
         while (!res.isAfterLast())
         {
@@ -566,6 +565,7 @@ public class DBHelper extends SQLiteOpenHelper {
         dist = Math.acos(dist);
         dist = rad2deg(dist);
         dist = dist * 60 * 1.1515;
+        dist = dist * 1.609344;
         Log.d("distance",""+dist);
         return dist;
     }
@@ -627,7 +627,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public ArrayList<HashMap<String,String>> Get_Vendor_Services(String id, String car)
     {
         ArrayList<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
-        Cursor res = read.rawQuery("select * from "+Ven_List_Struct.Table_Name+" where "+Ven_List_Struct.Ven_Id+" like '"+id+"' and "+Ven_List_Struct.Ven_Segment+" like '"+car+"'",null);
+        Cursor res = read.rawQuery("select * from "+Ven_List_Struct.Table_Name+" where "+Ven_List_Struct.Ven_Id+" like '"+id+"' and "+Ven_List_Struct.Ven_Segment+" like '"+car+"' group by "+Ven_List_Struct.Ven_Serve_Name,null);
         //Log.d("vendor_services")
         res.moveToFirst();
         while (!res.isAfterLast())

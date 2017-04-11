@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.lions.torque.caring.servicecar.Book_Tracking">
+    tools:context="com.lions.torque.caring.servicecar.Submit_Review">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -14,35 +14,15 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            app:contentInsetLeft="0dp"
-            app:contentInsetStart="0dp"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" >
-
-            <LinearLayout
-                android:layout_width="80dp"
-                android:layout_height="match_parent"
-                android:id="@+id/back">
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:scaleType="center"
-                    android:id="@+id/profile_back"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_arrow_back_black_24dp"/>
-
-
-
-
-            </LinearLayout>
-
-            </android.support.v7.widget.Toolbar>
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_book__tracking" />
+    <include layout="@layout/content_submit__review" />
+
 
 
 </android.support.design.widget.CoordinatorLayout>

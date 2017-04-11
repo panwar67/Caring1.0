@@ -1,5 +1,6 @@
 package com.lions.torque.caring.servicecar;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -10,6 +11,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -34,10 +43,20 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.lions.torque.caring.R;
+import com.lions.torque.caring.adapters.Adapter_Garage_Car;
 import com.lions.torque.caring.sessions_manager.SessionManager;
 
-import java.util.Arrays;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+import Structs.Car_Struct;
+import Structs.Garage_Car_Bean;
 import lj_3d.gearloadinglayout.gearViews.TwoGearsLayout;
 
 public class LoginActivity extends AppCompatActivity implements
@@ -50,6 +69,7 @@ public class LoginActivity extends AppCompatActivity implements
     private FirebaseAuth.AuthStateListener mAuthListener;
     private CallbackManager mCallbackManager;
     SessionManager session;
+    String DOWN_URL = "http://www.car-ing.com/app/Get_Mobile.php";
 
 
     @Override
@@ -83,12 +103,8 @@ public class LoginActivity extends AppCompatActivity implements
                 if (user != null) {
 
 
-                    if(session.createLoginSession(user.getEmail(),user.getDisplayName(),user.getUid(),user.getPhotoUrl().toString()))
-                    {   Log.d("details",""+user.getEmail()+""+user.getPhotoUrl().toString()+""+ user.getDisplayName());
-                        Intent intent = new Intent(LoginActivity.this,Home_Screen.class);
-                        startActivity(intent);
-                        finish();
-                    }
+                    Get_Mobile(user.getDisplayName(),user.getUid(),user.getEmail(),user.getPhotoUrl().toString());
+
                     // User is signed in
                     Log.d("firebase_state", "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
@@ -110,11 +126,17 @@ public class LoginActivity extends AppCompatActivity implements
             public void onClick(View view)
             {
 
+                final ProgressDialog facebook = new ProgressDialog(getApplicationContext());
+                facebook.setIndeterminate(true);
+                facebook.setCanceledOnTouchOutside(false);
+                facebook.setMessage("Getting Credentials");
                 LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("public_profile","email"));
                 LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(final LoginResult loginResult) {
 
+
+                        facebook.cancel();
                         Log.d("inside_token",""+loginResult.getAccessToken().toString());
                         ProfileTracker profileTracker;
 
@@ -255,6 +277,10 @@ public class LoginActivity extends AppCompatActivity implements
     }
     private void firebaseAuthWithGoogle(final GoogleSignInAccount acct) {
         Log.d("google_firebase", "firebaseAuthWithGoogle:" + acct.getId());
+        final ProgressDialog facebook = new ProgressDialog(getApplicationContext());
+        facebook.setIndeterminate(true);
+        facebook.setCanceledOnTouchOutside(false);
+        facebook.setMessage("Signing in with Credentials");
 
         // [START_EXCLUDE silent]
        // showProgressDialog();
@@ -265,6 +291,7 @@ public class LoginActivity extends AppCompatActivity implements
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        facebook.cancel();
                         Log.d("google_firebase", "signInWithCredential:onComplete:" + task.isSuccessful());
 
 
@@ -298,15 +325,23 @@ public class LoginActivity extends AppCompatActivity implements
 
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d("facebook_token", "handleFacebookAccessToken:" + token);
+        final ProgressDialog facebook = new ProgressDialog(getApplicationContext());
+        facebook.setIndeterminate(true);
+        facebook.setCanceledOnTouchOutside(false);
+        facebook.setMessage("Signing in with Credentials");
+
         // [START_EXCLUDE silent]
         //showProgressDialog();
         // [END_EXCLUDE]
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        facebook.cancel();
                         Log.d("facebook_task", "signInWithCredential:onComplete:" + task.isSuccessful());
 
                         // If sign in fails, display a message to the user. If sign in succeeds
@@ -331,6 +366,75 @@ public class LoginActivity extends AppCompatActivity implements
                     }
                 });
     }
+
+    public void Get_Mobile (final String user_name, final String user_id, final String user_email, final String user_dp)
+    {
+
+        final ArrayList<Garage_Car_Bean> temp = new ArrayList<Garage_Car_Bean>();
+        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
+        progressDialog.setMessage("loading");
+        progressDialog.show();
+        final ArrayList<HashMap<String,String>> Ven_Data = new ArrayList<HashMap<String, String>>();
+        final StringRequest stringRequest = new StringRequest(Request.Method.POST, DOWN_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (s!=null)
+                        {
+                            Log.d("fetched_user",""+s);
+                            try {
+                                JSONObject jsonObject = new JSONObject(s);
+                                JSONArray jsonArray = jsonObject.getJSONArray("User_Mobile");
+                                JSONObject car_details = jsonArray.getJSONObject(0);
+
+                                session.createLoginSession(user_email,user_name,user_id,user_dp,car_details.getString("USER_MOBILE"));
+                                startActivity(new Intent(LoginActivity.this,Home_Screen.class));
+                                finish();
+
+
+                                } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+
+                        }
+                        else
+                        {
+                            Toast.makeText(getApplicationContext(),"Error in getting mobile no. or no mobile no. ",Toast.LENGTH_SHORT).show();
+                        }
+
+                            progressDialog.cancel();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        progressDialog.cancel();
+                        Toast.makeText(LoginActivity.this, "Error In Connectivity", Toast.LENGTH_LONG).show();
+                    }
+                }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //Converting Bitmap to String
+
+
+                HashMap<String,String> Keyvalue = new HashMap<String,String>();
+                Keyvalue.put("user_id",user_id);
+
+                //returning parameters
+                return Keyvalue;
+            }
+        };
+
+        //Creating a Request Queue
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        //Adding request to the queue
+        requestQueue.add(stringRequest);
+
+    }
+
 
 
 

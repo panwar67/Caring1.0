@@ -48,7 +48,7 @@ import Structs.Garage_Car_Bean;
 
 public class Book_Tracking extends AppCompatActivity {
 
-    TextView sub_total, subtotal_head, taxes, taxes_head, advance, advance_head, discount, discout_head, total, total_head, address, vend_name, invoice_head;
+    TextView sub_total,navhead, subtotal_head, taxes, taxes_head, advance, advance_head, discount, discout_head, total, total_head, address, vend_name, invoice_head;
     LinearLayout directions,back;
     ExpandableHeightGridView expandableHeightGridView;
     DBHelper dbHelper;
@@ -75,6 +75,8 @@ public class Book_Tracking extends AppCompatActivity {
                 return false;
             }
         });
+        navhead = (TextView)findViewById(R.id.navhead);
+
         expandableHeightGridView.setNumColumns(1);
         sub_total = (TextView)findViewById(R.id.book_track_subtotal);
         taxes = (TextView)findViewById(R.id.book_track_taxes);
@@ -105,6 +107,7 @@ public class Book_Tracking extends AppCompatActivity {
         });
         Typeface typeface = Typeface.createFromAsset(getApplicationContext().getAssets(),"SourceSansProLight.otf");
         sub_total.setTypeface(typeface);
+        navhead.setTypeface(typeface);
         subtotal_head.setTypeface(typeface);
         taxes.setTypeface(typeface);
         taxes_head.setTypeface(typeface);
