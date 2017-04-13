@@ -126,17 +126,13 @@ public class LoginActivity extends AppCompatActivity implements
             public void onClick(View view)
             {
 
-                final ProgressDialog facebook = new ProgressDialog(getApplicationContext());
-                facebook.setIndeterminate(true);
-                facebook.setCanceledOnTouchOutside(false);
-                facebook.setMessage("Getting Credentials");
-                LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("public_profile","email"));
+               LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("public_profile","email"));
                 LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(final LoginResult loginResult) {
 
 
-                        facebook.cancel();
+
                         Log.d("inside_token",""+loginResult.getAccessToken().toString());
                         ProfileTracker profileTracker;
 
@@ -229,6 +225,7 @@ public class LoginActivity extends AppCompatActivity implements
 
 
 
+
     }
 
     @Override
@@ -277,10 +274,6 @@ public class LoginActivity extends AppCompatActivity implements
     }
     private void firebaseAuthWithGoogle(final GoogleSignInAccount acct) {
         Log.d("google_firebase", "firebaseAuthWithGoogle:" + acct.getId());
-        final ProgressDialog facebook = new ProgressDialog(getApplicationContext());
-        facebook.setIndeterminate(true);
-        facebook.setCanceledOnTouchOutside(false);
-        facebook.setMessage("Signing in with Credentials");
 
         // [START_EXCLUDE silent]
        // showProgressDialog();
@@ -291,7 +284,6 @@ public class LoginActivity extends AppCompatActivity implements
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        facebook.cancel();
                         Log.d("google_firebase", "signInWithCredential:onComplete:" + task.isSuccessful());
 
 
@@ -323,12 +315,14 @@ public class LoginActivity extends AppCompatActivity implements
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d("facebook_token", "handleFacebookAccessToken:" + token);
-        final ProgressDialog facebook = new ProgressDialog(getApplicationContext());
-        facebook.setIndeterminate(true);
-        facebook.setCanceledOnTouchOutside(false);
-        facebook.setMessage("Signing in with Credentials");
 
         // [START_EXCLUDE silent]
         //showProgressDialog();
@@ -341,7 +335,7 @@ public class LoginActivity extends AppCompatActivity implements
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
-                        facebook.cancel();
+                     //   facebook.cancel();
                         Log.d("facebook_task", "signInWithCredential:onComplete:" + task.isSuccessful());
 
                         // If sign in fails, display a message to the user. If sign in succeeds
@@ -370,11 +364,6 @@ public class LoginActivity extends AppCompatActivity implements
     public void Get_Mobile (final String user_name, final String user_id, final String user_email, final String user_dp)
     {
 
-        final ArrayList<Garage_Car_Bean> temp = new ArrayList<Garage_Car_Bean>();
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
-        progressDialog.setMessage("loading");
-        progressDialog.show();
-        final ArrayList<HashMap<String,String>> Ven_Data = new ArrayList<HashMap<String, String>>();
         final StringRequest stringRequest = new StringRequest(Request.Method.POST, DOWN_URL,
                 new Response.Listener<String>() {
                     @Override
@@ -394,22 +383,26 @@ public class LoginActivity extends AppCompatActivity implements
 
                                 } catch (JSONException e) {
                                 e.printStackTrace();
+                                session.createLoginSession(user_email,user_name,user_id,user_dp,null);
+                                startActivity(new Intent(LoginActivity.this,Home_Screen.class));
+                                finish();
+
                             }
 
 
                         }
                         else
                         {
-                            Toast.makeText(getApplicationContext(),"Error in getting mobile no. or no mobile no. ",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"Error in getting mobile no. or No mobile no. ",Toast.LENGTH_SHORT).show();
                         }
 
-                            progressDialog.cancel();
+                           // progressDialog.cancel();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-                        progressDialog.cancel();
+                        //progressDialog.cancel();
                         Toast.makeText(LoginActivity.this, "Error In Connectivity", Toast.LENGTH_LONG).show();
                     }
                 }){

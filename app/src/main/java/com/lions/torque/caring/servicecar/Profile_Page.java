@@ -84,6 +84,7 @@ public class Profile_Page extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        startActivity(new Intent(Profile_Page.this,Home_Screen.class));
         finish();
     }
 }

@@ -84,7 +84,7 @@ public class Success_Booking extends AppCompatActivity {
         distance.setText(Distance);
         Name = sessionManager.getUserDetails().get("name");
         //date.setText(Date);
-        String message = "Hi "+Name+" we are delighted to receive your booking, please wait while "+Vendor_Name+" confirms.";
+        String message = "Hi "+Name+" we are delighted to receive your request for service, please wait while "+Vendor_Name+" confirms your request.";
         Generate_Booking(Order_id,Vendor_Name,sessionManager.getUserDetails().get("mobile"),message,sessionManager.getUserDetails().get("name"),"caring");
 
     }

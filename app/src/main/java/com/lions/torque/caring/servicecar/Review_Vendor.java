@@ -215,6 +215,13 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        sessionManager = new SessionManager(getApplicationContext());
+        contact.setText(sessionManager.getUserDetails().get("mobile"));
+    }
+
+    @Override
     public void onTimeSet(TimePicker timePicker, int i, int i1)
     {
 

@@ -1030,6 +1030,7 @@ public class Home_Screen extends AppCompatActivity
 
         if (id == R.id.nav_profile) {
             startActivity(new Intent(Home_Screen.this,Profile_Page.class));
+            finish();
 
         } else if (id == R.id.nav_garage) {
 

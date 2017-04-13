@@ -115,6 +115,7 @@ public class Loading_Data extends AppCompatActivity implements GoogleApiClient.C
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
 
+                    Log.d("user present",""+user.getDisplayName());
                     dbHelper.Init_Search_Data();
                     Load_Vendor_Data();
 
