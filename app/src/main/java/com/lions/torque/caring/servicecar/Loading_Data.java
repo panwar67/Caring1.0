@@ -613,6 +613,7 @@ public class Loading_Data extends AppCompatActivity implements GoogleApiClient.C
                                     map.put(Ven_List_Struct.Ven_price_high,details.getString(Ven_List_Struct.Ven_price_high));
                                     map.put(Ven_List_Struct.Ven_Timings_Open,details.getString(Ven_List_Struct.Ven_Timings_Open));
                                     map.put(Ven_List_Struct.Ven_Timings_Close,details.getString(Ven_List_Struct.Ven_Timings_Close));
+                                    map.put(Ven_List_Struct.Ven_Contact,details.getString(Ven_List_Struct.Ven_Contact));
                                     Ven_Data.add(map);
                                     Search_Data.add(search);
                                 }

@@ -34,7 +34,7 @@ import Structs.Book_Struct;
 public class Success_Booking extends AppCompatActivity {
 
     TextView order_id, date, location, destination, price, distance;
-    String Order_id, Date, Location, Destination, Distance, Price, Name, Vendor_Name;
+    String Order_id, Date, Location, Destination, Distance, Price, Name, Vendor_Name, Vendor_number;
     Button track;
     SessionManager sessionManager;
     String DOWN_URL = "http://www.car-ing.com/sendsms.php";
@@ -60,6 +60,8 @@ public class Success_Booking extends AppCompatActivity {
         Price = bundle.getString("order_price");
         Distance = bundle.getString("order_distance");
         Vendor_Name = bundle.getString("vendor_name");
+        Vendor_number = bundle.getString("vendor_mob");
+
         Calendar c = Calendar.getInstance();
         track = (Button)findViewById(R.id.button);
         track.setText("Sending SMS regarding above Booking ");
@@ -110,9 +112,16 @@ public class Success_Booking extends AppCompatActivity {
 
 
                             }
+                            else
+                            {
+                                track.setText("SMS Sent");
+                                Generate_Booking_Email(order_id,vendor_name,username,sessionManager.getUserDetails().get("email"));
+
+                            }
                         }
                         else
                         {
+                            track.setText("Sending Mail");
                             Toast.makeText(getApplicationContext(),"Sms may not be delivered",Toast.LENGTH_SHORT).show();
                             Generate_Booking_Email(order_id,vendor_name,username,sessionManager.getUserDetails().get("email"));
 
@@ -127,6 +136,7 @@ public class Success_Booking extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         //progressDialog.cancel();
+                        track.setText("SMS Sent");
                         Log.d("error",""+volleyError.getMessage()+" "+volleyError.toString()+" ");
                         Toast.makeText(Success_Booking.this, "Error In Connectivity", Toast.LENGTH_LONG).show();
                     }
@@ -143,6 +153,8 @@ public class Success_Booking extends AppCompatActivity {
                 Keyvalue.put("sender",sender_id);
                 Keyvalue.put("message",message);
                 Keyvalue.put("username",username);
+                Keyvalue.put("vendor_mob",Vendor_number);
+
 
                 Log.d("sms_cut",""+Keyvalue);
                 //returning parameters
@@ -156,6 +168,7 @@ public class Success_Booking extends AppCompatActivity {
 
         //Adding request to the queue
         requestQueue.add(stringRequest);
+        track.setText("SMS Sent");
 
         return  true;
     }
@@ -179,6 +192,9 @@ public class Success_Booking extends AppCompatActivity {
 
                         }
 
+                        track.setText("CLICK TO TRACK");
+
+
                         //progressDialog.cancel();
 
                     }
@@ -187,6 +203,9 @@ public class Success_Booking extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                       //  progressDialog.cancel();
+
+                        track.setText("CLICK TO TRACK");
+
                         Log.d("error",""+volleyError.getMessage()+" "+volleyError.toString()+" ");
                         Toast.makeText(Success_Booking.this, "Error In Connectivity", Toast.LENGTH_LONG).show();
                     }
@@ -213,6 +232,8 @@ public class Success_Booking extends AppCompatActivity {
 
         //Adding request to the queue
         requestQueue.add(stringRequest);
+
+        track.setText("CLICK TO TRACK");
 
         return  true;
     }

@@ -167,6 +167,8 @@ public class Book_Tracking extends AppCompatActivity {
                                 data.setStatus(jsonObject1.getString(Book_Track.status));
                                 data.setDiscount(jsonObject1.getString(Book_Track.discount));
                                 data.setId(booking_id);
+                                data.setOtp(jsonObject1.getString("BOOK_OTP"));
+
                                 book_track_bean =data;
                                 SetUp_Tracking_Page(data);
 
@@ -304,8 +306,19 @@ public class Book_Tracking extends AppCompatActivity {
         taxes.setText(book_track_bean.getTaxes());
         advance.setText(book_track_bean.getAdvance());
         discount.setText(book_track_bean.getDiscount());
-//        float sum = Float.parseFloat(book_track_bean.getPrice())+Float.parseFloat(book_track_bean.getTaxes())-Float.parseFloat(book_track_bean.getAdvance())-Float.parseFloat(book_track_bean.getDiscount());
-  //      total.setText(""+sum);
+        try
+        {
+            float sum = Float.parseFloat(book_track_bean.getPrice())+Float.parseFloat(book_track_bean.getTaxes())-Float.parseFloat(book_track_bean.getAdvance())-Float.parseFloat(book_track_bean.getDiscount());
+            total.setText(""+sum);
+
+        }
+        catch (NumberFormatException e)
+        {
+            float sum = Float.parseFloat(book_track_bean.getPrice())+Float.parseFloat(book_track_bean.getTaxes())-Float.parseFloat(book_track_bean.getAdvance())-0;
+            total.setText(""+sum);
+
+
+        }
         address.setText(book_track_bean.getAddress());
         vend_name.setText(book_track_bean.getVend_name());
 

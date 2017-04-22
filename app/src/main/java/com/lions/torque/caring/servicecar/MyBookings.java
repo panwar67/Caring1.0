@@ -111,6 +111,11 @@ public class MyBookings extends AppCompatActivity {
                                     data.setStatus(jsonObject1.getString(Book_Track.status));
                                     data.setDiscount(jsonObject1.getString(Book_Track.discount));
                                     data.setId(jsonObject1.getString(Book_Track.id));
+                                    data.setOtp(jsonObject1.getString("BOOK_OTP"));
+                                    data.setBook_contact(jsonObject1.getString("BOOK_VENDOR_MOB"));
+                                    data.setStart_date(jsonObject1.getString("BOOK_START_DATE"));
+
+
                                     data_book.add(data);
 
                                 }

@@ -59,9 +59,11 @@ public class Vendor_Serivice_Adapter extends BaseAdapter implements SpinnerAdapt
         service.setChecked(false);
         service.setTypeface(typeface);
         service.setText(result.get(i).get("SERVE_NAME"));
-        service.setOnTouchListener(new View.OnTouchListener() {
+
+        service.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
+            public void onClick(View view) {
+
                 service.setChecked(!service.isChecked());
                 if(service.isChecked()) {
 
@@ -72,9 +74,9 @@ public class Vendor_Serivice_Adapter extends BaseAdapter implements SpinnerAdapt
                 {
                     Decheck_items(result.get(i));
                 }
-                return false;
             }
         });
+
 
         return root ;
     }

@@ -78,11 +78,13 @@ public class MyBookings_Adapter extends BaseAdapter {
         Typeface typeface = Typeface.createFromAsset(context.getAssets(),"OpenSans.ttf");
 
         TextView status =(TextView)root.findViewById(R.id.order_status);
+        TextView otp = (TextView)root.findViewById(R.id.book_otp);
         TextView vend_name = (TextView)root.findViewById(R.id.book_vendor_name);
         TextView booking_amount = (TextView)root.findViewById(R.id.booking_amount);
         TextView book_data = (TextView)root.findViewById(R.id.book_date);
         TextView book_id = (TextView)root.findViewById(R.id.book_id);
         book_data.setText(month_name);
+        otp.setText("OTP : "+result.get(i).getOtp());
         status.setText(" "+result.get(i).getStatus());
         vend_name.setText(result.get(i).getVend_name()+"");
         booking_amount.setText(""+result.get(i).getAdvance());

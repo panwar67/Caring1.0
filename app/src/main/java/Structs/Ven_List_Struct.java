@@ -26,6 +26,8 @@ public class Ven_List_Struct
     public static String Ven_price_low = "VEN_PRICE_LOW";
     public static String Ven_price_high = "VEN_PRICE_HIGH";
     public static String Ven_Address = "VEN_ADDRESS";
+    public static String Ven_Contact = "VEN_CONTACT";
+    public static String Ven_Gcm = "VEN_GCM";
 
 
 

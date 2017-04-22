@@ -36,7 +36,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public DBHelper(Context context)
     {
-        super(context, "CaringApp2", null, 6);
+        super(context, "CaringApp21", null, 6);
         read = this.getReadableDatabase();
         write = this.getWritableDatabase();
     }
@@ -71,7 +71,12 @@ public class DBHelper extends SQLiteOpenHelper {
                 "" + Ven_List_Struct.Ven_Lat + " text, " +
                 "" + Ven_List_Struct.Ven_Long + " text, " +
                 "" + Ven_List_Struct.Ven_Url + " text, " +
-                "" + Ven_List_Struct.Ven_No_Img + " text, "+Ven_List_Struct.Ven_Serve+" text, "+Ven_List_Struct.Ven_Segment+" text, "+Ven_List_Struct.Ven_price_low+" integer, "+Ven_List_Struct.Ven_price_high+" integer, "+Ven_List_Struct.Ven_Timings_Open+" text, "+Ven_List_Struct.Ven_Timings_Close+" text, "+Ven_List_Struct.Ven_Serve_Name+" text, "+Ven_List_Struct.Ven_Segment_Name+" text, "+Ven_List_Struct.Ven_Sn+" text,  "+Ven_List_Struct.Ven_Address+" text)");
+                "" + Ven_List_Struct.Ven_No_Img + " text, "+Ven_List_Struct.Ven_Serve+" text, " +
+                ""+Ven_List_Struct.Ven_Segment+" text, "+Ven_List_Struct.Ven_price_low+" integer, " +
+                ""+Ven_List_Struct.Ven_price_high+" integer, "+Ven_List_Struct.Ven_Timings_Open+" text, " +
+                ""+Ven_List_Struct.Ven_Timings_Close+" text, "+Ven_List_Struct.Ven_Serve_Name+" text, " +
+                ""+Ven_List_Struct.Ven_Segment_Name+" text, "+Ven_List_Struct.Ven_Sn+" text,  " +
+                ""+Ven_List_Struct.Ven_Address+" text, "+Ven_List_Struct.Ven_Contact+" text)");
 
         sqLiteDatabase.execSQL("CREATE TABLE " + Campaign_Struct.Table_Name + " " +
                 "" + "(" + Campaign_Struct.Camp_Id + " text, " + "" +
@@ -205,6 +210,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 contentValues.put(Ven_List_Struct.Ven_Serve_Name,data.get(i).get(Ven_List_Struct.Ven_Serve_Name));
                 contentValues.put(Ven_List_Struct.Ven_Segment,data.get(i).get(Ven_List_Struct.Ven_Segment));
                 contentValues.put(Ven_List_Struct.Ven_Segment_Name,data.get(i).get(Ven_List_Struct.Ven_Segment_Name));
+                contentValues.put(Ven_List_Struct.Ven_Contact,data.get(i).get(Ven_List_Struct.Ven_Contact));
                 long row = write.insertWithOnConflict(Ven_List_Struct.Table_Name, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
                 //Log.d("Vendor_List", "" + row);
             }
@@ -618,6 +624,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
             vendor_list_bean.setVend_Address(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Address)));
             vendor_list_bean.setVend_Distance((float) distance(Double.parseDouble(lat),Double.parseDouble(longitude),Double.parseDouble(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Lat))),Double.parseDouble(res.getString(res.getColumnIndex(Ven_List_Struct.Ven_Long)))));
+            vendor_list_bean.setVend_Contact(res.getString(res.getColumnIndex("VEN_CONTACT")));
             res.moveToNext();
         }
 

@@ -28,6 +28,26 @@ public class Vendor_List_Bean implements Serializable
     private String Vend_Serve;
     private String Vend_Description;
     private String Vend_Address;
+    private String Vend_Contact;
+    private String Vend_Gcm;
+
+
+    public String getVend_Gcm() {
+        return this.Vend_Gcm;
+    }
+
+    public void setVend_Gcm(String vend_Gcm) {
+        this.Vend_Gcm = vend_Gcm;
+    }
+
+
+    public String getVend_Contact() {
+        return this.Vend_Contact;
+    }
+
+    public void setVend_Contact(String vend_Contact) {
+        this.Vend_Contact = vend_Contact;
+    }
 
     public String getVend_Address() {
         return this.Vend_Address;

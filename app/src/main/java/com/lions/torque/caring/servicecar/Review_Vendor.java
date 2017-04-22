@@ -46,6 +46,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import Structs.Book_Struct;
 import Structs.Car_Struct;
@@ -137,9 +138,11 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
                 else
                 {
                     try {
+
+
                         Generate_Booking(""+comments.getText().toString(),vendor_list_bean.getVend_Address(),car_session.getUserDetails().get("CAR_CODE"),
                                 car_session.getUserDetails().get("CAR_MODEL"),"123","pay123",total.getText().toString(),
-                                hour+" "+min,"PENDING",vend_code,vend_name,Get_Booking_Details(serve_list).toString(),vendor_list_bean.getVend_Lat(),vendor_list_bean.getVend_long(),taxes.getText().toString(),sessionManager.getUserDetails().get("uid"));
+                                hour+" "+min,"PENDING",vend_code,vend_name,Get_Booking_Details(serve_list).toString(),vendor_list_bean.getVend_Lat(),vendor_list_bean.getVend_long(),taxes.getText().toString(),sessionManager.getUserDetails().get("uid"),vendor_list_bean.getVend_Contact());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -159,11 +162,14 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
             @Override
             public void onTimeChanged(TimePicker timePicker, int i, int i1) {
 
+
                 hour = ""+i+"";
                 min = ""+i1+"";
                 Log.d("selected_time",""+i+" , "+i1);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     Log.d("selected_time_changed",""+timePicker.getHour()+" "+timePicker.getMinute());
+                    hour = String.valueOf(timePicker.getHour());
+                    min = String.valueOf(timePicker.getMinute());
                 }
 
             }
@@ -236,7 +242,7 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
                                     final String book_car_code, final String book_car_name, final String book_date, final String book_payid,
                                     final String book_price, final String book_start_time,
                                     final String book_status, final String book_vend, final String book_vend_name,
-                                    final String book_details, final String book_lat, final String book_long, final String book_taxes, final String book_user)
+                                    final String book_details, final String book_lat, final String book_long, final String book_taxes, final String book_user, final String book_contact)
     {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, DOWN_URL,
                 new Response.Listener<String>() {
@@ -255,6 +261,8 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
                                 bundle.putString("order_price","0");
                                 bundle.putString("order_distance", String.valueOf(vendor_list_bean.getVend_Distance()));
                                 bundle.putString("vendor_name",vendor_list_bean.getVend_Name());
+                                bundle.putString("vendor_mob",vendor_list_bean.getVend_Contact());
+
                                 startActivity(new Intent(Review_Vendor.this,Success_Booking.class).putExtra("data",bundle));
                                 finish();
                             } catch (JSONException e) {
@@ -294,7 +302,17 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
                 Keyvalue.put(Book_Struct.Book_taxes,book_taxes);
                 Keyvalue.put("BOOK_DETAILS",book_details);
                 Keyvalue.put("BOOK_USER",book_user);
-                Log.d("final_cut",""+Keyvalue);
+                Keyvalue.put("book_user_name",sessionManager.getUserDetails().get("name"));
+                Keyvalue.put("book_user_mob",sessionManager.getUserDetails().get("mobile"));
+                Keyvalue.put("book_vend_mob",book_contact);
+                Keyvalue.put("book_user_lat",location_session.getUserDetails().get("lat"));
+                Keyvalue.put("book_user_long",location_session.getUserDetails().get("long"));
+                Keyvalue.put("book_start_date","4/4");
+                Random r = new Random();
+                int i1 = r.nextInt(9997 - 1001);
+                Keyvalue.put("book_otp",i1+"");
+
+                Log.d("final_cut_review",""+Keyvalue);
                 //returning parameters
                 return Keyvalue;
             }

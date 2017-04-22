@@ -22,6 +22,35 @@ public class Book_Track_Bean
     public String longitude ;
     public String start_time;
     public String des;
+    public String otp;
+    public String start_date;
+    public String book_contact;
+
+    public String getBook_contact() {
+        return book_contact;
+    }
+
+
+
+    public String getOtp() {
+        return otp;
+    }
+
+    public String getStart_date() {
+        return start_date;
+    }
+
+    public void setBook_contact(String book_contact) {
+        this.book_contact = book_contact;
+    }
+
+    public void setOtp(String otp) {
+        this.otp = otp;
+    }
+
+    public void setStart_date(String start_date) {
+        this.start_date = start_date;
+    }
 
     public void setDes(String des) {
         this.des = des;

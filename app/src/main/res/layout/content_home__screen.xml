@@ -71,7 +71,7 @@
         <LinearLayout
             android:layout_marginTop="15dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
@@ -81,37 +81,39 @@
                 android:text="Select Your Service"/>
 
             <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:src="@drawable/mechanical"
-                android:id="@+id/mechanical_service"
-                android:layout_marginRight="5dp"
+                android:background="#ffffff"
+                android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_height="70dp"
+                android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/electrical_services"
-                android:src="@drawable/electricalrepair"
-                android:layout_weight="1"
-                android:layout_marginRight="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                <ImageView
+                    android:background="#ffffff"
+                    android:src="@drawable/mech"
+                    android:id="@+id/mechanical_service"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
 
-            <ImageView
-               android:src="@drawable/bumper"
-                android:layout_weight="1"
-                android:id="@+id/bumper_service"
-                android:layout_width="match_parent"
-                android:layout_height="50dp" />
+                <ImageView
+                    android:id="@+id/electrical_services"
+                    android:src="@drawable/elec"
+                    android:layout_weight="1"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:src="@drawable/bump"
+                    android:layout_weight="1"
+                    android:id="@+id/bumper_service"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
 
 
-        </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -155,7 +157,8 @@
             <LinearLayout
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+
+                android:layout_height="70dp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -163,24 +166,24 @@
                     android:src="@drawable/tire"
                     android:id="@+id/tyre_service"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"/>
 
                 <ImageView
-                    android:src="@drawable/suspension"
+                    android:src="@drawable/susp"
                     android:layout_weight="1"
                     android:id="@+id/suspension_service"
                     android:layout_marginRight="5dp"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp" />
+                    android:layout_height="match_parent" />
 
                 <ImageView
 
                     android:layout_weight="1"
                     android:id="@+id/aligment_service"
-                    android:src="@drawable/alignmentq"
+                    android:src="@drawable/alig"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp" />
+                    android:layout_height="match_parent" />
 
 
 
@@ -227,7 +230,7 @@
             <LinearLayout
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -235,23 +238,23 @@
                     android:src="@drawable/light"
                     android:id="@+id/light_service"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"/>
 
                 <ImageView
                     android:id="@+id/key_service"
-                    android:src="@drawable/carkey"
+                    android:src="@drawable/key"
                     android:layout_weight="1"
                     android:layout_marginRight="5dp"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp" />
+                    android:layout_height="match_parent" />
 
                 <ImageView
                     android:id="@+id/full_service"
                     android:layout_weight="1"
-                    android:src="@drawable/service"
+                    android:src="@drawable/full"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp" />
+                    android:layout_height="match_parent" />
 
 
 
@@ -297,31 +300,31 @@
             <LinearLayout
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/ac_service"
-                    android:src="@drawable/acq"
+                    android:src="@drawable/ac"
                     android:layout_marginRight="5dp"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"/>
 
                 <ImageView
                     android:id="@+id/battery_service"
-                    android:src="@drawable/battery"
+                    android:src="@drawable/batt"
                     android:layout_weight="1"
                     android:layout_marginRight="5dp"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp" />
+                    android:layout_height="match_parent" />
 
                 <ImageView
                     android:id="@+id/body_service"
                     android:src="@drawable/bodyshop"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp" />
+                    android:layout_height="match_parent" />
 
 
 
@@ -367,31 +370,31 @@
             <LinearLayout
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/acces_service"
                     android:layout_marginRight="5dp"
-                    android:src="@drawable/caraccess"
+                    android:src="@drawable/cara"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"/>
 
                 <ImageView
                     android:id="@+id/gauges_service"
-                    android:src="@drawable/speedometer"
+                    android:src="@drawable/gaug"
                     android:layout_weight="1"
                     android:layout_marginRight="5dp"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp" />
+                    android:layout_height="match_parent" />
 
                 <ImageView
                     android:id="@+id/wind_service"
-                    android:src="@drawable/windshield"
+                    android:src="@drawable/wind"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp" />
+                    android:layout_height="match_parent" />
 
 
 
