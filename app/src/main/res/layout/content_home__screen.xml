@@ -5,10 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+
     xmlns:custom="http://schemas.android.com/apk/res-auto"
 
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -21,60 +18,601 @@
         android:scrollbars="none"
 
         android:layout_width="match_parent"
+
         android:layout_height="match_parent">
 
+
+
+
+
     <LinearLayout
+        android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    <com.daimajia.slider.library.SliderLayout
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#00bfa5"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/head_popular"
+                android:layout_marginTop="10dp"
+                android:textSize="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Popular Services"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginLeft="10dp"/>
+
+
+                     <LinearLayout
+                         android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:src="@drawable/qmechanical"
+                        android:id="@+id/mechanical_service"
+                        android:layout_marginRight="5dp"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/mech_services_text"
+
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="MECHANICAL"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimary"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/electrical_services"
+                        android:src="@drawable/qelectrical"
+                        android:layout_weight="1"
+                        android:layout_marginRight="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <TextView
+                        android:id="@+id/electrical_services_text"
+
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ELECTRICAL"
+                        android:textAlignment="center"
+                        android:paddingLeft="-10dp"
+                        android:textColor="@color/colorPrimary"/>
+
+                </LinearLayout>
+
+                         <LinearLayout
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content"
+                             android:orientation="vertical"
+                             android:layout_weight="1">
+
+                             <ImageView
+                                 android:src="@drawable/qwheel"
+                                 android:id="@+id/tyre_service"
+                                 android:layout_marginRight="5dp"
+                                 android:layout_width="match_parent"
+                                 android:layout_height="match_parent"
+                                 android:layout_weight="1"/>
+
+                             <TextView
+
+                                 android:id="@+id/tyre_services_text"
+                                 android:layout_marginTop="10dp"
+                                 android:layout_width="match_parent"
+                                 android:layout_height="wrap_content"
+                                 android:text="TYRE"
+                                 android:textAlignment="center"
+                                 android:textColor="@color/colorPrimary"/>
+
+
+                         </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:src="@drawable/qcaraccess"
+                        android:id="@+id/acces_service"
+                        android:layout_marginRight="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:id="@+id/access_services_text"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ACCESSORIES"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimary"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/suspension_service"
+                        android:src="@drawable/qsuspension"
+                        android:layout_weight="1"
+                        android:layout_marginRight="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <TextView
+
+                        android:id="@+id/suspension_services_text"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="SUSPENSION"
+                        android:textAlignment="center"
+                        android:paddingLeft="-10dp"
+                        android:textColor="@color/colorPrimary"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:src="@drawable/qbumper"
+                        android:id="@+id/bumper_service"
+                        android:layout_marginRight="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+
+                    <TextView
+
+                        android:id="@+id/bumper_services_text"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="BUMPER"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimary"/>
+
+
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+
+
+
+
+
+
+        </LinearLayout>
+
+
+
+
+        <TextView
+            android:layout_marginTop="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pocket Friendly Services"
+            android:textColor="@color/colorPrimary"
+            android:id="@+id/head_pocket"
+            android:textSize="20dp"
+            android:layout_marginLeft="10dp"/>
+
+        <HorizontalScrollView
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+<LinearLayout
+    android:layout_marginTop="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:background="@android:color/white"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_gravity="center_vertical"
+        android:layout_width="100dp"
+
+        android:background="@android:color/white"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+  >
+
+        <ImageView
+            android:src="@drawable/qkey"
+
+            android:id="@+id/key_service"
+            android:layout_marginRight="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            />
+
+        <TextView
+            android:id="@+id/key_services_text"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="KEY"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+   >
+
+        <ImageView
+            android:src="@drawable/qmeter"
+
+            android:id="@+id/gauges_service"
+            android:layout_marginRight="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            />
+
+        <TextView
+            android:id="@+id/gauges_services_text"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GAUGES"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"/>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+
+        android:layout_weight="1"
+        >
+
+        <ImageView
+
+            android:src="@drawable/qairconditioner"
+            android:id="@+id/ac_service"
+            android:scaleType="center"
+            android:layout_marginRight="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            />
+
+        <TextView
+            android:id="@+id/ac_services_text"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="A/C"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical"
+        >
+
+        <ImageView
+
+            android:src="@drawable/qlight1"
+
+            android:id="@+id/light_service"
+            android:layout_marginRight="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            />
+
+        <TextView
+            android:id="@+id/light_services_text"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="LIGHTS"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical"
+        >
+
+        <ImageView
+
+            android:src="@drawable/qbattery"
+
+            android:id="@+id/battery_service"
+            android:layout_marginRight="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            />
+
+        <TextView
+            android:id="@+id/battery_services_text"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="BATTERY"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"/>
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
+
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20dp"
+                android:layout_width="match_parent"
+                android:id="@+id/head_essen"
+                android:layout_height="wrap_content"
+                android:text="Essentials"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/wind_service"
+                        android:src="@drawable/qwindshield"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+
+                        android:layout_marginTop="10dp"
+                        android:text="WIND SHIELD"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimary"
+                        android:id="@+id/wind_services_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:src="@drawable/qalignment"
+                        android:id="@+id/aligment_service"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/alignment_services_text"
+                        android:text="ALIGNMENT"
+                        android:layout_marginTop="10dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimary"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+
+
+                </LinearLayout>
+
+
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/body_service"
+                        android:src="@drawable/qbodyshop"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+
+                        android:layout_marginTop="10dp"
+                        android:text="BODY SHOP"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimary"
+                        android:id="@+id/body_services_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:src="@drawable/qfullserv"
+                        android:id="@+id/full_service"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/full_service_services_text"
+                        android:text="FULL SERVICE"
+                        android:layout_marginTop="10dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimary"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+
+
+                </LinearLayout>
+
+
+
+
+
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <com.daimajia.slider.library.SliderLayout
         android:id="@+id/slider"
+        android:visibility="gone"
         android:background="@drawable/white_shadow"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         />
 
 
-    <com.daimajia.slider.library.Indicators.PagerIndicator
-        android:id="@+id/custom_indicator"
-        android:layout_width="50dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="5dp"
-        android:gravity="center_vertical"
-        android:layout_gravity="center"
-        custom:selected_color="#00bfa5"
-        custom:unselected_color="#55333333"
-        custom:shape="oval"
-        custom:selected_padding_left="5dp"
-        custom:selected_padding_right="5dp"
-        custom:unselected_padding_left="5dp"
-        custom:unselected_padding_right="5dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        custom:selected_width="6dp"
-        custom:selected_height="6dp"
-        custom:unselected_width="6dp"
-        custom:unselected_height="6dp"
-        android:layout_marginBottom="5dp"
-        />
 
-    <SearchView
-        android:layout_width="match_parent"
-        android:id="@+id/search_view"
 
-        android:queryHint="Search for service and shops"
-        android:background="@drawable/white_shadow"
-        android:layout_height="wrap_content">
-
-    </SearchView>
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/service_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -90,14 +628,14 @@
                 <ImageView
                     android:background="#ffffff"
                     android:src="@drawable/mech"
-                    android:id="@+id/mechanical_service"
+                    android:id="@+id/mechanical_servicee"
                     android:layout_marginRight="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"/>
 
                 <ImageView
-                    android:id="@+id/electrical_services"
+                    android:id="@+id/electrical_servicese"
                     android:src="@drawable/elec"
                     android:layout_weight="1"
                     android:layout_marginRight="5dp"
@@ -107,7 +645,7 @@
                 <ImageView
                     android:src="@drawable/bump"
                     android:layout_weight="1"
-                    android:id="@+id/bumper_service"
+                    android:id="@+id/bumper_servicee"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
@@ -122,7 +660,7 @@
 
 
                 <TextView
-                    android:id="@+id/mech_services_text"
+                    android:id="@+id/mech_services_texte"
                     android:layout_weight="1"
                     android:textAlignment="center"
                     android:layout_marginRight="5dp"
@@ -131,7 +669,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/electrical_services_text"
+                    android:id="@+id/electrical_services_texte"
                     android:layout_weight="1"
 
                     android:textAlignment="center"
@@ -141,7 +679,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/bumper_services_text"
+                    android:id="@+id/bumper_services_texte"
                     android:layout_weight="1"
                     android:textAlignment="center"
                     android:layout_marginRight="5dp"
@@ -164,7 +702,7 @@
                 <ImageView
                     android:layout_marginRight="5dp"
                     android:src="@drawable/tire"
-                    android:id="@+id/tyre_service"
+                    android:id="@+id/tyre_servicee"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"/>
@@ -172,7 +710,7 @@
                 <ImageView
                     android:src="@drawable/susp"
                     android:layout_weight="1"
-                    android:id="@+id/suspension_service"
+                    android:id="@+id/suspension_servicee"
                     android:layout_marginRight="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
@@ -180,7 +718,7 @@
                 <ImageView
 
                     android:layout_weight="1"
-                    android:id="@+id/aligment_service"
+                    android:id="@+id/aligment_servicee"
                     android:src="@drawable/alig"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
@@ -197,7 +735,7 @@
 
 
                 <TextView
-                    android:id="@+id/tyre_services_text"
+                    android:id="@+id/tyre_services_texte"
                     android:layout_weight="1"
                     android:textAlignment="center"
                     android:layout_marginRight="5dp"
@@ -206,7 +744,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/suspension_services_text"
+                    android:id="@+id/suspension_services_texte"
                     android:layout_weight="1"
 
                     android:textAlignment="center"
@@ -216,7 +754,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/alignment_services_text"
+                    android:id="@+id/alignment_services_texte"
                     android:layout_weight="1"
                     android:textAlignment="center"
                     android:layout_marginRight="5dp"
@@ -236,13 +774,13 @@
                 <ImageView
                     android:layout_marginRight="5dp"
                     android:src="@drawable/light"
-                    android:id="@+id/light_service"
+                    android:id="@+id/light_servicee"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"/>
 
                 <ImageView
-                    android:id="@+id/key_service"
+                    android:id="@+id/key_servicee"
                     android:src="@drawable/key"
                     android:layout_weight="1"
                     android:layout_marginRight="5dp"
@@ -250,7 +788,7 @@
                     android:layout_height="match_parent" />
 
                 <ImageView
-                    android:id="@+id/full_service"
+                    android:id="@+id/full_servicee"
                     android:layout_weight="1"
                     android:src="@drawable/full"
                     android:layout_width="match_parent"
@@ -267,7 +805,7 @@
 
 
                 <TextView
-                    android:id="@+id/light_services_text"
+                    android:id="@+id/light_services_texte"
                     android:layout_weight="1"
                     android:textAlignment="center"
                     android:layout_marginRight="5dp"
@@ -276,7 +814,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/key_services_text"
+                    android:id="@+id/key_services_texte"
                     android:layout_weight="1"
 
                     android:textAlignment="center"
@@ -286,7 +824,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/full_service_services_text"
+                    android:id="@+id/full_service_services_texte"
                     android:layout_weight="1"
                     android:textAlignment="center"
                     android:layout_marginRight="5dp"
@@ -304,7 +842,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/ac_service"
+                    android:id="@+id/ac_servicee"
                     android:src="@drawable/ac"
                     android:layout_marginRight="5dp"
                     android:layout_width="match_parent"
@@ -312,7 +850,7 @@
                     android:layout_weight="1"/>
 
                 <ImageView
-                    android:id="@+id/battery_service"
+                    android:id="@+id/battery_servicee"
                     android:src="@drawable/batt"
                     android:layout_weight="1"
                     android:layout_marginRight="5dp"
@@ -320,7 +858,7 @@
                     android:layout_height="match_parent" />
 
                 <ImageView
-                    android:id="@+id/body_service"
+                    android:id="@+id/body_servicee"
                     android:src="@drawable/bodyshop"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
@@ -337,7 +875,7 @@
 
 
                 <TextView
-                    android:id="@+id/ac_services_text"
+                    android:id="@+id/ac_services_texte"
                     android:layout_weight="1"
                     android:textAlignment="center"
                     android:layout_marginRight="5dp"
@@ -346,7 +884,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/battery_services_text"
+                    android:id="@+id/battery_services_texte"
                     android:layout_weight="1"
 
                     android:textAlignment="center"
@@ -356,7 +894,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/body_services_text"
+                    android:id="@+id/body_services_texte"
                     android:layout_weight="1"
                     android:textAlignment="center"
                     android:layout_marginRight="5dp"
@@ -374,7 +912,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/acces_service"
+                    android:id="@+id/acces_servicee"
                     android:layout_marginRight="5dp"
                     android:src="@drawable/cara"
                     android:layout_width="match_parent"
@@ -382,7 +920,7 @@
                     android:layout_weight="1"/>
 
                 <ImageView
-                    android:id="@+id/gauges_service"
+                    android:id="@+id/gauges_servicee"
                     android:src="@drawable/gaug"
                     android:layout_weight="1"
                     android:layout_marginRight="5dp"
@@ -390,7 +928,7 @@
                     android:layout_height="match_parent" />
 
                 <ImageView
-                    android:id="@+id/wind_service"
+                    android:id="@+id/wind_servicee"
                     android:src="@drawable/wind"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
@@ -407,7 +945,7 @@
 
 
                 <TextView
-                    android:id="@+id/access_services_text"
+                    android:id="@+id/access_services_texte"
                     android:layout_weight="1"
                     android:textAlignment="center"
                     android:layout_marginRight="5dp"
@@ -416,7 +954,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/gauges_services_text"
+                    android:id="@+id/gauges_services_texte"
                     android:layout_weight="1"
 
                     android:textAlignment="center"
@@ -426,7 +964,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/wind_services_text"
+                    android:id="@+id/wind_services_texte"
                     android:layout_weight="1"
                     android:textAlignment="center"
                     android:layout_marginRight="5dp"

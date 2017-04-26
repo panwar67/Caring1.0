@@ -27,6 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
 import com.google.android.gms.vision.text.Line;
 import com.lions.torque.caring.R;
 import com.lions.torque.caring.adapters.Adapter_Garage_Car;
@@ -44,6 +45,7 @@ import java.security.Key;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -61,12 +63,12 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
     Calendar calendar;
     Car_Session car_session;
     Location_Session location_session;
-    TimePicker timePicker;
+    SingleDateAndTimePicker singleDateAndTimePicker;
     TextView contact, contact_head, car_name, car_model, car_brand, review_header, car_header, booking, time_header, sub_total, taxes, total, sub_head, tax_head, total_head, booking_head;
     ArrayList<HashMap<String,String>> serve_list = new ArrayList<HashMap<String, String>>();
     Bundle bundle = new Bundle();
     String DOWN_URL = "http://www.car-ing.com/app/Book_Vendor.php";
-    String time_open, time_close, booking_amount, vend_name, vend_code;
+    String time_open, time_close, booking_amount, vend_name, vend_code, datepick;
     ExpandableHeightGridView expandableHeightGridView;
     EditText comments;
     Button checkout;
@@ -81,10 +83,28 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
         setContentView(R.layout.activity_review__vendor);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        singleDateAndTimePicker = (SingleDateAndTimePicker)findViewById(R.id.dataandtime);
+       // singleDateAndTimePicker.
+        singleDateAndTimePicker.setHoursStep(30);
+        calendar = Calendar.getInstance();
+        singleDateAndTimePicker.setMinDate(calendar.getTime());
+         // singleDateAndTimePicker.date
+
+        singleDateAndTimePicker.setListener(new SingleDateAndTimePicker.Listener() {
+            @Override
+            public void onDateChanged(String displayed, Date date) {
+                Log.d("date_display",""+displayed+"  "+date);
+                hour = String.valueOf(date.getHours());
+                min = String.valueOf(date.getMinutes());
+                datepick = date.getDay()+"-"+date.getMonth();
+                calendar.setTime(date);
+
+
+            }
+        });
         Typeface typeface = Typeface.createFromAsset(getApplicationContext().getAssets(),"OpenSans.ttf");
         car_session = new Car_Session(getApplicationContext());
         location_session = new Location_Session(getApplicationContext());
-        calendar = Calendar.getInstance();
         Intent intent = getIntent();
         contact = (TextView)findViewById(R.id.contactnumber);
         contact_head = (TextView)findViewById(R.id.contact_header);
@@ -139,11 +159,30 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
                 {
                     try {
 
+                            if(hour==null&min==null)
+                            {
 
-                        Generate_Booking(""+comments.getText().toString(),vendor_list_bean.getVend_Address(),car_session.getUserDetails().get("CAR_CODE"),
-                                car_session.getUserDetails().get("CAR_MODEL"),"123","pay123",total.getText().toString(),
-                                hour+" "+min,"PENDING",vend_code,vend_name,Get_Booking_Details(serve_list).toString(),vendor_list_bean.getVend_Lat(),vendor_list_bean.getVend_long(),taxes.getText().toString(),sessionManager.getUserDetails().get("uid"),vendor_list_bean.getVend_Contact());
-                    } catch (JSONException e) {
+                                calendar.get(Calendar.DAY_OF_MONTH);
+                                Log.d("calender",""+
+                                        calendar.get(Calendar.DAY_OF_MONTH)+" "+calendar.get(Calendar.MONTH));
+                                hour = String.valueOf(calendar.getTime().getHours());
+                                min = String.valueOf(calendar.getTime().getMinutes());
+                                Generate_Booking(""+comments.getText().toString(),vendor_list_bean.getVend_Address(),car_session.getUserDetails().get("CAR_CODE"),
+                                        car_session.getUserDetails().get("CAR_MODEL"),"123","pay123",total.getText().toString(),
+                                        hour+" "+min,"PENDING",vend_code,vend_name,Get_Booking_Details(serve_list).toString(),vendor_list_bean.getVend_Lat(),vendor_list_bean.getVend_long(),taxes.getText().toString(),sessionManager.getUserDetails().get("uid"),vendor_list_bean.getVend_Contact(),calendar.get(Calendar.DAY_OF_MONTH)+"-"+calendar.get(Calendar.MONTH));
+
+
+                            }
+                        else
+                            {
+                                Log.d("calender",""+
+                                        calendar.get(Calendar.DAY_OF_MONTH)+" "+calendar.get(Calendar.MONTH));
+                                Generate_Booking(""+comments.getText().toString(),vendor_list_bean.getVend_Address(),car_session.getUserDetails().get("CAR_CODE"),
+                                        car_session.getUserDetails().get("CAR_MODEL"),"123","pay123",total.getText().toString(),
+                                        hour+" "+min,"PENDING",vend_code,vend_name,Get_Booking_Details(serve_list).toString(),vendor_list_bean.getVend_Lat(),vendor_list_bean.getVend_long(),taxes.getText().toString(),sessionManager.getUserDetails().get("uid"),vendor_list_bean.getVend_Contact(),calendar.get(Calendar.DAY_OF_MONTH)+"-"+calendar.get(Calendar.MONTH));
+
+                            }
+                         } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
@@ -156,24 +195,6 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
         car_name = (TextView)findViewById(R.id.ven_car_name);
         car_model = (TextView)findViewById(R.id.ven_car_model);
         car_brand = (TextView)findViewById(R.id.ven_car_brand);
-        timePicker = (TimePicker)findViewById(R.id.checkout_time);
-        timePicker.setIs24HourView(true);
-        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-            @Override
-            public void onTimeChanged(TimePicker timePicker, int i, int i1) {
-
-
-                hour = ""+i+"";
-                min = ""+i1+"";
-                Log.d("selected_time",""+i+" , "+i1);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    Log.d("selected_time_changed",""+timePicker.getHour()+" "+timePicker.getMinute());
-                    hour = String.valueOf(timePicker.getHour());
-                    min = String.valueOf(timePicker.getMinute());
-                }
-
-            }
-        });
 
         car_name.setTypeface(typeface);
         car_brand.setTypeface(typeface);
@@ -242,7 +263,9 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
                                     final String book_car_code, final String book_car_name, final String book_date, final String book_payid,
                                     final String book_price, final String book_start_time,
                                     final String book_status, final String book_vend, final String book_vend_name,
-                                    final String book_details, final String book_lat, final String book_long, final String book_taxes, final String book_user, final String book_contact)
+                                    final String book_details, final String book_lat,
+                                    final String book_long, final String book_taxes,
+                                    final String book_user, final String book_contact, final String book_start_date)
     {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, DOWN_URL,
                 new Response.Listener<String>() {
@@ -262,8 +285,10 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
                                 bundle.putString("order_distance", String.valueOf(vendor_list_bean.getVend_Distance()));
                                 bundle.putString("vendor_name",vendor_list_bean.getVend_Name());
                                 bundle.putString("vendor_mob",vendor_list_bean.getVend_Contact());
+                                bundle.putString("ven_id",vendor_list_bean.getVend_id());
+                                bundle.putString("date_time",calendar.get(Calendar.DAY_OF_WEEK)+", "+calendar.get(Calendar.DAY_OF_MONTH)+" - "+calendar.get(Calendar.MONTH));
 
-                                startActivity(new Intent(Review_Vendor.this,Success_Booking.class).putExtra("data",bundle));
+                                startActivity(new Intent(Review_Vendor.this,Success_Booking.class).putExtra("data",bundle).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                                 finish();
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -307,10 +332,12 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
                 Keyvalue.put("book_vend_mob",book_contact);
                 Keyvalue.put("book_user_lat",location_session.getUserDetails().get("lat"));
                 Keyvalue.put("book_user_long",location_session.getUserDetails().get("long"));
-                Keyvalue.put("book_start_date","4/4");
+                Keyvalue.put("book_start_date",book_start_date);
                 Random r = new Random();
                 int i1 = r.nextInt(9997 - 1001);
                 Keyvalue.put("book_otp",i1+"");
+
+                Log.d("start_date",""+book_start_date);
 
                 Log.d("final_cut_review",""+Keyvalue);
                 //returning parameters

@@ -38,6 +38,16 @@
 
             </LinearLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Review Shop"
+                android:textSize="18dp"
+                android:id="@+id/title"
+
+                android:textColor="@android:color/white"
+                android:gravity="center|start"/>
+
 
         </android.support.v7.widget.Toolbar>
 

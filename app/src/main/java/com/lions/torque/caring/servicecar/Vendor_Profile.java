@@ -147,6 +147,7 @@ public class Vendor_Profile extends AppCompatActivity {
                    Intent intent1 = new Intent(Vendor_Profile.this,Review_Vendor.class);
                    intent1.putExtra("data",bundle);
                    startActivity(intent1);
+                   //finish();
                }
                 else
                {

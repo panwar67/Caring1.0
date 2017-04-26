@@ -2,6 +2,7 @@ package com.lions.torque.caring.servicecar;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,7 +13,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -23,6 +26,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
 import com.lions.torque.caring.R;
 import com.lions.torque.caring.dbutils.DBHelper;
 import com.lions.torque.caring.sessions_manager.SessionManager;
@@ -41,7 +45,9 @@ public class Add_Car extends AppCompatActivity {
     Spinner car_brand, car_car_model, car_year, car_fuel;
     DBHelper dbHelper;
     EditText editText;
+    TextView title, brand, car_model, year, type;
     ImageView back;
+    LinearLayout car_back;
     SessionManager sessionManager;
 
     ArrayList<String> car_brand_list = new ArrayList<String>();
@@ -51,6 +57,19 @@ public class Add_Car extends AppCompatActivity {
         setContentView(R.layout.activity_add__car);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        title = (TextView)findViewById(R.id.title);
+        brand = (TextView)findViewById(R.id.brand);
+        car_model = (TextView)findViewById(R.id.car_name);
+        year = (TextView)findViewById(R.id.car_year);
+        type = (TextView)findViewById(R.id.car_fuel);
+        Typeface typeface = Typeface.createFromAsset(getApplicationContext().getAssets(),"gothic.ttf");
+        Typeface typeface1 = Typeface.createFromAsset(getApplicationContext().getAssets(),"amble.ttf");
+
+        brand.setTypeface(typeface1);
+        car_model.setTypeface(typeface1);
+        year.setTypeface(typeface1);
+        type.setTypeface(typeface1);
+        title.setTypeface(typeface);
         dbHelper = DBHelper.getInstance(getApplicationContext());
         car_brand = (Spinner)findViewById(R.id.brand_spinner);
         car_car_model = (Spinner)findViewById(R.id.name_spinner);
@@ -58,8 +77,8 @@ public class Add_Car extends AppCompatActivity {
         car_fuel  = (Spinner)findViewById(R.id.fuel_spinner);
         add_car = (Button)findViewById(R.id.add_car);
         editText = (EditText)findViewById(R.id.name_car);
-        back = (ImageView)findViewById(R.id.car_back);
-        back.setOnClickListener(new View.OnClickListener() {
+        car_back = (LinearLayout) findViewById(R.id.back);
+        car_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();

@@ -302,7 +302,7 @@ public class Loading_Data extends AppCompatActivity implements GoogleApiClient.C
         {
             final ProgressDialog progressDialog = new ProgressDialog(Loading_Data.this);
             progressDialog.setMessage("Getting Location");
-            progressDialog.show();
+//            progressDialog.show();
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, new LocationListener() {
                 @Override
                 public void onLocationChanged(Location location) {

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +24,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.vision.text.Line;
 import com.lions.torque.caring.R;
 import com.lions.torque.caring.adapters.Adapter_Garage_Car;
 import com.lions.torque.caring.dbutils.DBHelper;
@@ -48,6 +50,7 @@ public class Garage_Page extends AppCompatActivity {
     SessionManager sessionManager;
     Car_Session car_session;
     ImageView back ;
+    LinearLayout garage_back;
     TextView textView;
     ArrayList<Garage_Car_Bean> data = new ArrayList<Garage_Car_Bean>();
     @Override
@@ -60,8 +63,8 @@ public class Garage_Page extends AppCompatActivity {
         listView = (ListView)findViewById(R.id.garage_car_list);
         sessionManager = new SessionManager(getApplicationContext());
         car_session = new Car_Session(getApplicationContext());
-        back = (ImageView)findViewById(R.id.garage_back);
-        back.setOnClickListener(new View.OnClickListener() {
+        garage_back = (LinearLayout) findViewById(R.id.back);
+        garage_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();

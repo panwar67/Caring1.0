@@ -34,12 +34,13 @@ import Structs.Book_Struct;
 public class Success_Booking extends AppCompatActivity {
 
     TextView order_id, date, location, destination, price, distance;
-    String Order_id, Date, Location, Destination, Distance, Price, Name, Vendor_Name, Vendor_number;
+    String Order_id, Date, Location, Destination, Distance, Price, Name, Vendor_Name, Vendor_number, vend_id, datetime;
     Button track;
     SessionManager sessionManager;
     String DOWN_URL = "http://www.car-ing.com/sendsms.php";
 
     String DOWN_URL1 = "http://www.car-ing.com/sendmail.php";
+    String DOWN_URL5  = "http://www.car-ing.com/Send_Push_Vendor.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +62,8 @@ public class Success_Booking extends AppCompatActivity {
         Distance = bundle.getString("order_distance");
         Vendor_Name = bundle.getString("vendor_name");
         Vendor_number = bundle.getString("vendor_mob");
+        vend_id = bundle.getString("ven_id");
+        datetime = bundle.getString("date_time");
 
         Calendar c = Calendar.getInstance();
         track = (Button)findViewById(R.id.button);
@@ -77,9 +80,18 @@ public class Success_Booking extends AppCompatActivity {
         System.out.println("Current time => " + c.getTime());
 
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-         Date = df.format(c.getTime());
+         if(datetime!=null)
+         {
+          //   Date = df.format(datetime);
+             date.setText(datetime);
+
+         }
+        else
+         {
+             Date = df.format(c.getTime());
+            date.setText(""+Date);
+         }
         order_id.setText(Order_id);
-        date.setText(Date);
         location.setText(Location);
         destination.setText(Destination);
         price.setText(Price);
@@ -87,6 +99,7 @@ public class Success_Booking extends AppCompatActivity {
         Name = sessionManager.getUserDetails().get("name");
         //date.setText(Date);
         String message = "Hi "+Name+" we are delighted to receive your request for service, please wait while "+Vendor_Name+" confirms your request.";
+        sendRegistrationToServer(vend_id);
         Generate_Booking(Order_id,Vendor_Name,sessionManager.getUserDetails().get("mobile"),message,sessionManager.getUserDetails().get("name"),"caring");
 
     }
@@ -237,4 +250,57 @@ public class Success_Booking extends AppCompatActivity {
 
         return  true;
     }
+
+    private void sendRegistrationToServer(final String ven_id) {
+        // sending gcm token to server
+        // Log.e(TAG, "sendRegistrationToServer: " + reg_id);
+        final ProgressDialog progressDialog = new ProgressDialog(Success_Booking.this);
+        progressDialog.setMessage("Notifying....");
+        progressDialog.show();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, DOWN_URL5,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+
+                        progressDialog.cancel();
+                        Log.d("response_registration",s);
+                        if (s!=null)
+                        {
+                            Log.d("response_registration",s);
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        progressDialog.cancel();
+                        // Toast.makeText(MyFirebaseInstanceIDService.this, "Error In Connectivity", Toast.LENGTH_LONG).show();
+                    }
+                }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> Keyvalue = new HashMap<String,String>();
+                Keyvalue.put("VEN_ID",ven_id);
+                Log.d("push_final_cut",Keyvalue.toString()+"");
+                return Keyvalue;
+            }
+        };
+
+        //Creating a Request Queue
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        //Adding request to the queue
+        requestQueue.add(stringRequest);
+
+
+
+
+
+    }
+
 }

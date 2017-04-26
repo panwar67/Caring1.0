@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -64,7 +65,6 @@ public class Home_Screen extends AppCompatActivity
     PlaceAutocomplete placeAutocomplete;
     Intent intent;
     SliderLayout sliderLayout;
-    SearchView searchView;
     Car_Session car_session;
     Location_Session location_session;
     ExpandableHeightGridView expandableHeightGridView;
@@ -72,6 +72,7 @@ public class Home_Screen extends AppCompatActivity
     Typeface typeface;
     TextView car_model;
     TextView name;
+    LinearLayout search_layout;
     SessionManager sessionManager;
     ArrayList<HashMap<String,String>> Campaign_Data = new ArrayList<HashMap<String, String>>();
     @Override
@@ -90,18 +91,24 @@ public class Home_Screen extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+        search_layout = (LinearLayout)findViewById(R.id.search_layout);
+        search_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Home_Screen.this,Search_Page.class));
+            }
+        });
         typeface = Typeface.createFromAsset(getApplicationContext().getAssets(),"OpenSans.ttf");
+        Typeface typeface1 = Typeface.createFromAsset(getApplicationContext().getAssets(),"gothic.ttf");
+
 
         if(car_session.getUserDetails().get(Car_Struct.Car_Code)==null)
         {
             startActivity(new Intent(Home_Screen.this,Garage_Page.class));
 
         }
-        PagerIndicator pagerIndicator = (PagerIndicator)findViewById(R.id.custom_indicator);
+       // PagerIndicator pagerIndicator = (PagerIndicator)findViewById(R.id.custom_indicator);
         sliderLayout = (SliderLayout) findViewById(R.id.slider);
-        sliderLayout.setIndicatorVisibility(PagerIndicator.IndicatorVisibility.Visible);
-        sliderLayout.setCustomIndicator(pagerIndicator);
-        sliderLayout.startAutoCycle();
 
         for(int i=0;i<Campaign_Data.size();i++)
         {
@@ -278,14 +285,7 @@ public class Home_Screen extends AppCompatActivity
 
 
 
-        searchView = (SearchView)findViewById(R.id.search_view);
-        searchView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                startActivity(new Intent(Home_Screen.this,Search_Page.class));
-                    return false;
-            }
-        });
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View view = navigationView.getHeaderView(0);
         CircleImageView dp = (CircleImageView) view.findViewById(R.id.drawer_profile_dp);
@@ -318,6 +318,7 @@ public class Home_Screen extends AppCompatActivity
 
 
         home_screen_address = (TextView)findViewById(R.id.home_screen_address);
+        home_screen_address.setTypeface(typeface1);
         home_screen_address.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {

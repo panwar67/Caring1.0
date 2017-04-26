@@ -20,14 +20,34 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" >
-            
-            
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:id="@+id/profile_back"
-                android:src="@drawable/ic_arrow_back_black_24dp"/>
-                        </android.support.v7.widget.Toolbar>
+
+
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:id="@+id/back">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:scaleType="center"
+                    android:id="@+id/profile_back"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_arrow_back_black_24dp"/>
+
+
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="My Profile"
+                android:textSize="18dp"
+                android:id="@+id/title"
+                android:gravity="center|start"/>
+
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
