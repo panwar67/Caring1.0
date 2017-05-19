@@ -4,10 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+
+    android:background="#d7ccc8"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".servicecar.Profile_Page"
     android:orientation="vertical"
@@ -40,15 +38,15 @@
 
 
     <android.support.v7.widget.CardView
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:layout_width="match_parent"
         app:cardElevation="6dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
         app:cardUseCompatPadding="true"
         android:layout_height="wrap_content">
     <LinearLayout
 
-        android:background="#5cc7c7c4"
+        android:background="#f9f9f9"
 
         android:layout_width="match_parent"
         android:orientation="vertical"
@@ -58,7 +56,7 @@
             android:layout_marginTop="15dp"
             android:textSize="20dp"
             android:id="@+id/profile_name"
-            android:textColor="@android:color/black"
+            android:textColor="@color/textcolor"
             android:layout_width="wrap_content"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
@@ -69,7 +67,7 @@
             android:layout_marginTop="10dp"
             android:textSize="18dp"
             android:id="@+id/profile_email"
-            android:textColor="@android:color/black"
+            android:textColor="@color/textcolor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="shubhampanwar67@yahoo.com "
@@ -81,7 +79,7 @@
             android:layout_marginTop="10dp"
             android:textSize="18dp"
             android:id="@+id/profile_no"
-            android:textColor="@android:color/black"
+            android:textColor="@color/textcolor"
             android:textAlignment="center"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
@@ -107,23 +105,76 @@
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_width="match_parent"
+        app:cardElevation="6dp"
+
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        app:cardUseCompatPadding="true"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textColor="@color/textcolor"
+            android:background="#f9f9f9"
+            android:text="Delete Mobile No."
+            android:visibility="gone"
+            android:id="@+id/delete_mobile"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:textSize="20dp"/>
+
+
+
+
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        app:cardElevation="6dp"
+
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        app:cardUseCompatPadding="true"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/add_mobile"
+            android:textColor="@color/textcolor"
+            android:background="#f9f9f9"
+            android:text="Add Mobile No."
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:textSize="20dp"/>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
         android:layout_width="match_parent"
         app:cardElevation="6dp"
         app:cardUseCompatPadding="true"
         android:layout_height="wrap_content">
 
         <TextView
-            android:textColor="@color/colorPrimary"
-            android:background="#5cc7c7c4"
-            android:text="Change/ Add Mobile No."
+            android:id="@+id/logout"
+            android:textColor="@color/textcolor"
+            android:background="#f9f9f9"
+            android:text="Logout"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center"
             android:textSize="20dp"/>
 
-        </android.support.v7.widget.CardView>
+    </android.support.v7.widget.CardView>
+
+
+
+
 
 
 </LinearLayout>

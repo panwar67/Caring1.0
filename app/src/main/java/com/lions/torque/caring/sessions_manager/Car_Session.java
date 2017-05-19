@@ -97,6 +97,16 @@ public class Car_Session
         editor.commit();
 
     }
+    public void logoutUser(){
+        // Clearing all data from Shared Preferences
+        editor.clear();
+        editor.commit();
+
+        // After logout redirect user to Loing Activity
+
+
+//        ActivityCompat.finishAffinity(null);
+    }
 
 
 

@@ -63,7 +63,7 @@ public class Success_Booking extends AppCompatActivity {
         Vendor_Name = bundle.getString("vendor_name");
         Vendor_number = bundle.getString("vendor_mob");
         vend_id = bundle.getString("ven_id");
-        datetime = bundle.getString("date_time");
+        datetime = bundle.getString("display_date");
 
         Calendar c = Calendar.getInstance();
         track = (Button)findViewById(R.id.button);

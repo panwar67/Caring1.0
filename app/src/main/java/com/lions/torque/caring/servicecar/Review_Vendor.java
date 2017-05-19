@@ -2,6 +2,7 @@ package com.lions.torque.caring.servicecar;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -43,6 +45,7 @@ import org.json.JSONObject;
 
 import java.security.Key;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -64,7 +67,8 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
     Car_Session car_session;
     Location_Session location_session;
     SingleDateAndTimePicker singleDateAndTimePicker;
-    TextView contact, contact_head, car_name, car_model, car_brand, review_header, car_header, booking, time_header, sub_total, taxes, total, sub_head, tax_head, total_head, booking_head;
+    TextView contact, contact_head, car_name, car_model, car_brand, review_header, car_header, booking, time_header, sub_total, taxes,
+            total, sub_head, tax_head, total_head, booking_head, selected, title;
     ArrayList<HashMap<String,String>> serve_list = new ArrayList<HashMap<String, String>>();
     Bundle bundle = new Bundle();
     String DOWN_URL = "http://www.car-ing.com/app/Book_Vendor.php";
@@ -89,7 +93,6 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
         calendar = Calendar.getInstance();
         singleDateAndTimePicker.setMinDate(calendar.getTime());
          // singleDateAndTimePicker.date
-
         singleDateAndTimePicker.setListener(new SingleDateAndTimePicker.Listener() {
             @Override
             public void onDateChanged(String displayed, Date date) {
@@ -102,10 +105,16 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
 
             }
         });
+        int flags =  Paint.SUBPIXEL_TEXT_FLAG
+                | Paint.ANTI_ALIAS_FLAG;
         Typeface typeface = Typeface.createFromAsset(getApplicationContext().getAssets(),"OpenSans.ttf");
+        Typeface typeface1 = Typeface.createFromAsset(getApplicationContext().getAssets(),"gothiclit.ttf");
+        Typeface typeface2 = Typeface.createFromAsset(getApplicationContext().getAssets(),"amble.ttf");
+
         car_session = new Car_Session(getApplicationContext());
         location_session = new Location_Session(getApplicationContext());
         Intent intent = getIntent();
+        title = (TextView)findViewById(R.id.title);
         contact = (TextView)findViewById(R.id.contactnumber);
         contact_head = (TextView)findViewById(R.id.contact_header);
         sessionManager = new SessionManager(getApplicationContext());
@@ -123,6 +132,8 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
         expandableHeightGridView.setNumColumns(1);
         expandableHeightGridView.setAdapter(new Checkout_Service_Adapter(getApplicationContext(),serve_list));
         checkout = (Button)findViewById(R.id.checkout_payment);
+        checkout.setTypeface(typeface1);
+        checkout.setPaintFlags(flags);
         comments = (EditText)findViewById(R.id.checkout_comments);
         back = (LinearLayout)findViewById(R.id.back);
         review_header =  (TextView)findViewById(R.id.review_heading);
@@ -135,17 +146,21 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
         tax_head = (TextView)findViewById(R.id.taxes);
         total_head = (TextView)findViewById(R.id.total);
         booking_head = (TextView)findViewById(R.id.booking_header);
-        sub_head.setTypeface(typeface);
-        contact_head.setTypeface(typeface);
-        contact.setTypeface(typeface);
+        sub_head.setTypeface(typeface2);
+        contact_head.setTypeface(typeface1);
+        contact.setTypeface(typeface2);
+        car_header.setTypeface(typeface1);
         contact.setText(sessionManager.getUserDetails().get("mobile"));
-        tax_head.setTypeface(typeface);
-        total_head.setTypeface(typeface);
-        sub_total.setTypeface(typeface);
-        taxes.setTypeface(typeface);
-        total.setTypeface(typeface);
+        tax_head.setTypeface(typeface2);
+        total_head.setTypeface(typeface2);
+        sub_total.setTypeface(typeface2);
+        taxes.setTypeface(typeface2);
+        total.setTypeface(typeface2);
+        title.setPaintFlags(flags);
+        title.setTypeface(typeface1);
         time_header = (TextView)findViewById(R.id.schedule_header);
-        review_header.setTypeface(typeface);
+        review_header.setTypeface(typeface1);
+        review_header.setText(Html.fromHtml("<u>REVIEW BOOKING</u>"));
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -189,16 +204,21 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
 
             }
         });
-        car_header.setTypeface(typeface);
-        booking.setTypeface(typeface);
-        time_header.setTypeface(typeface);
+        car_header.setTypeface(typeface1);
+        booking.setText(Html.fromHtml("<u>INVOICE</u>"));
+        booking.setTypeface(typeface1);
+        time_header.setTypeface(typeface1);
         car_name = (TextView)findViewById(R.id.ven_car_name);
         car_model = (TextView)findViewById(R.id.ven_car_model);
         car_brand = (TextView)findViewById(R.id.ven_car_brand);
 
-        car_name.setTypeface(typeface);
-        car_brand.setTypeface(typeface);
-        car_model.setTypeface(typeface);
+        car_name.setTypeface(typeface1);
+        car_brand.setTypeface(typeface1);
+        car_brand.setPaintFlags(flags);
+        car_model.setPaintFlags(flags);
+        car_model.setTypeface(typeface1);
+        comments.setTypeface(typeface1);
+
         car_name.setText(car_session.getUserDetails().get("CAR_NAME"));
         car_model.setText(car_session.getUserDetails().get("CAR_MODEL"));
         car_brand.setText(car_session.getUserDetails().get("CAR_BRAND"));
@@ -287,7 +307,12 @@ public class Review_Vendor extends AppCompatActivity implements TimePickerDialog
                                 bundle.putString("vendor_mob",vendor_list_bean.getVend_Contact());
                                 bundle.putString("ven_id",vendor_list_bean.getVend_id());
                                 bundle.putString("date_time",calendar.get(Calendar.DAY_OF_WEEK)+", "+calendar.get(Calendar.DAY_OF_MONTH)+" - "+calendar.get(Calendar.MONTH));
-
+                                SimpleDateFormat sdf = new SimpleDateFormat();
+                                String DATE_FORMAT = "EE, MMM dd, yyyy";
+                                sdf.applyPattern(DATE_FORMAT);
+                                String formattedDate = sdf.format(singleDateAndTimePicker.getDate().getTime());
+                                Log.d("lodu",""+formattedDate);
+                                bundle.putString("display_date",formattedDate);
                                 startActivity(new Intent(Review_Vendor.this,Success_Booking.class).putExtra("data",bundle).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                                 finish();
                             } catch (JSONException e) {

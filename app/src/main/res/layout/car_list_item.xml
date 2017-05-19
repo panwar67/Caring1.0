@@ -1,13 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/set_selection">
+    android:background="#d7ccc8">
+
+    <android.support.v7.widget.CardView
+        android:layout_marginTop="-5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        android:background="#f9f9f9"
+        app:cardBackgroundColor="#f9f9f9"
+
+        app:cardElevation="6dp">
 
     <LinearLayout
-        android:background="@drawable/white_shadow"
         android:layout_width="match_parent"
         android:orientation="horizontal"
+        android:background="#f9f9f9"
+
         android:layout_marginTop="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
@@ -18,18 +31,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+
             android:layout_weight="3">
 
             <ImageView
-                android:background="@drawable/white_shadow"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:background="#f9f9f9"
                 android:layout_marginLeft="10dp"
                 android:layout_gravity="center|center_vertical"
 
                 android:layout_marginBottom="10dp"
-                android:src="@drawable/ic_directions_car_black_24dp"/>
+                android:src="@drawable/garage_pro"/>
 
         </LinearLayout>
 
@@ -41,23 +55,18 @@
             android:orientation="vertical"
             android:layout_height="wrap_content">
 
-            <TextView
-
-                android:textColor="@color/colorPrimary"
-                android:id="@+id/car_name_garage"
-                android:text="Your_Car_Name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
 
             <TextView
 
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/textcolor"
                 android:id="@+id/car_model_garage"
                 android:text="Your_Car_Model"
+                android:textSize="18dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:textSize="14dp"
                 android:textColor="@color/colorPrimary"
                 android:id="@+id/car_brand_garage"
                 android:text="Your_Car_Brand"
@@ -65,11 +74,24 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:textColor="@color/colorPrimary"
+
+                android:textSize="12dp"
+                android:textColor="@color/fadetext"
                 android:id="@+id/car_year_garage"
                 android:text="Your_Car_Year"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
+            <TextView
+
+
+                android:textSize="12dp"
+                android:textColor="@color/fadetext"
+                android:id="@+id/car_name_garage"
+                android:text="Your_Car_Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
 
 
         </LinearLayout>
@@ -78,5 +100,7 @@
 
 
     </LinearLayout>
+
+    </android.support.v7.widget.CardView>
 
 </LinearLayout>

@@ -9,5 +9,7 @@
     <color name="textred">#ca362c</color>
     <color name="textwhite">#fff</color>
     <color name="selection">#c1efd165</color>
+    <color name="textcolor">#303038</color>
+    <color name="fadetext">#999999</color>
 
 </resources>

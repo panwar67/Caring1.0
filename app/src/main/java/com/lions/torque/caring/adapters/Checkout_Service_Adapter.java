@@ -52,7 +52,7 @@ public class Checkout_Service_Adapter extends BaseAdapter {
     public View getView(final int i, View view, ViewGroup viewGroup) {
 
         View root = layoutInflater.inflate(R.layout.service_item,null);
-        Typeface typeface = Typeface.createFromAsset(context.getAssets(),"OpenSans.ttf");
+        Typeface typeface = Typeface.createFromAsset(context.getAssets(),"amble.ttf");
 
         final TextView service = (TextView) root.findViewById(R.id.review_serve_name);
         TextView code = (TextView)root.findViewById(R.id.review_serve_code);

@@ -1,12 +1,14 @@
 package com.lions.torque.caring.servicecar;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.MotionEvent;
@@ -36,7 +38,7 @@ import Structs.Vendor_List_Bean;
 public class Vendor_Profile extends AppCompatActivity {
 
     TextView  title,   description, car, segment, service,
-            service_head, select_head, selected_service;
+            service_head, select_head, selected_service, title_head;
     TextView car_name, car_model, car_brand, car_year;
     ImageView back;
     Button checkout;
@@ -63,6 +65,7 @@ public class Vendor_Profile extends AppCompatActivity {
         location_session = new Location_Session(getApplicationContext());
         car_session = new Car_Session(getApplicationContext());
         Intent intent= getIntent();
+        title_head = (TextView)findViewById(R.id.title);
         vendor_id = intent.getStringExtra("vendor_id");
         service_id = intent.getStringExtra("service_id");
         service_name = intent.getStringExtra("service_name");
@@ -105,33 +108,56 @@ public class Vendor_Profile extends AppCompatActivity {
         expandableHeightGridView.setEmptyView(findViewById(R.id.emptyElement));
         select_head = (TextView)findViewById(R.id.selected_service_vendor);
         title = (TextView)findViewById(R.id.profile_title);
+        TextView title1 = (TextView)findViewById(R.id.title);
         description = (TextView)findViewById(R.id.profile_description);
         car = (TextView)findViewById(R.id.profile_car);
         //selected_service = (TextView)findViewById(R.id.service_text);
         //selected_service.setText(service_name);
         segment = (TextView)findViewById(R.id.profile_segment);
         Typeface typeface = Typeface.createFromAsset(getApplicationContext().getAssets(),"OpenSans.ttf");
-        title.setTypeface(typeface);
+
+        Typeface typeface1 = Typeface.createFromAsset(getApplicationContext().getAssets(),"gothiclit.ttf");
+
+        Typeface typeface2 = Typeface.createFromAsset(getApplicationContext().getAssets(),"amble.ttf");
+        int flags =  Paint.SUBPIXEL_TEXT_FLAG
+                | Paint.ANTI_ALIAS_FLAG;
+
+        title.setTypeface(typeface1);
 //        description_head.setTypeface(typeface);
-        description.setTypeface(typeface);
-        car.setTypeface(typeface);
-        segment.setTypeface(typeface);
+        title.setTypeface(typeface1);
+        description.setTypeface(typeface2);
+        car.setTypeface(typeface1);
+        segment.setTypeface(typeface2);
+        title1.setTypeface(typeface1);
         segment.setText(data.getVend_Segment_Name());
         StringBuilder stringBuilder = new StringBuilder();
         for(int i=0;i<services.size();i++)
         {
             stringBuilder.append(services.get(i).get("SERVE_NAME"));
         }
-        select_head.setTypeface(typeface);
+        select_head.setTypeface(typeface1);
 //        service_head.setTypeface(typeface);
-        title.setText(data.getVend_Name().toUpperCase());
+        title.setText(Html.fromHtml("<u>"+data.getVend_Name().toUpperCase()+"</u>"));
         car_name = (TextView)findViewById(R.id.ven_car_name);
         car_brand = (TextView)findViewById(R.id.car_brand);
         car_model = (TextView)findViewById(R.id.ven_car_model);
         car_name.setTypeface(typeface);
-        car_model.setTypeface(typeface);
-        car_brand.setTypeface(typeface);
+        car_model.setTypeface(typeface1);
+        car_brand.setTypeface(typeface1);
+        segment.setPaintFlags(flags);
+        title.setPaintFlags(flags);
+        description.setPaintFlags(flags);
+        car.setPaintFlags(flags);
+        segment.setPaintFlags(flags);
+        select_head.setPaintFlags(flags);
+        car_name.setPaintFlags(flags);
+        car_brand.setPaintFlags(flags);
+        car_model.setPaintFlags(flags);
+        title_head.setPaintFlags(flags);
+        title_head.setTypeface(typeface1);
         checkout = (Button)findViewById(R.id.profile_checkout);
+        checkout.setTypeface(typeface1);
+        checkout.setPaintFlags(flags);
         checkout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {

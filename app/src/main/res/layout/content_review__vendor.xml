@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
 
     android:scrollbars="none"
-    android:background="#f5f5f5"
+    android:background="#d7ccc8"
   app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.lions.torque.caring.servicecar.Review_Vendor"
     tools:showIn="@layout/activity_review__vendor">
@@ -28,8 +28,8 @@
                 android:layout_marginRight="-10dp"
                 android:layout_height="wrap_content"
                 app:cardUseCompatPadding="true"
-                android:background="@color/white"
-                app:cardBackgroundColor="@color/white"
+                android:background="#f9f9f9"
+                app:cardBackgroundColor="#f9f9f9"
                 app:cardElevation="6dp">
 
             <LinearLayout
@@ -40,19 +40,14 @@
 
                 <TextView
                     android:textSize="20dp"
+                    android:textAlignment="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Review Your Services"
-                    android:textColor="@color/colorPrimary"
+                    android:text="REVIEW"
+                    android:textColor="#303038"
                     android:id="@+id/review_heading"/>
 
-                <View
-                    android:layout_marginTop="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorPrimary"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginLeft="10dp"></View>
+
 
                 <Structs.ExpandableHeightGridView
                     android:numColumns="1"
@@ -81,10 +76,61 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Selected Car "
-                android:textColor="@color/colorPrimary"
+                android:textColor="#303038"
                 android:id="@+id/selected_car_review"/>
 
+
+
+
+            <LinearLayout
+                android:background="@android:color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="10dp"
+
+                    android:src="@drawable/carpro"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp" />
+
+                <LinearLayout
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:textSize="22dp"
+                        android:textColor="#303038"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ven_car_model"
+                        android:text="car name"/>
+
+                    <TextView
+
+                        android:textColor="#303038"
+                        android:text="car brand"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ven_car_brand"/>
+
+                     </LinearLayout>
+
+
+            </LinearLayout>
+
+
             <android.support.v7.widget.CardView
+                android:visibility="gone"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_marginLeft="5dp"
@@ -128,21 +174,7 @@
                         android:text="car name"
                         android:textColor="@color/colorPrimary"
                         android:id="@+id/ven_car_name"/>
-                    <TextView
 
-                        android:textColor="@color/colorPrimary"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/ven_car_model"
-                        android:text="car name"/>
-
-                    <TextView
-
-                        android:textColor="@color/colorPrimary"
-                        android:text="car brand"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/ven_car_brand"/>
 
 
                 </LinearLayout>
@@ -164,7 +196,7 @@
                     android:layout_height="wrap_content"
                     android:text="Contact"
                     android:textSize="20dp"
-                    android:textColor="@color/colorPrimary"/>
+                    android:textColor="#303038"/>
 
                 <TextView
                     android:layout_marginTop="10dp"
@@ -181,21 +213,32 @@
 
 
 
+            <android.support.v7.widget.CardView
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="-8dp"
+                android:layout_marginRight="-8dp"
+                android:layout_height="wrap_content"
+                app:cardUseCompatPadding="true"
+                android:background="#f9f9f9"
+                app:cardBackgroundColor="#f9f9f9"
+                app:cardElevation="6dp">
 
             <LinearLayout
+                android:layout_marginBottom="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
             <TextView
-                android:layout_marginLeft="10dp"
                 android:id="@+id/booking_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Booking Invoice"
+                android:text="INVOICE"
+                android:textAlignment="center"
                 android:textSize="20dp"
-                android:textColor="@color/colorPrimary"/>
+                android:textColor="#303038"/>
 
             <LinearLayout
                 android:layout_marginRight="10dp"
@@ -210,6 +253,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:textColor="#999999"
                         android:id="@+id/subtotal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -217,6 +261,7 @@
                         android:text="Sub Total"/>
 
                     <TextView
+                        android:textColor="#999999"
                         android:id="@+id/booking_sub_total"
                         android:layout_weight="1"
                         android:textAlignment="textEnd"
@@ -235,6 +280,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:textColor="#999999"
                         android:id="@+id/taxes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -242,6 +288,7 @@
                         android:text="Taxes"/>
 
                     <TextView
+                        android:textColor="#999999"
                         android:layout_weight="1"
                         android:textAlignment="textEnd"
                         android:text="00"
@@ -258,6 +305,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:textColor="#999999"
                         android:id="@+id/total"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -265,6 +313,7 @@
                         android:text="Total"/>
 
                     <TextView
+                        android:textColor="#999999"
                         android:layout_weight="1"
                         android:textAlignment="textEnd"
                         android:text="00"
@@ -282,6 +331,8 @@
 
             </LinearLayout>
 
+            </android.support.v7.widget.CardView>
+
 
             <android.support.v7.widget.CardView
                 android:layout_marginTop="10dp"
@@ -291,8 +342,8 @@
                 android:layout_marginRight="-10dp"
                 android:layout_height="wrap_content"
                 app:cardUseCompatPadding="true"
-                android:background="@color/white"
-                app:cardBackgroundColor="@color/white"
+                android:background="#f9f9f9"
+                app:cardBackgroundColor="#f9f9f9"
                 app:cardElevation="6dp">
             <LinearLayout
                 android:layout_marginLeft="15dp"
@@ -304,7 +355,7 @@
             <TextView
                 android:id="@+id/schedule_header"
                 android:textSize="20dp"
-                android:textColor="@color/colorPrimary"
+                android:textColor="#303038"
                 android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -330,7 +381,7 @@
                 android:layout_height="wrap_content"
                 android:text="Checkout"
                 android:id="@+id/checkout_payment"
-                android:background="@color/colorPrimary"
+                android:background="#303038"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold"/>
 

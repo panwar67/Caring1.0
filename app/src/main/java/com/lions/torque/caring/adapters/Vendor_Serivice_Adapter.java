@@ -1,6 +1,7 @@
 package com.lions.torque.caring.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -53,12 +54,12 @@ public class Vendor_Serivice_Adapter extends BaseAdapter implements SpinnerAdapt
     public View getView(final int i, View view, ViewGroup viewGroup) {
 
         View root = layoutInflater.inflate(R.layout.item_service_vendor_profile,null);
-        Typeface typeface = Typeface.createFromAsset(context.getAssets(),"OpenSans.ttf");
+        Typeface typeface = Typeface.createFromAsset(context.getAssets(),"amble.ttf");
 
         final CheckedTextView service = (CheckedTextView) root.findViewById(R.id.filter_item_textchecked);
         service.setChecked(false);
         service.setTypeface(typeface);
-        service.setText(result.get(i).get("SERVE_NAME"));
+        service.setText(result.get(i).get("SERVE_NAME").toUpperCase());
 
         service.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,11 +68,12 @@ public class Vendor_Serivice_Adapter extends BaseAdapter implements SpinnerAdapt
                 service.setChecked(!service.isChecked());
                 if(service.isChecked()) {
 
-
+                    service.setBackgroundColor(Color.parseColor("#d7ccc8"));
                     Set_Checked(result.get(i));
                 }
                 else
                 {
+                    service.setBackgroundColor(Color.WHITE);
                     Decheck_items(result.get(i));
                 }
             }

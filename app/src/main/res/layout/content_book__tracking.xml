@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f5f5f5"
+    android:background="#d7ccc8"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.lions.torque.caring.servicecar.Book_Tracking"
     tools:showIn="@layout/activity_book__tracking">
@@ -27,9 +27,8 @@
                 android:layout_marginRight="-10dp"
                 android:layout_height="wrap_content"
                 app:cardUseCompatPadding="true"
-                android:background="@color/white"
-                app:cardBackgroundColor="@color/white"
-                app:cardElevation="6dp">
+                android:background="#f9f9f9"
+                app:cardBackgroundColor="#f9f9f9"  app:cardElevation="6dp">
 
             <LinearLayout
                 android:layout_margin="10dp"
@@ -40,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/book_track_vend_name"
-                android:textColor="@color/colorPrimary"
+                android:textColor="#303038"
                 android:text="Kenny"
                 android:textStyle="bold"
                 android:textSize="20dp"/>
@@ -48,7 +47,7 @@
                    android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorPrimary"
+                android:background="@color/textcolor"
                 android:layout_marginRight="30dp"
                 android:layout_marginLeft="10dp"></View>
 
@@ -78,7 +77,7 @@
                 android:text="Invoice"
                 android:id="@+id/book_track_invoice_head"
                 android:textSize="20dp"
-                android:textColor="@color/colorPrimary"/>
+                android:textColor="@color/textcolor"/>
 
             <LinearLayout
                 android:layout_marginTop="10dp"
@@ -93,7 +92,7 @@
 
                     <TextView
                         android:id="@+id/book_track_subtotal_head"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/textcolor"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -104,7 +103,7 @@
                     <TextView
 
                         android:gravity="center_vertical"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/textcolor"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -165,19 +164,19 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/textcolor"
                         android:text="Advance"/>
 
 
                     <TextView
 
                         android:gravity="center_vertical"
-                        android:textColor="@color/colorPrimary"
                         android:id="@+id/book_track_advance"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="0"
+                        android:textColor="@color/textcolor"
                         android:textAlignment="textEnd"/>
 
 
@@ -204,14 +203,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/textcolor"
                         android:text="Discount"/>
 
 
                     <TextView
 
                         android:gravity="center_vertical"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/textcolor"
                         android:id="@+id/book_track_discount"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -243,7 +242,7 @@
 
                         android:gravity="center_vertical"
                         android:id="@+id/book_track_total_head"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/textcolor"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -253,7 +252,7 @@
                     <TextView
 
                         android:gravity="center_vertical"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/textcolor"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -272,15 +271,16 @@
                 android:layout_marginTop="-10dp"
                 android:layout_marginBottom="20dp"
                 android:layout_width="match_parent"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginLeft="-10dp"
+                android:layout_marginRight="-10dp"
                 android:layout_height="wrap_content"
                 app:cardUseCompatPadding="true"
-                android:background="@color/white"
-                app:cardBackgroundColor="@color/white"
+                android:background="#f9f9f9"
+                app:cardBackgroundColor="#f9f9f9"
                 app:cardElevation="6dp">
 
             <LinearLayout
+                android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -290,7 +290,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Navigate"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/textcolor"
                     android:id="@+id/navhead"/>
 
             <LinearLayout
@@ -305,7 +305,7 @@
                     android:layout_weight="1">
                     <TextView
 
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/fadetext"
                         android:textAlignment="center"
                         android:id="@+id/booK_track_address"
                         android:layout_width="match_parent"
@@ -337,9 +337,21 @@
             </android.support.v7.widget.CardView>
 
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CANCEL"
+                android:background="#303038"
+                android:id="@+id/cancel_book"
+                android:textColor="@color/colorAccent"/>
+
+
 
 
         </LinearLayout>
+
+
+
 
 
 

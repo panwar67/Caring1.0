@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -18,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
 import com.lions.torque.caring.R;
 import com.lions.torque.caring.adapters.MyBookings_Adapter;
 import com.lions.torque.caring.sessions_manager.SessionManager;
@@ -39,14 +42,23 @@ public class MyBookings extends AppCompatActivity {
      String DOWN_URL = "http://www.car-ing.com/app/Get_User_Bookings.php";
     ListView listView;
     SessionManager sessionManager;
+    LinearLayout back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_bookings);
+        setContentView(R.layout.activity_main);
         listView = (ListView)findViewById(R.id.booking_list);
         listView.setEmptyView(findViewById(R.id.emptyview_booking));
         sessionManager = new SessionManager(getApplicationContext());
+        back = (LinearLayout)findViewById(R.id.back);
+        back.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                onBackPressed();
+                return false;
+            }
+        });
 
         Get_Booking_Details(sessionManager.getUserDetails().get("uid"));
         Log.d("for user",sessionManager.getUserDetails().get("uid"));
@@ -65,6 +77,13 @@ public class MyBookings extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Get_Booking_Details(sessionManager.getUserDetails().get("uid"));
     }
 
     @Override

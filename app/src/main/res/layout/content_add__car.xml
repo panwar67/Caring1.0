@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
 
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#d7ccc8"
+
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.lions.torque.caring.servicecar.Add_Car"
     tools:showIn="@layout/activity_add__car">
@@ -22,6 +24,7 @@
         <EditText
             android:maxLines="1"
             android:maxLength="20"
+            android:textColor="@color/textcolor"
             android:id="@+id/name_car"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
@@ -34,13 +37,18 @@
             android:layout_width="match_parent"
             app:cardElevation="6dp"
             app:cardUseCompatPadding="true"
+            android:background="#f9f9f9"
+            app:cardBackgroundColor="#f9f9f9"
             android:layout_height="wrap_content">
 
             <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
         <TextView
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/textcolor"
             android:id="@+id/brand"
             android:layout_marginTop="15dp"
             android:textStyle="bold"
@@ -52,6 +60,7 @@
 
 
         <Spinner
+            android:layout_marginLeft="12dp"
             android:id="@+id/brand_spinner"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
@@ -69,6 +78,8 @@
             android:layout_width="match_parent"
             app:cardElevation="6dp"
             app:cardUseCompatPadding="true"
+            android:background="#f9f9f9"
+            app:cardBackgroundColor="#f9f9f9"
             android:layout_height="wrap_content">
 
         <LinearLayout
@@ -78,6 +89,9 @@
 
 
         <TextView
+            android:layout_marginLeft="10dp"
+
+            android:textColor="@color/textcolor"
             android:id="@+id/car_name"
             android:layout_marginTop="15dp"
             android:textStyle="bold"
@@ -88,6 +102,8 @@
             android:text="Choose car"/>
 
         <Spinner
+            android:layout_marginLeft="12dp"
+
             android:id="@+id/name_spinner"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
@@ -101,6 +117,8 @@
             android:layout_width="match_parent"
             app:cardElevation="6dp"
             app:cardUseCompatPadding="true"
+            android:background="#f9f9f9"
+            app:cardBackgroundColor="#f9f9f9"
             android:layout_height="wrap_content">
 
         <LinearLayout
@@ -110,6 +128,9 @@
 
 
         <TextView
+            android:layout_marginLeft="10dp"
+
+            android:textColor="@color/textcolor"
             android:id="@+id/car_year"
             android:layout_marginTop="15dp"
             android:textStyle="bold"
@@ -121,6 +142,8 @@
 
 
         <Spinner
+            android:layout_marginLeft="12dp"
+
             android:id="@+id/year_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -136,6 +159,8 @@
             android:layout_width="match_parent"
             app:cardElevation="6dp"
             app:cardUseCompatPadding="true"
+            android:background="#f9f9f9"
+            app:cardBackgroundColor="#f9f9f9"
             android:layout_height="wrap_content">
 
         <LinearLayout
@@ -145,11 +170,13 @@
 
 
         <TextView
+            android:layout_marginLeft="10dp"
+
             android:id="@+id/car_fuel"
             android:layout_marginTop="15dp"
             android:textStyle="bold"
             android:textSize="18dp"
-
+            android:textColor="@color/textcolor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Choose Type"/>
@@ -157,6 +184,8 @@
 
 
         <Spinner
+            android:layout_marginLeft="12dp"
+
             android:id="@+id/fuel_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

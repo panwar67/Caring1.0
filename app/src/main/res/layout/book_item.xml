@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+
+    android:background="#d7ccc8"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,11 +13,13 @@
         android:layout_marginRight="5dp"
         android:layout_width="match_parent"
         app:cardElevation="6dp"
+        android:background="#f9f9f9"
+        app:cardBackgroundColor="#f9f9f9"
         app:cardUseCompatPadding="true"
         android:layout_height="wrap_content">
 
     <LinearLayout
-        android:background="@color/white"
+        android:background="#f9f9f9"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -27,7 +31,7 @@
 
         android:gravity="center_vertical"
         android:id="@+id/book_vendor_name"
-        android:textColor="@color/colorPrimary"
+        android:textColor="#303038"
         />
 
         <LinearLayout
@@ -42,7 +46,7 @@
                 android:gravity="center_vertical"
                 android:id="@+id/book_date"
                 android:text="20-may-2017"
-                android:textColor="#999797"/>
+                android:textColor="@color/fadetext"/>
 
             <TextView
                 android:paddingLeft="8dp"
@@ -52,7 +56,8 @@
                 android:id="@+id/book_otp"
                 android:layout_weight="1"
                 android:text="OTP : 5657"
-                android:textColor="#999797"/>
+
+                android:textColor="@color/fadetext"/>
 
 
 
@@ -66,7 +71,8 @@
             android:gravity="center_vertical"
             android:id="@+id/book_id"
             android:text="Booking No. - # 56"
-            android:textColor="#999797"/>
+
+            android:textColor="@color/fadetext"/>
         
         <View
             android:layout_width="match_parent"
@@ -83,7 +89,7 @@
         <TextView
             android:drawableLeft="@drawable/currency_inr"
             android:paddingLeft="10dp"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#303038"
             android:id="@+id/booking_amount"
             android:text="10"
             android:gravity="center_vertical"
@@ -92,11 +98,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <TextView
+        17yy<TextView
             android:drawableLeft="@drawable/ic_directions_walk_black_24dp"
             android:gravity="center_vertical"
             android:text="pending"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#303038"
             android:id="@+id/order_status"
             android:layout_weight="1"
             android:layout_width="match_parent"

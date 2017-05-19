@@ -26,7 +26,7 @@
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
-            android:launchMode="singleInstance"/>
+            android:launchMode="singleInstance" />
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
@@ -41,8 +41,8 @@
         </activity>
         <activity
             android:name=".servicecar.Loading_Data"
-            android:theme="@style/SplashTheme"
-            android:launchMode="singleInstance">
+            android:launchMode="singleInstance"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -107,6 +107,10 @@
         <activity
             android:name=".servicecar.Add_Mobile_Number"
             android:label="@string/title_activity_add__mobile__number"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".servicecar.MainActivity"
+            android:label="@string/title_activity_main"
             android:theme="@style/AppTheme"></activity>
     </application>
 

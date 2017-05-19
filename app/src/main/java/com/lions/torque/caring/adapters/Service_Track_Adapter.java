@@ -62,7 +62,7 @@ public class Service_Track_Adapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         View root = inflater.inflate(R.layout.track_service_item,null);
         Holder holder = new Holder();
-        Typeface typeface = Typeface.createFromAsset(context.getAssets(),"SourceSansProLight.otf");
+        Typeface typeface = Typeface.createFromAsset(context.getAssets(),"amble.ttf");
         holder.tag = (TextView)root.findViewById(R.id.service_name_track);
         holder.type = (TextView)root.findViewById(R.id.service_status_track);
         holder.type.setText(result.get(i).get("BOOK_TRACK"));

@@ -1,12 +1,14 @@
 package com.lions.torque.caring.servicecar;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.MotionEvent;
@@ -126,7 +128,12 @@ public class Vendor_Profile_Search extends AppCompatActivity {
         car = (TextView)findViewById(R.id.profile_car);
         segment = (TextView)findViewById(R.id.profile_segment);
         service_head = (TextView)findViewById(R.id.selected_service_vendor);
-        Typeface typeface = Typeface.createFromAsset(getApplicationContext().getAssets(),"OpenSans.ttf");
+        Typeface typeface = Typeface.createFromAsset(getApplicationContext().getAssets(),"gothiclit.ttf");
+        Typeface typeface1 = Typeface.createFromAsset(getApplicationContext().getAssets(),"amble.ttf");
+        button.setTypeface(typeface);
+        int flags =  Paint.SUBPIXEL_TEXT_FLAG
+                | Paint.ANTI_ALIAS_FLAG;
+        button.setPaintFlags(flags);
         car_name = (TextView)findViewById(R.id.ven_car_name);
         car_brand = (TextView)findViewById(R.id.car_brand);
         car_model = (TextView)findViewById(R.id.ven_car_model);
@@ -136,13 +143,22 @@ public class Vendor_Profile_Search extends AppCompatActivity {
         car_brand.setTypeface(typeface);
         title.setTypeface(typeface);
        // timing.setTypeface(typeface);
-        description.setTypeface(typeface);
+        description.setTypeface(typeface1);
         car.setTypeface(typeface);
-        segment.setTypeface(typeface);
+        segment.setTypeface(typeface1);
         segment.setText(vendor_list_bean.getVend_Segment_Name());
 
         service_head.setTypeface(typeface);
-        title.setText(vendor_list_bean.getVend_Name());
+        segment.setPaintFlags(flags);
+        title.setPaintFlags(flags);
+        description.setPaintFlags(flags);
+        car.setPaintFlags(flags);
+        segment.setPaintFlags(flags);
+        service_head.setPaintFlags(flags);
+        car_name.setPaintFlags(flags);
+        car_brand.setPaintFlags(flags);
+        car_model.setPaintFlags(flags);
+        title.setText(Html.fromHtml("<u>"+vendor_list_bean.getVend_Name()+"</u>"));
         expandableHeightGridView = (ExpandableHeightGridView)findViewById(R.id.select_multiple_services);
         expandableHeightGridView.setExpanded(true);
         expandableHeightGridView.setNumColumns(1);

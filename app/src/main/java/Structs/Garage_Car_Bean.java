@@ -1,18 +1,29 @@
 package Structs;
 
+import java.io.Serializable;
+
 /**
  * Created by Panwar on 01/03/17.
  */
-public class Garage_Car_Bean {
+public class Garage_Car_Bean implements Serializable {
 
-    private String Car_Name = "CAR_NAME";
-    private String Car_Model = "CAR_MODEL";
-    private String Car_Year = "CAR_YEAR";
-    private String Car_Brand = "CAR_BRAND";
-    private String Car_FUEL = "CAR_FUEL";
-    private String Car_Segment = "CAR_SEGMENT";
-    private String Car_Code = "CAR_CODE";
-    private String Car_User = "CAR_USER";
+    private String Car_Name;
+    private String Car_Model;
+    private String Car_Year;
+    private String Car_Brand;
+    private String Car_FUEL;
+    private String Car_Segment;
+    private String Car_Code;
+    private String Car_User ;
+    private String Car_Id ;
+
+    public String getCar_Id() {
+        return this.Car_Id;
+    }
+
+    public void setCar_Id(String car_Id) {
+        this.Car_Id = car_Id;
+    }
 
     public String getCar_Name() {
         return this.Car_Name;

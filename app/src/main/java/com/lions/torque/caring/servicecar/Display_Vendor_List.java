@@ -2,6 +2,8 @@ package com.lions.torque.caring.servicecar;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -64,6 +66,7 @@ public class Display_Vendor_List extends AppCompatActivity {
     TwoGearsLayout twoGearsLayout;
     LinearLayout linearLayout, change_car, change_order, change_location;
     SessionManager sessionManager;
+    TextView change_carr, change_orderr, change_loc;
     Location_Session location_session;
     ArrayList<Vendor_List_Bean> vendor_list = new ArrayList<Vendor_List_Bean>();
     Car_Session car_session;
@@ -85,13 +88,24 @@ public class Display_Vendor_List extends AppCompatActivity {
         location_session = new Location_Session(getApplicationContext());
         car_session = new Car_Session(getApplicationContext());
         dbHelper = new DBHelper(getApplicationContext());
+        Typeface typeface = Typeface.createFromAsset(getApplicationContext().getAssets(),"gothiclit.ttf");
+        int flags =  Paint.SUBPIXEL_TEXT_FLAG
+                | Paint.ANTI_ALIAS_FLAG;
         back  = (ImageView)findViewById(R.id.back_vendor_list);
         linearLayout = (LinearLayout)findViewById(R.id.back);
         change_car = (LinearLayout)findViewById(R.id.display_vendor_change_car);
         change_order = (LinearLayout)findViewById(R.id.display_vendor_change_order);
         change_location = (LinearLayout)findViewById(R.id.change_location);
         address = (TextView)findViewById(R.id.screen_address);
+        change_carr = (TextView)findViewById(R.id.change_car);
+        change_orderr =  (TextView)findViewById(R.id.change_order);
+        change_carr.setTypeface(typeface);
+        change_orderr.setTypeface(typeface);
         address.setText(""+location_session.getUserDetails().get("address")+"");
+        address.setTypeface(typeface);
+        address.setPaintFlags(flags);
+        change_carr.setPaintFlags(flags);
+        change_orderr.setPaintFlags(flags);
         Intent intent =getIntent();
         listView = (ListView)findViewById(R.id.vendor_list);
         Location location = new Location("");
@@ -100,6 +114,7 @@ public class Display_Vendor_List extends AppCompatActivity {
         Log.d("long_session",""+Double.parseDouble(location_session.getUserDetails().get("long")));
         location.setLongitude(Double.parseDouble(location_session.getUserDetails().get("long")));
         //service = intent.getStringExtra("service");
+
         car = car_session.getUserDetails().get(Car_Struct.Car_Code);
         Bundle bundle = intent.getBundleExtra("data");
         service =  bundle.getString("service");

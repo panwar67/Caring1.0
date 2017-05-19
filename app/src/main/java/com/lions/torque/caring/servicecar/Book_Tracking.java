@@ -2,6 +2,7 @@ package com.lions.torque.caring.servicecar;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,10 +54,12 @@ public class Book_Tracking extends AppCompatActivity {
     LinearLayout directions,back;
     ExpandableHeightGridView expandableHeightGridView;
     DBHelper dbHelper;
+    Button Cancel;
     Location_Session location_session;
     Book_Track_Bean book_track_bean;
     String DOWN_URL = "http://www.car-ing.com/app/Get_Book_Tracking.php";
     String DOWN_URL1 = "http://www.car-ing.com/app/Get_Book_Services.php";
+    String DOWN_URL2 = "http://www.car-ing.com/app/CancelBooking.php";
     String book_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +80,7 @@ public class Book_Tracking extends AppCompatActivity {
             }
         });
         navhead = (TextView)findViewById(R.id.navhead);
-
+        Cancel = (Button)findViewById(R.id.cancel_book);
         expandableHeightGridView.setNumColumns(1);
         sub_total = (TextView)findViewById(R.id.book_track_subtotal);
         taxes = (TextView)findViewById(R.id.book_track_taxes);
@@ -105,21 +109,38 @@ public class Book_Tracking extends AppCompatActivity {
 
             }
         });
-        Typeface typeface = Typeface.createFromAsset(getApplicationContext().getAssets(),"SourceSansProLight.otf");
-        sub_total.setTypeface(typeface);
+
+        Typeface typeface1 = Typeface.createFromAsset(getApplicationContext().getAssets(),"amble.ttf");
+        Typeface typeface = Typeface.createFromAsset(getApplicationContext().getAssets(),"gothiclit.ttf");
+        int flags =  Paint.SUBPIXEL_TEXT_FLAG
+                | Paint.ANTI_ALIAS_FLAG;
+        sub_total.setTypeface(typeface1);
+        Cancel.setTypeface(typeface);
+        sub_total.setPaintFlags(flags);
         navhead.setTypeface(typeface);
-        subtotal_head.setTypeface(typeface);
-        taxes.setTypeface(typeface);
-        taxes_head.setTypeface(typeface);
-        sub_total.setTypeface(typeface);
-        subtotal_head.setTypeface(typeface);
-        advance.setTypeface(typeface);
-        advance_head.setTypeface(typeface);
-        discout_head.setTypeface(typeface);
-        discount.setTypeface(typeface);
-        total.setTypeface(typeface);
-        total_head.setTypeface(typeface);
-        address.setTypeface(typeface);
+        navhead.setPaintFlags(flags);
+        subtotal_head.setPaintFlags(flags);
+        taxes.setPaintFlags(flags);
+        taxes_head.setPaintFlags(flags);
+        address.setPaintFlags(flags);
+        advance.setPaintFlags(flags);
+        advance_head.setPaintFlags(flags);
+        discount.setPaintFlags(flags);
+        discout_head.setPaintFlags(flags);
+        total.setPaintFlags(flags);
+        total_head.setPaintFlags(flags);
+        subtotal_head.setTypeface(typeface1);
+        taxes.setTypeface(typeface1);
+        taxes_head.setTypeface(typeface1);
+        sub_total.setTypeface(typeface1);
+        subtotal_head.setTypeface(typeface1);
+        advance.setTypeface(typeface1);
+        advance_head.setTypeface(typeface1);
+        discout_head.setTypeface(typeface1);
+        discount.setTypeface(typeface1);
+        total.setTypeface(typeface1);
+        total_head.setTypeface(typeface1);
+        address.setTypeface(typeface1);
         vend_name.setTypeface(typeface);
         invoice_head.setTypeface(typeface);
         Intent intent = getIntent();
@@ -127,6 +148,17 @@ public class Book_Tracking extends AppCompatActivity {
         bundle = intent.getBundleExtra("data");
         book_id = bundle.getString("book_id");
         Get_Booking_Details(book_id);
+
+
+        Cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Cancel_Booking(book_id);
+
+            }
+        });
+
 
 
 
@@ -300,6 +332,14 @@ public class Book_Tracking extends AppCompatActivity {
     {
 
         //Get_Booking_Details(id);
+        if(book_track_bean.getStatus().equals("PENDING"))
+        {
+            Cancel.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            Cancel.setVisibility(View.GONE);
+        }
         SetUp_Services(book_id);
         Log.d("bean_track_2",""+book_track_bean.getVend_id());
         sub_total.setText(book_track_bean.getPrice());
@@ -331,4 +371,61 @@ public class Book_Tracking extends AppCompatActivity {
         super.onBackPressed();
         finish();
     }
+
+
+    public void Cancel_Booking(final String book_id)
+    {
+
+        final ProgressDialog progressDialog = new ProgressDialog(Book_Tracking.this);
+        progressDialog.setMessage("Cancelling....");
+        progressDialog.show();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, DOWN_URL2,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+
+                        progressDialog.cancel();
+                        if (s!=null)
+                        {
+                            Log.d("response_cancel",s);
+                            finish();
+
+                        }
+                        else
+                        {
+
+
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        progressDialog.cancel();
+                        // Toast.makeText(MyFirebaseInstanceIDService.this, "Error In Connectivity", Toast.LENGTH_LONG).show();
+                    }
+                }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //Converting Bitmap to String
+
+
+                HashMap<String,String> Keyvalue = new HashMap<String,String>();
+                Keyvalue.put("book_id",book_id);
+                Log.d("reject_final_cut",Keyvalue.toString()+"");
+                //returning parameters
+                return Keyvalue;
+            }
+        };
+
+        //Creating a Request Queue
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        //Adding request to the queue
+        requestQueue.add(stringRequest);
+
+    }
+
+
 }

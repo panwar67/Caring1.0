@@ -1,6 +1,7 @@
 package com.lions.torque.caring.adapters;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.view.LayoutInflater;
@@ -75,18 +76,25 @@ public class Adapter_Vendor_List extends BaseAdapter {
         View root = layoutInflater.inflate(R.layout.item_vendor_list,null);
 
         Holder holder = new Holder();
-        Typeface  typeface = Typeface.createFromAsset(context.getAssets(),"OpenSans.ttf");
+        Typeface  typeface = Typeface.createFromAsset(context.getAssets(),"amble.ttf");
+        Typeface  typeface1 = Typeface.createFromAsset(context.getAssets(),"gothiclit.ttf");
 
-       // holder.linearLayout = (LinearLayout)root.findViewById(R.id.overlay);
+        int flags =  Paint.SUBPIXEL_TEXT_FLAG
+                | Paint.ANTI_ALIAS_FLAG;
+        // holder.linearLayout = (LinearLayout)root.findViewById(R.id.overlay);
         holder.title = (TextView)root.findViewById(R.id.vendor_name);
         holder.timings = (TextView)root.findViewById(R.id.vendor_timings);
         holder.quanlity = (RatingBar)root.findViewById(R.id.vendor_rating);
         holder.price = (TextView)root.findViewById(R.id.vendor_rating_currency);
         holder.distance = (TextView)root.findViewById(R.id.vendor_distance);
-        holder.title.setTypeface(typeface);
+        holder.title.setTypeface(typeface1);
         holder.timings.setTypeface(typeface);
         holder.price.setTypeface(typeface);
         holder.distance.setTypeface(typeface);
+        holder.title.setPaintFlags(flags);
+        holder.timings.setPaintFlags(flags);
+        holder.price.setPaintFlags(flags);
+        holder.distance.setPaintFlags(flags);
         int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         if(hour>result.get(i).getVend_Timings_Close()||hour<result.get(i).getVend_Timings_Open())
         {

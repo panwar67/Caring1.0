@@ -62,13 +62,13 @@ public class Add_Car extends AppCompatActivity {
         car_model = (TextView)findViewById(R.id.car_name);
         year = (TextView)findViewById(R.id.car_year);
         type = (TextView)findViewById(R.id.car_fuel);
-        Typeface typeface = Typeface.createFromAsset(getApplicationContext().getAssets(),"gothic.ttf");
+        Typeface typeface = Typeface.createFromAsset(getApplicationContext().getAssets(),"gothiclit.ttf");
         Typeface typeface1 = Typeface.createFromAsset(getApplicationContext().getAssets(),"amble.ttf");
 
-        brand.setTypeface(typeface1);
-        car_model.setTypeface(typeface1);
-        year.setTypeface(typeface1);
-        type.setTypeface(typeface1);
+        brand.setTypeface(typeface);
+        car_model.setTypeface(typeface);
+        year.setTypeface(typeface);
+        type.setTypeface(typeface);
         title.setTypeface(typeface);
         dbHelper = DBHelper.getInstance(getApplicationContext());
         car_brand = (Spinner)findViewById(R.id.brand_spinner);
@@ -77,6 +77,7 @@ public class Add_Car extends AppCompatActivity {
         car_fuel  = (Spinner)findViewById(R.id.fuel_spinner);
         add_car = (Button)findViewById(R.id.add_car);
         editText = (EditText)findViewById(R.id.name_car);
+        editText.setTypeface(typeface);
         car_back = (LinearLayout) findViewById(R.id.back);
         car_back.setOnClickListener(new View.OnClickListener() {
             @Override

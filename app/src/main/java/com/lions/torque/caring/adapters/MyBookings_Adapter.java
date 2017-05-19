@@ -1,6 +1,7 @@
 package com.lions.torque.caring.adapters;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -75,7 +76,9 @@ public class MyBookings_Adapter extends BaseAdapter {
 
         String month_name = month_date.format(date);
         System.out.println("Month :" + month_name);
-        Typeface typeface = Typeface.createFromAsset(context.getAssets(),"OpenSans.ttf");
+
+        Typeface typeface = Typeface.createFromAsset(context.getAssets(),"amble.ttf");
+        Typeface typeface1 = Typeface.createFromAsset(context.getAssets(),"gothiclit.ttf");
 
         TextView status =(TextView)root.findViewById(R.id.order_status);
         TextView otp = (TextView)root.findViewById(R.id.book_otp);
@@ -84,16 +87,24 @@ public class MyBookings_Adapter extends BaseAdapter {
         TextView book_data = (TextView)root.findViewById(R.id.book_date);
         TextView book_id = (TextView)root.findViewById(R.id.book_id);
         book_data.setText(month_name);
+        booking_amount.setTypeface(typeface1);
+        int flags =  Paint.SUBPIXEL_TEXT_FLAG
+                | Paint.ANTI_ALIAS_FLAG;
         otp.setText("OTP : "+result.get(i).getOtp());
         status.setText(" "+result.get(i).getStatus());
         vend_name.setText(result.get(i).getVend_name()+"");
         booking_amount.setText(""+result.get(i).getAdvance());
         book_id.setText("Booking No - # "+result.get(i).getId());
-
-        status.setTypeface(typeface);
-        vend_name.setTypeface(typeface);
+        otp.setTypeface(typeface);
+        status.setTypeface(typeface1);
+        vend_name.setTypeface(typeface1);
         booking_amount.setTypeface(typeface);
         book_id.setTypeface(typeface);
+        vend_name.setPaintFlags(flags);
+        book_data.setPaintFlags(flags);
+        booking_amount.setPaintFlags(flags);
+        book_id.setPaintFlags(flags);
+        status.setPaintFlags(flags);
 
         return root;
     }

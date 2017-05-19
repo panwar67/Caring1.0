@@ -18,7 +18,7 @@
             app:contentInsetStart="0dp"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="#212121"
             app:popupTheme="@style/AppTheme.PopupOverlay" >
 
 
@@ -44,6 +44,7 @@
                 android:layout_height="match_parent"
                 android:text="My Profile"
                 android:textSize="18dp"
+                android:textColor="@android:color/white"
                 android:id="@+id/title"
                 android:gravity="center|start"/>
 

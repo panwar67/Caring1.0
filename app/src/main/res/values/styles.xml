@@ -24,4 +24,9 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="menu_labels_style">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">@color/textcolor</item>
+    </style>
+
 </resources>

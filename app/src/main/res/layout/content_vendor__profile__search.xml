@@ -21,6 +21,7 @@
 
             android:layout_width="match_parent"
             android:orientation="vertical"
+            android:background="#6c7a89"
             android:layout_height="match_parent">
 
             <android.support.v7.widget.CardView
@@ -30,8 +31,8 @@
                 android:layout_marginRight="-8dp"
                 android:layout_height="wrap_content"
                 app:cardUseCompatPadding="true"
-                android:background="@color/white"
-                app:cardBackgroundColor="@color/white"
+                android:background="#f9f9f9"
+                app:cardBackgroundColor="#f9f9f9"
                 app:cardElevation="6dp">
 
                 <LinearLayout
@@ -43,7 +44,7 @@
 
                     <TextView
                         android:layout_marginLeft="10dp"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="#303038"
                         android:id="@+id/profile_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -53,7 +54,7 @@
 
                     <TextView
                         android:layout_margin="15dp"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="#999999"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/profile_description"
@@ -63,105 +64,117 @@
 
             </android.support.v7.widget.CardView>
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"></LinearLayout>
-
-            <TextView
-                android:layout_marginLeft="10dp"
-                android:textColor="@color/colorPrimary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Applicable Segments "
-                android:id="@+id/profile_car"
-                android:layout_marginTop="10dp"/>
-
-            <TextView
-                android:layout_marginLeft="15dp"
-                android:textColor="@color/colorPrimary"
-                android:id="@+id/profile_segment"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="hatchback "/>
-
-
-
             <android.support.v7.widget.CardView
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="-17dp"
                 android:layout_width="match_parent"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:layout_height="wrap_content"
                 app:cardUseCompatPadding="true"
-                android:background="@color/white"
-                app:cardBackgroundColor="@color/white"
+                android:layout_marginLeft="-8dp"
+                android:layout_marginRight="-8dp"
+                android:background="#f9f9f9"
+                app:cardBackgroundColor="#f9f9f9"
                 app:cardElevation="6dp">
-                <LinearLayout
 
-                    android:id="@+id/change_car"
+
+                <LinearLayout
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
 
-                    <ImageView
-                        android:layout_marginTop="10dp"
+                    <TextView
                         android:layout_marginLeft="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:scaleType="center"
-                        android:src="@drawable/ic_directions_car_black_24dp"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp" />
+                        android:textColor="#303038"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="APPLICABLE SEGMENTS"
+                        android:id="@+id/profile_car"
+                        android:layout_marginTop="10dp"/>
 
-                    <LinearLayout
-                        android:id="@+id/change_car_profile"
-                        android:layout_marginLeft="10dp"
+                    <TextView
+                        android:textColor="#999999"
+
+                        android:layout_marginLeft="15dp"
+                        android:id="@+id/profile_segment"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="car name"
-                            android:textColor="@color/colorPrimary"
-                            android:id="@+id/ven_car_name"/>
-                        <TextView
-
-                            android:textColor="@color/colorPrimary"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/ven_car_model"
-                            android:text="car name"/>
-
-                        <TextView
-
-                            android:textColor="@color/colorPrimary"
-                            android:text="car brand"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/car_brand"/>
-
-                        <TextView
-                            android:paddingRight="10dp"
-                            android:textAlignment="textEnd"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Tap to change car"/>
-                    </LinearLayout>
+                        android:text="hatchback "/>
 
 
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
 
+
+
+
+            <LinearLayout
+                android:background="@android:color/transparent"
+                android:id="@+id/change_car"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="10dp"
+
+                    android:src="@drawable/carpro"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp" />
+
+                <LinearLayout
+                    android:id="@+id/change_car_profile"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="car name"
+                        android:textColor="@android:color/white"
+                        android:id="@+id/ven_car_name"/>
+                    <TextView
+                        android:textSize="22dp"
+                        android:textColor="@android:color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ven_car_model"
+                        android:text="car name"/>
+
+                    <TextView
+
+                        android:textColor="@android:color/white"
+                        android:text="car brand"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/car_brand"/>
+
+                    <TextView
+                        android:textColor="@color/colorAccent"
+                        android:paddingRight="10dp"
+                        android:textAlignment="textEnd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Tap to change car"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
             <android.support.v7.widget.CardView
-                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_marginLeft="-10dp"
                 android:layout_marginRight="-10dp"
@@ -177,16 +190,19 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
                         android:textColor="@color/colorPrimary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/selected_service_vendor"
-                        android:text="Select Services"/>
+                        android:text="SELECT SERVICES"/>
 
 
 
                     <Structs.ExpandableHeightGridView
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:layout_width="match_parent"
                         android:id="@+id/select_multiple_services"
                         android:numColumns="1"
@@ -213,7 +229,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Checkout"
+                android:text="PROCEED"
                 android:layout_gravity="bottom"
                 android:textStyle="bold"
                 android:id="@+id/profile_checkout"

@@ -4,7 +4,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f5f5f5">
+
+    android:background="#d7ccc8">
 
 
 <android.support.v7.widget.CardView
@@ -12,12 +13,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardUseCompatPadding="true"
-    android:background="@color/white"
-    app:cardBackgroundColor="@color/white"
+    android:background="#f9f9f9"
+    app:cardBackgroundColor="#f9f9f9"
+
     app:cardElevation="6dp">
     <LinearLayout
-
-        android:background="@color/white"
+        android:background="#f9f9f9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -35,7 +36,7 @@
                 <TextView
                     android:layout_marginBottom="5dp"
                     android:textStyle="bold"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/textcolor"
                     android:id="@+id/vendor_name"
                     android:paddingLeft="3dp"
                     android:layout_width="wrap_content"
@@ -74,7 +75,7 @@
 
                             android:textStyle="bold"
                             android:textAlignment="center"
-                            android:textColor="@color/colorPrimaryDark"
+                            android:textColor="@color/textcolor"
                             android:id="@+id/vendor_timings"
                             android:layout_marginTop="5dp"
                             android:text="iski maa ki"
@@ -176,7 +177,7 @@
                             android:textAlignment="center"
                             android:layout_weight="1"
                             android:textStyle="bold"
-                            android:textColor="@color/colorPrimary"
+                            android:textColor="@color/textcolor"
                             android:id="@+id/vendor_distance"
                             android:layout_marginRight="5dp"
                             android:layout_width="match_parent"

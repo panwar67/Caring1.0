@@ -16,7 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="#212121"
             app:popupTheme="@style/AppTheme.PopupOverlay" >
 
             <LinearLayout
@@ -46,6 +46,7 @@
                     android:id="@+id/screen_address"
                     android:drawablePadding="7dp"
                     android:paddingRight="5dp"
+                    android:maxLength="20"
                     android:drawableRight="@drawable/ic_my_location_black_24dp"
                     android:textColor="#ffffff"
                     android:gravity="center|center_vertical"
@@ -66,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:paddingTop="10dp"
-            android:background="@color/white"
+            android:background="#f9f9f9"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -80,10 +81,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="Change Car"
+                    android:id="@+id/change_car"
                     android:paddingBottom="10dp"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/textcolor"
                     android:textAlignment="center"/>
             </LinearLayout>
 
@@ -93,7 +95,7 @@
                 android:layout_width="1dp"
                 android:layout_marginBottom="10dp"
                 android:layout_height="40dp"
-                android:background="@color/colorPrimary">
+                android:background="@color/textcolor">
 
             </View>
 
@@ -108,12 +110,13 @@
                 <TextView
 
                     android:paddingBottom="10dp"
+                    android:id="@+id/change_order"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="Change Order"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/textcolor"
                     android:textAlignment="center"/>
 
 

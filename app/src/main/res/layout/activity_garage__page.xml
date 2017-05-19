@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+
     android:fitsSystemWindows="true"
     tools:context="com.lions.torque.caring.servicecar.Garage_Page">
 
@@ -15,8 +17,10 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="#212121"
             app:popupTheme="@style/AppTheme.PopupOverlay" >
 
             <LinearLayout
@@ -30,11 +34,6 @@
                     android:id="@+id/profile_back"
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_arrow_back_black_24dp"/>
-
-
-
-
-
 
             </LinearLayout>
 
@@ -53,14 +52,38 @@
 
     <include layout="@layout/content_garage__page" />
 
-    
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/multiple_actions_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_input_add" />
+        fab:menu_labels_style="@style/menu_labels_style"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp">
+        <com.github.clans.fab.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_yellow"
+            fab:fab_label=" Add Car "
+            android:id="@+id/fabadd"
+            fab:fab_colorNormal="#303038"
+            fab:fab_colorPressed="@android:color/holo_blue_light"/>
+
+        <com.github.clans.fab.FloatingActionButton
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            fab:fab_colorNormal="#303038"
+            fab:fab_label=" Delete Car "
+            android:id="@+id/fabdel"
+            android:src="@drawable/ic_delete_yellow"
+            fab:fab_colorPressed="@android:color/holo_blue_light" />
+
+
+
+    </com.github.clans.fab.FloatingActionMenu>
 
 </android.support.design.widget.CoordinatorLayout>

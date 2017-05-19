@@ -7,6 +7,7 @@ public class Car_Struct {
 
     public static String Table_Name = "User_Car";
     public static String Car_Name = "CAR_NAME";
+    public static String Car_Id = "CAR_ID";
     public static String Car_Model = "CAR_MODEL";
     public static String Car_Year = "CAR_YEAR";
     public static String Car_Brand = "CAR_BRAND";

@@ -2,6 +2,7 @@ package com.lions.torque.caring.servicecar;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Bundle;
@@ -35,6 +36,8 @@ import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.location.places.ui.SupportPlaceAutocompleteFragment;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.lions.torque.caring.R;
 import com.lions.torque.caring.dbutils.DBHelper;
@@ -59,7 +62,7 @@ public class Home_Screen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, PlaceSelectionListener {
 
 
-    TextView home_screen_address, service_label;
+    TextView home_screen_address, service_label, mech_head, ele_head, tyre_head, bumper_head, battery_head, lights_head, gauges_head, access_head, suspension_head, key_head, ac_head, wind_head, body_head, full_head, aligment_head, popular, pocket, essen;
     ImageView mechanical, electrical, bumper, suspension, aligment, fullservice, key, battery, bodyshop, tyre, lights, ac, access, gauges, wind;
    // Location_Session location_session;
     PlaceAutocomplete placeAutocomplete;
@@ -70,6 +73,7 @@ public class Home_Screen extends AppCompatActivity
     ExpandableHeightGridView expandableHeightGridView;
     DBHelper dbHelper;
     Typeface typeface;
+    protected GoogleMap googleMap;
     TextView car_model;
     TextView name;
     LinearLayout search_layout;
@@ -101,7 +105,8 @@ public class Home_Screen extends AppCompatActivity
         typeface = Typeface.createFromAsset(getApplicationContext().getAssets(),"OpenSans.ttf");
         Typeface typeface1 = Typeface.createFromAsset(getApplicationContext().getAssets(),"gothic.ttf");
 
-
+        Typeface typeface2 = Typeface.createFromAsset(getApplicationContext().getAssets(),"amble.ttf");
+        Typeface typeface3 = Typeface.createFromAsset(getApplicationContext().getAssets(),"gothiclit.ttf");
         if(car_session.getUserDetails().get(Car_Struct.Car_Code)==null)
         {
             startActivity(new Intent(Home_Screen.this,Garage_Page.class));
@@ -116,8 +121,69 @@ public class Home_Screen extends AppCompatActivity
             sliderLayout.addSlider(new DefaultSliderView(getApplicationContext()).image(Campaign_Data.get(i).get(Campaign_Struct.Camp_Url)));
 
         }
+        TextView hint = (TextView)findViewById(R.id.hint);
+        hint.setTypeface(typeface3);
+
+        int flags =  Paint.SUBPIXEL_TEXT_FLAG
+                | Paint.ANTI_ALIAS_FLAG;
+        hint.setPaintFlags(flags);
+        mech_head = (TextView)findViewById(R.id.mech_services_text);
+        mech_head.setTypeface(typeface2);
+        mech_head.setPaintFlags(flags);
+        ele_head = (TextView)findViewById(R.id.electrical_services_text);
+        ele_head.setTypeface(typeface2);
+        ele_head.setPaintFlags(flags);
+        tyre_head = (TextView)findViewById(R.id.tyre_services_text);
+        tyre_head.setTypeface(typeface2);
+        tyre_head.setPaintFlags(flags);
+        access_head = (TextView)findViewById(R.id.access_services_text);
+        access_head.setTypeface(typeface2);
+        access_head.setPaintFlags(flags);
+        suspension_head = (TextView)findViewById(R.id.suspension_services_text);
+        suspension_head.setTypeface(typeface2);
+        suspension_head.setPaintFlags(flags);
+        bumper_head = (TextView)findViewById(R.id.bumper_services_text);
+        bumper_head.setTypeface(typeface2);
+        bumper_head.setPaintFlags(flags);
+        key_head = (TextView)findViewById(R.id.key_services_text);
+        key_head.setTypeface(typeface2);
+        key_head.setPaintFlags(flags);
+        gauges_head = (TextView)findViewById(R.id.gauges_services_text);
+        gauges_head.setTypeface(typeface2);
+        gauges_head.setPaintFlags(flags);
+        ac_head = (TextView)findViewById(R.id.ac_services_text);
+        ac_head.setTypeface(typeface2);
+        ac_head.setPaintFlags(flags);
+        lights_head = (TextView)findViewById(R.id.light_services_text);
+        lights_head.setTypeface(typeface2);
+        lights_head.setPaintFlags(flags);
+        battery_head = (TextView)findViewById(R.id.battery_services_text);
+        battery_head.setTypeface(typeface2);
+        battery_head.setPaintFlags(flags);
+        wind_head = (TextView)findViewById(R.id.wind_services_text);
+        wind_head.setTypeface(typeface2);
+        wind_head.setPaintFlags(flags);
+        aligment_head = (TextView)findViewById(R.id.alignment_services_text);
+        aligment_head.setTypeface(typeface2);
+        aligment_head.setPaintFlags(flags);
+        body_head = (TextView)findViewById(R.id.body_services_text);
+        body_head.setTypeface(typeface2);
+        body_head.setPaintFlags(flags);
+        full_head = (TextView)findViewById(R.id.full_service_services_text);
+        full_head.setTypeface(typeface2);
+        full_head.setPaintFlags(flags);
+        popular = (TextView)findViewById(R.id.head_popular);
+        popular.setTypeface(typeface3);
+        popular.setPaintFlags(flags);
+        pocket = (TextView)findViewById(R.id.head_pocket);
+        pocket.setTypeface(typeface3);
+        pocket.setPaintFlags(flags);
+        essen = (TextView)findViewById(R.id.head_essen);
+        essen.setTypeface(typeface3);
+        essen.setPaintFlags(flags);
         service_label = (TextView)findViewById(R.id.service_label);
         service_label.setTypeface(typeface);
+
         mechanical = (ImageView)findViewById(R.id.mechanical_service);
         electrical = (ImageView)findViewById(R.id.electrical_services);
         bumper = (ImageView)findViewById(R.id.bumper_service);
@@ -318,7 +384,9 @@ public class Home_Screen extends AppCompatActivity
 
 
         home_screen_address = (TextView)findViewById(R.id.home_screen_address);
-        home_screen_address.setTypeface(typeface1);
+
+        home_screen_address.setPaintFlags(flags);
+        home_screen_address.setTypeface(typeface3);
         home_screen_address.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -914,6 +982,7 @@ public class Home_Screen extends AppCompatActivity
 
     public void Get_Location_Autocomplete()
     {
+        GoogleMapOptions googleMapOptions = new GoogleMapOptions();
         int PLACE_PICKER_REQUEST = 1;
         AutocompleteFilter typeFilter = new AutocompleteFilter.Builder()
                 .setTypeFilter(AutocompleteFilter.TYPE_FILTER_ADDRESS).setCountry("IN")
@@ -921,6 +990,8 @@ public class Home_Screen extends AppCompatActivity
         SupportPlaceAutocompleteFragment supportPlaceAutocompleteFragment = new SupportPlaceAutocompleteFragment();
         supportPlaceAutocompleteFragment.setFilter(typeFilter);
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+
+
 
 
         try {
